@@ -3,7 +3,19 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
+});
+
+Route::get('/cms', function () {
+    return view('cmstest');
+});
+
+Route::get('/admin', function () {
+    return view('admin.dashboard');
+});
+
+Route::get('/admin/users', function () {
+    return view('admin.users.show');
 });
 
 Route::middleware([
