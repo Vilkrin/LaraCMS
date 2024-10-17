@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 
 
@@ -30,7 +31,7 @@ Route::get('/admin', function () {
 });
 
 Route::get('/admin/users', function () {
-    return view('admin.users.show');
+    return view('admin.users.index');
 });
 
 
