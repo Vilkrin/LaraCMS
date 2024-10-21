@@ -17,32 +17,33 @@ Route::get('/contact', function () {
     return view('contact');
 });
 
-// Frontend tests
-Route::get('/cms', function () {
-    return view('cmstest');
-});
 
 
 
-
-// Admin Dashboard
-Route::get('/admin', function () {
-    return view('admin.dashboard');
-});
-
-Route::get('/admin/users', function () {
-    return view('admin.users.index');
-});
-
-
-
-// Old - needs deleting
+// Authenticated Frontend
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+
+    // Private Frontend Routes to be placed here
+
+});
+
+
+// Admin Dashboard (need to copy and paste admin routes above into this)
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+
+    Route::get('/admin', function () {
+        return view('admin.dashboard');
+    });
+
+    Route::get('/admin/users', function () {
+        return view('admin.users.index');
+    });
 });
