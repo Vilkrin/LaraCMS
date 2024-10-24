@@ -1,8 +1,12 @@
+<div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
+  {{ $advancedheader }}
+</div>
+
 <div class="overflow-x-auto">
 
-  <table class="min-w-full bg-white dark:bg-gray-800 rounded-lg shadow-md">
+  <table class="w-full text-sm text-left text-gray-500 dark:text-white">
 
-      <thead class="bg-gray-100 dark:bg-gray-700">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-white">
 
           <tr>
 
