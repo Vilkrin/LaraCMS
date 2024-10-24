@@ -17,11 +17,9 @@ class AdminController extends Controller
             ],
         ];
 
-        return view('Index', [
-            'pageTitle' => 'Blank Page',
+        return view('admin.dashboard', [
+            'pageTitle' => 'Dashboard',
             'breadcrumbItems' => $breadcrumbsItems
         ]);
-
-        return view('admin.dashboard');
     }
 }

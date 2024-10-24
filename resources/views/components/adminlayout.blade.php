@@ -100,7 +100,9 @@
                     <div class="py-4">
                        <!-- Breadcrumb -->
                         <nav class="text-sm mb-4" aria-label="Breadcrumb">
-                            <x-breadcrumbs :links="['My Jobs' => '#']" class="mb-4" />
+                            {{-- <div class=" mb-6">
+                                <x-breadcrumb :breadcrumb-items="$breadcrumbItems" :page-title="$pageTitle" />
+                            </div> --}}
                             <ol class="list-reset flex text-gray-500">
                                 <li><a href="#" class="text-blue-600 hover:underline">Home</a></li>
                                 <li><span class="mx-2">/</span></li>

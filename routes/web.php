@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 
@@ -39,11 +41,11 @@ Route::middleware([
     'verified',
 ])->group(function () {
 
-    Route::get('/admin', function () {
-        return view('admin.dashboard');
-    });
+    // Route::get('/admin', function () {
+    //     return view('admin.dashboard');
+    // });
 
-    Route::get('/admin/users', function () {
-        return view('admin.users.index');
-    });
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
+
+    Route::get('/admin/users', [UserController::class, 'index']);
 });

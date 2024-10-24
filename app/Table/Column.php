@@ -19,8 +19,6 @@ class Column
     return new static($key, $label);
   }
 
-
-
   public function component($component)
   {
     $this->component = $component;
