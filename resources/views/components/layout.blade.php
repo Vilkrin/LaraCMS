@@ -22,7 +22,7 @@
         <!-- Styles -->
         @livewireStyles
     </head>
-    <body class="dark antialiased min-h-screen h-full">
+    <body class="dark antialiased min-h-screen h-full dark:bg-gray-800">
     <div class="min-h-full">
     <nav class="bg-gray-800">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -143,9 +143,9 @@
       </div>
     </nav>
   
-    <header class="bg-white shadow">
+    <header class="bg-white shadow dark:bg-gray-900">
       <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        <h1 class="text-3xl font-bold tracking-tight text-gray-900">{{ $heading }}</h1>
+        <h1 class="text-3xl font-bold tracking-tight text-gray-900 dark:bg-gray-900 dark:text-white">{{ $heading }}</h1>
       </div>
     </header>
     {{-- Main Content --}}

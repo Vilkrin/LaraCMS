@@ -28,30 +28,8 @@
 
         <div class="flex h-screen">
             <!-- Sidebar -->
-            <aside class="w-64 bg-gray-800 text-white flex flex-col">
-                <div class="p-4">
-                    <h1 class="text-xl font-bold">Admin Panel</h1>
-                </div>
-                <nav class="flex-1 px-4">
-                    <ul>
-                        <li class="mb-2">
-                            <a href="#" class="block py-2 px-4 rounded-md hover:bg-gray-700">Dashboard</a>
-                        </li>
-                        <li class="mb-2">
-                            <a href="/admin/users" class="block py-2 px-4 rounded-md hover:bg-gray-700">Users</a>
-                        </li>
-                        <li class="mb-2">
-                            <a href="#" class="block py-2 px-4 rounded-md hover:bg-gray-700">Settings</a>
-                        </li>
-                        <li class="mb-2">
-                            <a href="#" class="block py-2 px-4 rounded-md hover:bg-gray-700">Reports</a>
-                        </li>
-                    </ul>
-                </nav>
-                <footer class="p-4">
-                    <p class="text-sm text-gray-400">© 2024 Admin Dashboard</p>
-                </footer>
-            </aside>
+            
+            <livewire:admin.sidebar />
     
             <!-- Main Content Area -->
             <div class="flex-1 flex flex-col">
@@ -99,19 +77,8 @@
                 <main class="flex-1 p-6">
                     <div class="py-4">
                        <!-- Breadcrumb -->
-                        <nav class="text-sm mb-4" aria-label="Breadcrumb">
-                            {{-- <div class=" mb-6">
-                                <x-breadcrumb :breadcrumb-items="$breadcrumbItems" :page-title="$pageTitle" />
-                            </div> --}}
-                            <ol class="list-reset flex text-gray-500">
-                                <li><a href="#" class="text-blue-600 hover:underline">Home</a></li>
-                                <li><span class="mx-2">/</span></li>
-                                <li><a href="#" class="text-blue-600 hover:underline">Users</a></li>
-                                <li><span class="mx-2">/</span></li>
-                                <li class="text-gray-600">Users List</li>
-                            </ol>
-                        </nav>
-                        <h2 class="text-2xl font-bold">Welcome to the Dashboard</h2>
+                       <livewire:admin.breadcrumbs />
+                       <h2 class="text-2xl font-bold">Welcome to the Dashboard</h2>
                     </div>
                     
                     <!-- Your main content goes here -->
