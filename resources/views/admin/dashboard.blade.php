@@ -2,7 +2,7 @@
 
   <div>
     <div class=" mb-6">
-       hellow world
+       hello world
     </div>
 
 </div>
