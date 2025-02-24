@@ -43,7 +43,9 @@ Route::prefix('admin')->name('admin.')->middleware('auth:sanctum', config('jetst
 
     // User Management
     Route::get('/users', [AdminController::class, 'users'])->name('users.index');
-    Route::delete('/delete', [AdminController::class, 'destroy'])->name('users.delete');
+    Route::get('/users/{user}', [AdminController::class, 'show'])->name('users.show');
+    Route::get('/users/{user}/edit', [AdminController::class, 'edit'])->name('users.edit');
+    Route::delete('/users/{user}', [AdminController::class, 'destroy'])->name('users.delete');
     Route::get('/roles', [AdminController::class, 'roles'])->name('roles.index');
 
     // Pages
