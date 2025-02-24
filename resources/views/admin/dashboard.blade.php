@@ -4,6 +4,5 @@
     <div class=" mb-6">
        hello world
     </div>
-
-</div>
+  </div>
 </x-adminlayout>
