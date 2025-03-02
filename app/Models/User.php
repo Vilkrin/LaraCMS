@@ -63,42 +63,13 @@ class User extends Authenticatable
         ];
     }
 
-    /**
-     * Checks if user is a super admin
-     *
-     * @return boolean
-     */
-    public function isSuperAdmin(): bool
+    public function role()
     {
-        return (bool) $this->is_super_admin;
+        return $this->belongsTo(Role::class);
     }
 
-    /**
-     * Create admin.
-     *
-     * @param array $details
-     * @return array
-     */
-    public function createSuperAdmin(array $details): self
+    public function hasPermission($permission)
     {
-        $user = new self($details);
-
-        if (! $this->superAdminExists()) {
-            $user->is_super_admin = 1;
-        }
-
-        $user->save();
-
-        return $user;
-    }
-
-    /**
-     * Checks if super admin exists
-     *
-     * @return integer
-     */
-    public function superAdminExists(): int
-    {
-        return self::where('is_super_admin', 1)->count();
+        return $this->role && $this->role->permissions->contains('slug', $permission);
     }
 }

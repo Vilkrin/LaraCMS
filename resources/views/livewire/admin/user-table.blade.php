@@ -1,14 +1,18 @@
    <div>
    <!-- Users Table -->
     <x-table>
-        @if (session('success'))
-            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
-                {{ session('success') }}
-                <span class="absolute top-0 bottom-0 right-0 px-4 py-3 cursor-pointer" onclick="this.parentElement.style.display='none';">&times;</span>
-            </div>
-        @endif
 
+        
         <x-slot name="advancedheader">
+            @if (session('message'))
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
+                {{ session('message') }}
+                <button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" onclick="this.parentElement.style.display='none';">
+                    &times;
+                </button>
+            </div>
+            @endif
+        
             <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                 <div class="w-full md:w-1/2">
                     <form class="flex items-center">
@@ -20,7 +24,7 @@
                                     <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
                                 </svg>
                             </div>
-                            <input wire:model="searchTerm" type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Search" required>
+                            <input wire:model.debounce.500ms="search" type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Search" required>
                         </div>
                     </form>
                 </div>
@@ -38,11 +42,11 @@
             </div>
         </x-slot>
         <x-slot name="head">
+            <x-table.heading>Avatar</x-table.heading>
             <x-table.heading>Username</x-table.heading>
             <x-table.heading>Email</x-table.heading>
             <x-table.heading>Email Verified</x-table.heading>
             <x-table.heading>Account Created</x-table.heading>
-            <x-table.heading>Super Admin</x-table.heading>
             <x-table.heading>Role</x-table.heading>
             <x-table.heading>Group</x-table.heading>
             <x-table.heading>2fa Status</x-table.heading>
@@ -51,16 +55,17 @@
 
         <x-slot name="body">
             @foreach ( $users as $user )
-            <x-table.row>
+            <x-table.row> 
+                <x-table.cell><img src="{{asset('/assets/img/avatars/'. ($user->profile_photo_path ?? 'default-avatar.jpg'))}}" class="relative inline-block h-12 w-12 !rounded-full border border-blue-gray-50 bg-blue-gray-50/50 object-contain object-center p-1" alt="avatar"></x-table.cell>
                 <x-table.cell>{{ $user->name }}</x-table.cell>
                 <x-table.cell>{{ $user->email }}</x-table.cell>
                 <x-table.cell>{{ $user->email_verified_at }}</x-table.cell>
                 <x-table.cell>{{ $user->created_at }}</x-table.cell>
                 <x-table.cell>Soon</x-table.cell>
                 <x-table.cell>Soon</x-table.cell>
-                <x-table.cell>Soon</x-table.cell>
                 <x-table.cell>{{ $user->two_factor_confirmed_at }}</x-table.cell>
                 <x-table.cell>
+                    <div class="flex items-center space-x-4">
                         <!-- View Button -->
                         <a href="{{ route('admin.users.show', $user->id) }}">
                             <button><span class="fa-regular fa-eye px-2"></span></button>
@@ -77,6 +82,7 @@
                             @method('DELETE')
                             <button type="submit"><span class="fa-solid fa-trash px-2"></span></button>
                         </form>
+                    </div>
                 </x-table.cell>
             </x-table.row>
             @endforeach

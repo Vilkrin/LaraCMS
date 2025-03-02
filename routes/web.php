@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\BlogController;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +19,8 @@ Route::get('/about', function () {
 Route::get('/contact', function () {
     return view('contact');
 });
+
+Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 
 
 
@@ -44,6 +47,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth:sanctum', config('jetst
     // User Management
     Route::get('/users', [AdminController::class, 'users'])->name('users.index');
     Route::get('/users/{user}', [AdminController::class, 'show'])->name('users.show');
+    Route::get('/users/{user}/create', [AdminController::class, 'edit'])->name('users.create');
     Route::get('/users/{user}/edit', [AdminController::class, 'edit'])->name('users.edit');
     Route::delete('/users/{user}', [AdminController::class, 'destroy'])->name('users.delete');
     Route::get('/roles', [AdminController::class, 'roles'])->name('roles.index');

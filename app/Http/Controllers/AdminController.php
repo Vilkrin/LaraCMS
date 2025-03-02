@@ -24,6 +24,11 @@ class AdminController extends Controller
         return view('admin.users.show', compact('user'));
     }
 
+    public function create(User $user)
+    {
+        return view('admin.users.create', compact('user'));
+    }
+
     public function edit(User $user)
     {
         return view('admin.users.edit', compact('user'));
@@ -31,9 +36,13 @@ class AdminController extends Controller
 
     public function destroy(User $user)
     {
-        $user->delete();
+        $user->deleteProfilePhoto(); // Deletes profile photo if exists
+        $user->tokens->each->delete(); // Revokes API tokens
+        $user->delete(); // Deletes user
 
-        return redirect()->route('admin.users.index')->with('success', 'User deleted successfully.');
+        session()->flash('message', 'User deleted successfully.');
+
+        return redirect()->route('admin.users.index');
     }
 
     public function store(Request $request)
@@ -46,7 +55,7 @@ class AdminController extends Controller
 
         User::create($validated);
 
-        return redirect()->route('admin.users.index')->with('success', 'User added successfully.');
+        return redirect()->route('admin.users.index')->with('message', 'User added successfully.');
     }
 
     public function update(Request $request, User $user)
@@ -58,7 +67,7 @@ class AdminController extends Controller
 
         $user->update($validated);
 
-        return redirect()->route('admin.users.index')->with('success', 'User updated successfully.');
+        return redirect()->route('admin.users.index')->with('message', 'User updated successfully.');
     }
 
     public function roles()

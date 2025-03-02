@@ -22,7 +22,6 @@ class UserTable extends Component
     {
         $this->search = $term;
     }
-    // public $selectedBrands = [];
 
     public function addUser()
     {
