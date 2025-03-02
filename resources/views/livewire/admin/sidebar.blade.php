@@ -2,7 +2,7 @@
 <aside class="w-64 bg-gray-800 text-white flex flex-col h-screen" x-data="{ open: true, sections: {} }">
     <div class="p-4 flex justify-between">
         <h1 class="text-xl font-bold">Admin Panel</h1>
-        <button @click="open = !open" class="lg:hidden text-gray-400 focus:outline-none">
+        <button @click="open = !open" class="lg:hidden text-gray-400 focus:outline-hidden">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M4 5h12M4 10h12m-7 5h7" clip-rule="evenodd" />
             </svg>

@@ -2,10 +2,10 @@
 <footer id="footer">
     <div class="site-footer px-6 bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-300 py-4 ltr:ml-[248px] rtl:mr-[248px]">
         <div class="grid md:grid-cols-2 grid-cols-1 md:gap-5">
-        <div class="text-center ltr:md:text-start rtl:md:text-right text-sm">
+        <div class="text-center md:ltr:text-start md:rtl:text-right text-sm">
             {{ __('COPYRIGHT') }} © <script>  document.write(new Date().getFullYear())</script> {{ __('DashCode, All rights Reserved') }}
         </div>
-        <div class="ltr:md:text-right rtl:md:text-end text-center text-sm">
+        <div class="md:ltr:text-right md:rtl:text-end text-center text-sm">
             {{ __('Design & Develop by') }}
             <a href="https://codeshaper.net" target="_blank" class="text-primary-500 font-semibold">
             Codeshaper
@@ -17,14 +17,14 @@
   <!-- END: Footer For Desktop and tab -->
 
 <div class="bg-white bg-no-repeat custom-dropshadow footer-bg dark:bg-slate-700 flex justify-around items-center
-      backdrop-filter backdrop-blur-[40px] fixed left-0 bottom-0 w-full z-[9999] bothrefm-0 py-[12px] px-4 md:hidden">
+      backdrop-filter backdrop-blur-[40px] fixed left-0 bottom-0 w-full z-9999 bothrefm-0 py-[12px] px-4 md:hidden">
     <a href="chat.html">
       <div>
         <span class="relative cursor-pointer rounded-full text-[20px] flex flex-col items-center justify-center mb-1 dark:text-white
             text-slate-900 ">
           <iconify-icon icon="heroicons-outline:mail"></iconify-icon>
           <span class="absolute right-[5px] lg:hrefp-0 -hrefp-2 h-4 w-4 bg-red-500 text-[8px] font-semibold flex flex-col items-center
-              justify-center rounded-full text-white z-[99]">
+              justify-center rounded-full text-white z-99">
             10
           </span>
         </span>
@@ -45,7 +45,7 @@
             text-slate-900">
           <iconify-icon icon="heroicons-outline:bell"></iconify-icon>
           <span class="absolute right-[17px] lg:hrefp-0 -hrefp-2 h-4 w-4 bg-red-500 text-[8px] font-semibold flex flex-col items-center
-              justify-center rounded-full text-white z-[99]">
+              justify-center rounded-full text-white z-99">
             2
           </span>
         </span>

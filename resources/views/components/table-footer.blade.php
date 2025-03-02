@@ -5,7 +5,7 @@
 
 <div class="flex flex-wrap gap-3 items-center justify-between pt-8 px-8">
     <div class="font-medium text-sm text-textColor dark:text-white flex items-center">
-        <div class="border border-slate-200 dark:border-slate-700 p-2 rounded">
+        <div class="border border-slate-200 dark:border-slate-700 p-2 rounded-sm">
             <form id="perPageForm" method="get" action="{{ route($perPageRouteName) }}">
                 <select class="dark:bg-slate-800" x-on:change="document.getElementById('perPageForm').submit()" name="per_page"
                         id="tableRow" class="dropdownTableSelect">

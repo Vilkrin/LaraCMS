@@ -67,7 +67,7 @@
         <div class="mb-4">
             <strong>Created At:</strong> {{ $user->created_at->format('d M Y, H:i') }}
         </div>
-        <a href="{{ route('admin.users.index') }}" class="px-4 py-2 bg-gray-500 text-white rounded">Back</a>
-        <a href="{{ route('admin.users.edit', $user->id) }}" class="ml-2 px-4 py-2 bg-yellow-500 text-white rounded">Edit</a>
+        <a href="{{ route('admin.users.index') }}" class="px-4 py-2 bg-gray-500 text-white rounded-sm">Back</a>
+        <a href="{{ route('admin.users.edit', $user->id) }}" class="ml-2 px-4 py-2 bg-yellow-500 text-white rounded-sm">Edit</a>
     </div>
 </div>

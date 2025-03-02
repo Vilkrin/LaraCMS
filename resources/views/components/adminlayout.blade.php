@@ -37,7 +37,7 @@
                 <header class="bg-gray-800 text-white p-4 flex justify-between items-center">
                     <!-- Search Bar -->
                     <div class="flex-1">
-                        <input type="text" placeholder="Search..." class="w-full p-2 rounded-md bg-gray-700 text-white focus:outline-none">
+                        <input type="text" placeholder="Search..." class="w-full p-2 rounded-md bg-gray-700 text-white focus:outline-hidden">
                     </div>
     
                     <!-- User, Notifications, Dark Mode Toggle -->
