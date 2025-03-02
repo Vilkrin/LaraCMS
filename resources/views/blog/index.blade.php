@@ -49,8 +49,8 @@
             <div class="bg-gray-200 px-4 py-3 font-bold">Search</div>
             <div class="p-4">
                 <form action="{{ route('blog.search') }}" method="GET">
-                    <input type="text" name="query" class="w-full border rounded p-2" placeholder="Enter search term...">
-                    <button type="submit" class="mt-2 w-full bg-blue-500 text-white py-2 rounded">Go!</button>
+                    <input type="text" name="query" class="w-full border rounded-sm p-2" placeholder="Enter search term...">
+                    <button type="submit" class="mt-2 w-full bg-blue-500 text-white py-2 rounded-sm">Go!</button>
                 </form>
             </div>
         </div>

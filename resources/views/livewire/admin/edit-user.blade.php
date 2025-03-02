@@ -4,18 +4,18 @@
         <form wire:submit.prevent="updateUser">
             <div class="mb-4">
                 <label class="block text-gray-700">Name</label>
-                <input type="text" wire:model="name" class="w-full p-2 border rounded">
+                <input type="text" wire:model="name" class="w-full p-2 border rounded-sm">
                 @error('name') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
             </div>
     
             <div class="mb-4">
                 <label class="block text-gray-700">Email</label>
-                <input type="email" wire:model="email" class="w-full p-2 border rounded">
+                <input type="email" wire:model="email" class="w-full p-2 border rounded-sm">
                 @error('email') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
             </div>
     
-            <button type="submit" class="px-4 py-2 bg-green-500 text-white rounded">Save</button>
-            <a href="{{ route('admin.users.index') }}" class="ml-2 px-4 py-2 bg-gray-500 text-white rounded">Cancel</a>
+            <button type="submit" class="px-4 py-2 bg-green-500 text-white rounded-sm">Save</button>
+            <a href="{{ route('admin.users.index') }}" class="ml-2 px-4 py-2 bg-gray-500 text-white rounded-sm">Cancel</a>
         </form>
     </div>
 </div>
