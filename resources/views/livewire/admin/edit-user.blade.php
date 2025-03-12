@@ -1,21 +1,48 @@
 <div>
-    <div class="max-w-4xl mx-auto bg-white p-6 shadow-lg rounded-lg">
-        <h2 class="text-2xl font-bold mb-4">Edit User</h2>
-        <form wire:submit.prevent="updateUser">
-            <div class="mb-4">
-                <label class="block text-gray-700">Name</label>
-                <input type="text" wire:model="name" class="w-full p-2 border rounded-sm">
-                @error('name') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+
+  <div class="flex items-center justify-center p-4">
+    <div class="w-full max-w-2xl rounded-lg shadow-lg p-6">
+        <h2 class="text-2xl font-semibold mb-4">Edit User</h2>
+        <form action="/admin/users/update" method="POST" enctype="multipart/form-data" class="space-y-4">
+            <div class="flex items-center space-x-4">
+                <div class="w-24 h-24 rounded-full overflow-hidden border border-gray-300 dark:border-gray-600">
+                    <img id="avatarPreview" src="{{asset('/assets/img/avatars/'. ($user->profile_photo_path ?? 'default-avatar.jpg'))}}" alt="Avatar" class="w-full h-full object-cover">
+                </div>
+                <div>
+                    <flux:input type="file" wire:model="avatar" label="Avatar"/>                    
+                </div>
             </div>
-    
-            <div class="mb-4">
-                <label class="block text-gray-700">Email</label>
-                <input type="email" wire:model="email" class="w-full p-2 border rounded-sm">
-                @error('email') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+            <div>
+                <flux:input wire:model="name" label="Username" />
             </div>
-    
-            <button type="submit" class="px-4 py-2 bg-green-500 text-white rounded-sm">Save</button>
-            <a href="{{ route('admin.users.index') }}" class="ml-2 px-4 py-2 bg-gray-500 text-white rounded-sm">Cancel</a>
+            <div>
+                <flux:input class="mb-6" label="Email" wire:model="email" />
+            </div>
+            <div class="mb-6 flex *:w-1/2 gap-4">
+                <flux:input type="password" label="Password" />
+                <flux:input type="password" label="Confirm password" wire:model="password_confirmation" />
+            </div>
+            <div class="mb-6 flex *:w-1/2 gap-4">
+                <flux:checkbox.group wire:model="role" label="Role">
+                    <flux:checkbox label="Admin" value="admin" />
+                    <flux:checkbox label="Editor" value="editor" />
+                    <flux:checkbox label="User" value="user" />
+                </flux:checkbox.group>
+
+                <flux:checkbox.group wire:model="group" label="Group">
+                    <flux:checkbox label="Admins" value="admin" />
+                    <flux:checkbox label="Editor" value="editor" />
+                    <flux:checkbox label="User" value="user" />
+                </flux:checkbox.group>
+            </div>
+            <div class="flex items-center justify-between">
+                <flux:button variant="primary" type="submit">{{ __('Save') }}</flux:button>
+                {{-- <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 focus:outline-none">Save Changes</button> --}}
+                <a href="/admin/users" class="text-gray-600 dark:text-gray-300 hover:underline">Cancel</a>
+            </div>
         </form>
     </div>
+</div>
+
+
 </div>

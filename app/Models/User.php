@@ -63,13 +63,27 @@ class User extends Authenticatable
         ];
     }
 
-    public function role()
+    public function groups()
     {
-        return $this->belongsTo(Role::class);
+        return $this->belongsToMany(Group::class, 'group_user');
     }
 
     public function hasPermission($permission)
     {
-        return $this->role && $this->role->permissions->contains('slug', $permission);
+        // Check individual role
+        if ($this->role && $this->role->permissions->contains('slug', $permission)) {
+            return true;
+        }
+
+        // Check permissions through groups
+        foreach ($this->groups as $group) {
+            foreach ($group->roles as $role) {
+                if ($role->permissions->contains('slug', $permission)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }

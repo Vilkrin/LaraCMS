@@ -5,8 +5,8 @@
                 <div class="md:w-1/3 text-center mb-8 md:mb-0">
                     <img src="https://i.pravatar.cc/300" alt="Profile Picture" class="rounded-full w-48 h-48 mx-auto mb-4 border-4 border-indigo-800 dark:border-blue-900 transition-transform duration-300 hover:scale-105">
                     <h1 class="text-2xl font-bold text-indigo-800 dark:text-white mb-2">{{ $user->name }}</h1>
-                    <p class="text-gray-600 dark:text-gray-300">Software Developer</p>
-                    <button class="mt-4 bg-indigo-800 text-white px-4 py-2 rounded-lg hover:bg-blue-900 transition-colors duration-300">Edit Profile</button>
+                    <p class="text-gray-600 dark:text-gray-300 px-4 py-2">Software Developer</p>
+                    <flux:button :href="route('admin.users.edit', $user)">Edit</flux:button>
                 </div>
                 <div class="md:w-2/3 md:pl-8">
                     <h2 class="text-xl font-semibold text-indigo-800 dark:text-white mb-4">About Me</h2>
@@ -53,21 +53,4 @@
             </div>
         </div>
       </section>
-
-
-
-    <div class="max-w-4xl mx-auto bg-white p-6 shadow-lg rounded-lg">
-        <h2 class="text-2xl font-bold mb-4">User Details</h2>
-        <div class="mb-4">
-            <strong>Name:</strong> {{ $user->name }}
-        </div>
-        <div class="mb-4">
-            <strong>Email:</strong> {{ $user->email }}
-        </div>
-        <div class="mb-4">
-            <strong>Created At:</strong> {{ $user->created_at->format('d M Y, H:i') }}
-        </div>
-        <a href="{{ route('admin.users.index') }}" class="px-4 py-2 bg-gray-500 text-white rounded-sm">Back</a>
-        <a href="{{ route('admin.users.edit', $user->id) }}" class="ml-2 px-4 py-2 bg-yellow-500 text-white rounded-sm">Edit</a>
-    </div>
 </div>

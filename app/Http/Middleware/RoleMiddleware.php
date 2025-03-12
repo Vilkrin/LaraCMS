@@ -5,35 +5,30 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cache;
-use Symfony\Component\HttpFoundation\Response;
 
 class RoleMiddleware
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
-    public function handle(Request $request, Closure $next): Response
-    {
 
+    public function handle(Request $request, Closure $next, ...$accessRules)
+    {
+        // Allow guests to access non-protected routes
         if (!Auth::check()) {
-            return redirect('/login'); // Ensure user is authenticated
+            return redirect('/'); // Redirect unauthenticated users to homepage instead of infinite /login loop
         }
 
         $user = Auth::user();
 
-        // Fetch allowed roles from the database (cache for performance)
-        $allowedRoles = Cache::remember('admin_roles', 60, function () {
-            return \App\Models\Role::where('can_access_admin', true)->pluck('name')->toArray();
-        });
+        // Check if user has the required role or belongs to the required group
+        $userRoles = $user->role ? [$user->role->name] : [];
+        $userGroups = $user->groups->pluck('name')->toArray(); // Get all user groups as an array
 
-        // Check if the user's role is allowed
-        if (!in_array($user->role->name, $allowedRoles)) {
-            abort(403, 'Unauthorized');
+        $allowedRolesOrGroups = array_map('trim', $accessRules);
+
+        // If user has a required role or belongs to a required group, allow access
+        if (array_intersect($allowedRolesOrGroups, $userRoles) || array_intersect($allowedRolesOrGroups, $userGroups)) {
+            return $next($request);
         }
 
-        return $next($request);
+        abort(403, 'Unauthorized');
     }
 }

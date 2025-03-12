@@ -9,7 +9,7 @@
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <link href="https://fonts.bunny.net/css?family=inter:400,500,600&display=swap" rel="stylesheet" />
        
         <!-- Font Awesome Solid + Brands -->
         <link href="/resources/css/fontawesome.css" rel="stylesheet" />
@@ -19,8 +19,10 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-        <!-- Styles -->
+        <!-- Styles -->        
         @livewireStyles
+        @fluxAppearance
+
     </head>
     <body class="dark antialiased min-h-screen h-full dark:bg-gray-800">
     <div class="min-h-full">
@@ -227,7 +229,7 @@
 
      </div>
 
-     
-  
+     @livewireScripts
+    @fluxScripts
  </body>
 </html>
