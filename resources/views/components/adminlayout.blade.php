@@ -9,7 +9,7 @@
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <link href="https://fonts.bunny.net/css?family=inter:400,500,600&display=swap" rel="stylesheet" />
                
         <!-- Font Awesome Solid + Brands -->
         <link href="{{ asset('assets/css/fontawesome.css') }}" rel="stylesheet" />
@@ -21,87 +21,119 @@
 
         <!-- Styles -->
         @livewireStyles
+        @fluxAppearance
 
     </head>
 
-    <body class="bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
+    <body class="min-h-screen bg-white dark:bg-zinc-800">
 
-        <div class="flex h-screen">
             <!-- Sidebar -->
             
-            <livewire:admin.sidebar />
+            {{-- <livewire:admin.sidebar /> --}}
+
+
+            <flux:sidebar sticky stashable class="bg-zinc-50 dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-700">
+                <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
+        
+                <flux:brand href="#" logo="https://fluxui.dev/img/demo/logo.png" name="Acme Inc." class="px-2 dark:hidden" />
+                <flux:brand href="#" logo="https://fluxui.dev/img/demo/dark-mode-logo.png" name="Acme Inc." class="px-2 hidden dark:flex" />
+        
+                <flux:input as="button" variant="filled" placeholder="Search..." icon="magnifying-glass" />
+        
+                <flux:navlist variant="outline">
+                    <flux:navlist.item icon="home" href="{{ route('admin.dashboard') }}" current>Home</flux:navlist.item>
+                    <flux:navlist.item icon="user-group" href="{{ route('admin.users.index') }}">User Management</flux:navlist.item>
+                    <flux:navlist.item icon="document" href="{{ route('admin.pages.index') }}">Pages</flux:navlist.item>
+                    <flux:navlist.item icon="document-text" href="{{ route('admin.blog.posts') }}">Blog</flux:navlist.item>
+                    <flux:navlist.item icon="photo" href="{{ route('admin.gallery.index') }}">Gallery</flux:navlist.item>
+                </flux:navlist>
+        
+                <flux:spacer />
+        
+                <flux:navlist variant="outline">
+                    <flux:navlist.item icon="cog-6-tooth" href="#">Settings</flux:navlist.item>
+                    <flux:navlist.item icon="information-circle" href="#">Help</flux:navlist.item>
+                </flux:navlist>
+        
+                <flux:dropdown position="top" align="start" class="max-lg:hidden">
+                    <flux:profile avatar="https://fluxui.dev/img/demo/user.png" name="Olivia Martin" />
+        
+                    <flux:menu>
+                        <flux:menu.radio.group>
+                            <flux:menu.radio checked>Olivia Martin</flux:menu.radio>
+                            <flux:menu.radio>Truly Delta</flux:menu.radio>
+                        </flux:menu.radio.group>
+        
+                        <flux:menu.separator />
+        
+                        <flux:menu.item icon="arrow-right-start-on-rectangle">Logout</flux:menu.item>
+                    </flux:menu>
+                </flux:dropdown>
+            </flux:sidebar>
     
-            <!-- Main Content Area -->
-            <div class="flex-1 flex flex-col">
-                <!-- Main Header -->
-                <header class="bg-gray-800 text-white p-4 flex justify-between items-center">
-                    <!-- Search Bar -->
-                    <div class="flex-1">
-                        <input type="text" placeholder="Search..." class="w-full p-2 rounded-md bg-gray-700 text-white focus:outline-hidden">
-                    </div>
-    
-                    <!-- User, Notifications, Dark Mode Toggle -->
-                    <div class="flex items-center space-x-4">
-                        <!-- User Dropdown -->
-                        <div class="relative">
-                            <button class="bg-gray-700 px-4 py-2 rounded-md hover:bg-gray-600">User</button>
-                            <div class="absolute right-0 mt-2 w-40 bg-white text-gray-900 rounded-md shadow-lg hidden group-hover:block">
-                                <a href="#" class="block px-4 py-2 hover:bg-gray-100">Profile</a>
-                                <a href="#" class="block px-4 py-2 hover:bg-gray-100">Settings</a>
-                                <a href="#" class="block px-4 py-2 hover:bg-gray-100">Logout</a>
-                            </div>
-                        </div>
-    
-                        <!-- Notifications Dropdown -->
-                        <div class="relative">
-                            <button class="bg-gray-700 px-4 py-2 rounded-md hover:bg-gray-600">🔔</button>
-                            <div class="absolute right-0 mt-2 w-48 bg-white text-gray-900 rounded-md shadow-lg hidden group-hover:block">
-                                <p class="px-4 py-2">No new notifications</p>
-                            </div>
-                        </div>
-    
-                        <!-- Dark Mode Toggle -->
-                        <div class="flex items-center">
-                            <label class="flex items-center space-x-2 cursor-pointer">
-                                <input type="checkbox" id="darkModeToggle" class="hidden">
-                                <span class="bg-gray-700 w-10 h-5 flex items-center rounded-full p-1 duration-300 ease-in-out">
-                                    <span class="bg-white w-4 h-4 rounded-full shadow-md transform transition-transform"></span>
-                                </span>
-                                <span class="text-sm">Dark Mode</span>
-                            </label>
-                        </div>
-                    </div>
-                </header>
-    
-                <!-- Main Content -->
-                <main class="flex-1 p-6">
-                    <div class="py-4">
-                       <!-- Breadcrumb -->
-                       <livewire:admin.breadcrumbs />
-                       <h2 class="text-2xl font-bold">Welcome to the Dashboard</h2>
-                    </div>
-                    
-                    <!-- Your main content goes here -->
-                    {{ $slot }}
-                </main>
-    
-                <!-- Footer -->
-                <footer class="bg-gray-800 text-white p-4 text-center">
-                    <p>Terms of Service | Privacy Policy</p>
-                </footer>
-            </div>
-        </div>
-    
-        <script>
-            const darkModeToggle = document.getElementById('darkModeToggle');
-            const body = document.body;
-    
-            darkModeToggle.addEventListener('change', () => {
-                body.classList.toggle('dark');
-            });
-        </script>
+            <!-- Header -->
+            <flux:header container class="bg-zinc-50 dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-700">
+                <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
+        
+        
+                <flux:navbar class="-mb-px max-lg:hidden">
+                    <flux:navbar.item icon="home" href="#" current>Home</flux:navbar.item>
+                    <flux:navbar.item icon="inbox" badge="12" href="#">Inbox</flux:navbar.item>
+                    <flux:navbar.item icon="document-text" href="#">Documents</flux:navbar.item>
+                    <flux:navbar.item icon="calendar" href="#">Calendar</flux:navbar.item>
+        
+                    <flux:separator vertical variant="subtle" class="my-2"/>
+        
+                    <flux:dropdown class="max-lg:hidden">
+                        <flux:navbar.item icon-trailing="chevron-down">Favorites</flux:navbar.item>
+        
+                        <flux:navmenu>
+                            <flux:navmenu.item href="#">Marketing site</flux:navmenu.item>
+                            <flux:navmenu.item href="#">Android app</flux:navmenu.item>
+                            <flux:navmenu.item href="#">Brand guidelines</flux:navmenu.item>
+                        </flux:navmenu>
+                    </flux:dropdown>
+                </flux:navbar>
+        
+                <flux:spacer />
+        
+                <flux:navbar class="mr-4">
+                    <flux:navbar.item icon="magnifying-glass" href="#" label="Search" />
+                    <flux:navbar.item class="max-lg:hidden" icon="cog-6-tooth" href="#" label="Settings" />
+                    <flux:navbar.item class="max-lg:hidden" icon="information-circle" href="#" label="Help" />
+                    <flux:button x-data x-on:click="$flux.dark = ! $flux.dark" icon="moon" variant="subtle" aria-label="Toggle dark mode" />
+                </flux:navbar>
+        
+                <flux:dropdown position="top" align="start">
+                    <flux:profile avatar="https://fluxui.dev/img/demo/user.png" />
+        
+                    <flux:menu>
+                        <flux:menu.radio.group>
+                            <flux:menu.radio checked>Olivia Martin</flux:menu.radio>
+                            <flux:menu.radio>Truly Delta</flux:menu.radio>
+                        </flux:menu.radio.group>
+        
+                        <flux:menu.separator />
+        
+                        <flux:menu.item icon="arrow-right-start-on-rectangle">Logout</flux:menu.item>
+                    </flux:menu>
+                </flux:dropdown>
+            </flux:header>
+                        
+
+        <!-- Your main content goes here -->
+            <flux:main>
+
+                {{ $slot }}                        
+                
+            </flux:main>
     
     @livewireScripts
+    @fluxScripts
     </body>
 
 </html>
+
+
+
+

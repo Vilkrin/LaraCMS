@@ -30,6 +30,14 @@
                 </div>
                 
                 <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 shrink-0">
+                    <!-- Roles, Groups & Permissions Button -->
+                    <button wire:click="addPerms" type="button" class="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-hidden dark:focus:ring-primary-800">
+                        <!-- Add Icon -->
+                        <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
+                        </svg>
+                        Roles, Groups & Permissions
+                    </button>
                     <!-- Add User Button -->
                     <button wire:click="addUser" type="button" class="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-hidden dark:focus:ring-primary-800">
                         <!-- Add Icon -->
@@ -56,7 +64,7 @@
         <x-slot name="body">
             @foreach ( $users as $user )
             <x-table.row> 
-                <x-table.cell><img src="{{asset('/assets/img/avatars/'. ($user->profile_photo_path ?? 'default-avatar.jpg'))}}" class="relative inline-block h-12 w-12 rounded-full! border border-blue-gray-50 bg-blue-gray-50/50 object-contain object-center p-1" alt="avatar"></x-table.cell>
+                <x-table.cell><img src="{{asset('/assets/img/avatars/'. ($user->profile_photo_path ?? 'default-avatar.jpg'))}}" class="w-10 h-10 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" alt="avatar"></x-table.cell>
                 <x-table.cell>{{ $user->name }}</x-table.cell>
                 <x-table.cell>{{ $user->email }}</x-table.cell>
                 <x-table.cell>{{ $user->email_verified_at }}</x-table.cell>
@@ -81,6 +89,7 @@
                             @csrf
                             @method('DELETE')
                             <button type="submit"><span class="fa-solid fa-trash px-2"></span></button>
+                            <flux:button icon="trash" variant="subtle" wire:click="delete({{ $user->id }})" wire:confirm="Are you sure?">Delete</flux:button>
                         </form>
                     </div>
                 </x-table.cell>
