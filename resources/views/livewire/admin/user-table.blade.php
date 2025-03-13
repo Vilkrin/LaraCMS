@@ -76,20 +76,20 @@
                     <div class="flex items-center space-x-4">
                         <!-- View Button -->
                         <a href="{{ route('admin.users.show', $user->id) }}">
-                            <button><span class="fa-regular fa-eye px-2"></span></button>
+                            <button class="rounded-lg cursor-pointer"><span class="fa-regular fa-eye px-2"></span></button>
                         </a>
 
                         <!-- Edit Button -->
                         <a href="{{ route('admin.users.edit', $user->id) }}">
-                            <button><span class="fa-solid fa-pen-to-square px-2"></span></button>
+                            <button class="rounded-lg cursor-pointer"><span class="fa-solid fa-pen-to-square px-2"></span></button>
                         </a>
 
                         <!-- Delete Button -->
                         <form method="POST" action="{{ route('admin.users.delete', $user->id) }}" onsubmit="return confirm('Are you sure?');">
                             @csrf
                             @method('DELETE')
-                            <button type="submit"><span class="fa-solid fa-trash px-2"></span></button>
-                            <flux:button icon="trash" variant="subtle" wire:click="delete({{ $user->id }})" wire:confirm="Are you sure?">Delete</flux:button>
+                            <button class="rounded-lg cursor-pointer" type="submit"><span class="fa-solid fa-trash px-2"></span></button>
+                           
                         </form>
                     </div>
                 </x-table.cell>
