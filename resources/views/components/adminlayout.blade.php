@@ -44,7 +44,11 @@
                     <flux:navlist.item icon="home" href="{{ route('admin.dashboard') }}" current>Home</flux:navlist.item>
                     <flux:navlist.item icon="user-group" href="{{ route('admin.users.index') }}">User Management</flux:navlist.item>
                     <flux:navlist.item icon="document" href="{{ route('admin.pages.index') }}">Pages</flux:navlist.item>
-                    <flux:navlist.item icon="document-text" href="{{ route('admin.blog.posts') }}">Blog</flux:navlist.item>
+                    <flux:navlist.group heading="Blog" expandable :expanded="false">
+                        <flux:navlist.item icon="document-text" href="{{ route('admin.blog.posts') }}">View Posts</flux:navlist.item>
+                        <flux:navlist.item icon="document-plus" href="{{ route('admin.blog.create') }}">Create Posts</flux:navlist.item>
+                        <flux:navlist.item icon="tag" href="{{ route('admin.blog.categories') }}">Categories</flux:navlist.item>
+                    </flux:navlist.group>
                     <flux:navlist.item icon="photo" href="{{ route('admin.gallery.index') }}">Gallery</flux:navlist.item>
                 </flux:navlist>
         

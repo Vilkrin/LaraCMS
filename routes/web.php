@@ -16,11 +16,15 @@ Route::get('/about', function () {
     return view('about');
 });
 
+Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+Route::get('/blog/{post}', [BlogController::class, 'show'])->name('blog.show');
+
+
 Route::get('/contact', function () {
     return view('contact');
 });
 
-Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+
 
 
 
@@ -57,9 +61,10 @@ Route::prefix('admin')->name('admin.')->middleware('auth:sanctum', config('jetst
     Route::get('/pages/create', [AdminController::class, 'createPage'])->name('pages.create');
 
     // Blog
-    Route::get('/blog/posts', [AdminController::class, 'posts'])->name('blog.posts');
-    Route::get('/blog/create', [AdminController::class, 'createPost'])->name('blog.create');
-    Route::get('/blog/categories', [AdminController::class, 'categories'])->name('blog.categories');
+    Route::get('/blog/posts', [BlogController::class, 'posts'])->name('blog.posts');
+    Route::post('/blog/posts', [BlogController::class, 'store'])->name('blog.store');
+    Route::get('/blog/create', [BlogController::class, 'create'])->name('blog.create');
+    Route::get('/blog/categories', [BlogController::class, 'categories'])->name('blog.categories');
 
     // Gallery
     Route::get('/gallery', [AdminController::class, 'gallery'])->name('gallery.index');

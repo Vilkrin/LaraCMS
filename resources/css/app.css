@@ -25,16 +25,16 @@
 }
 
 @theme {
-    --color-accent: var(--color-slate-800);
-    --color-accent-content: var(--color-slate-800);
+    --color-accent: var(--color-indigo-500);
+    --color-accent-content: var(--color-indigo-600);
     --color-accent-foreground: var(--color-white);
 }
 
 @layer theme {
     .dark {
-        --color-accent: var(--color-white);
-        --color-accent-content: var(--color-white);
-        --color-accent-foreground: var(--color-slate-800);
+        --color-accent: var(--color-indigo-500);
+        --color-accent-content: var(--color-indigo-300);
+        --color-accent-foreground: var(--color-white);
     }
 }
 

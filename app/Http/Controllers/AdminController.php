@@ -86,22 +86,6 @@ class AdminController extends Controller
         return view('admin.pages.create');
     }
 
-    // Blog
-    public function posts()
-    {
-        return view('admin.blog.posts');
-    }
-
-    public function createPost()
-    {
-        return view('admin.blog.create');
-    }
-
-    public function categories()
-    {
-        return view('admin.blog.categories');
-    }
-
     // Gallery
     public function gallery()
     {
