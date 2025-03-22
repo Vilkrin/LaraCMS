@@ -13,6 +13,16 @@ class AdminController extends Controller
         return view('admin.dashboard');
     }
 
+    public function table()
+    {
+        return view('admin.table');
+    }
+
+    public function test()
+    {
+        return view('admin.test');
+    }
+
     // User Management
     public function users()
     {
