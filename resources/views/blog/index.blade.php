@@ -9,10 +9,7 @@
         @foreach($posts as $post)
         <div class="bg-white dark:bg-gray-700 shadow-lg rounded-lg mb-6 overflow-hidden">
 
-            {{-- <img class="w-full" src="{{ $post->post_image ?: asset('placeholder/850.jpg') }}" alt="{{ $post->title }}"> --}}
-
- 
-            <img class="w-full" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="{{ $post->title }}">
+            <img class="w-full" src="{{ $post->post_image ? asset('storage/' . $post->post_image) : asset('storage/placeholder/850.jpg') }}" alt="{{ $post->title }}">
 
             <div class="p-6">
                 <p class="text-sm text-gray-300">

@@ -24,8 +24,7 @@
         @fluxAppearance
 
     </head>
-    <body class="dark antialiased min-h-screen h-full dark:bg-gray-800">
-    <div class="min-h-full">
+    <body class="min-h-screen antialiased dark:bg-gray-800">
     <nav class="bg-gray-800">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 items-center justify-between">
@@ -60,13 +59,7 @@
           
                       <!-- Profile dropdown -->
                       <div class="relative ml-3">
-                        {{-- <div>
-                          <button type="button" class="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-hidden focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
-                            <span class="absolute -inset-1.5"></span>
-                            <span class="sr-only">Open user menu</span>
-                            <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
-                          </button>
-                        </div> --}}
+
                         @livewire('navigation-menu')
           
         
@@ -95,7 +88,7 @@
       @endif
 
 
-          <div class="-mr-2 flex md:hidden">
+         <div class="-mr-2 flex md:hidden">
             <!-- Mobile menu button -->
             <button type="button" class="relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-hidden focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" aria-controls="mobile-menu" aria-expanded="false">
               <span class="absolute -inset-0.5"></span>
@@ -151,10 +144,10 @@
       </div>
     </header>
     {{-- Main Content --}}
-    <main>
-      <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        {{ $slot }}
-      </div>
+    <main class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+    
+        {{ $slot }} 
+              
     </main>
 
     <footer class="p-4 bg-white sm:p-6 dark:bg-gray-800 mt-auto">
@@ -227,7 +220,7 @@
       </div>
     </footer>
 
-     </div>
+
 
      @livewireScripts
     @fluxScripts

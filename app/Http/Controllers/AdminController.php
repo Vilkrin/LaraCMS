@@ -40,7 +40,7 @@ class AdminController extends Controller
         $user->tokens->each->delete(); // Revokes API tokens
         $user->delete(); // Deletes user
 
-        session()->flash('message', 'User deleted successfully.');
+        session()->flash('message', 'User Deleted Successfully.');
 
         return redirect()->route('admin.users.index');
     }

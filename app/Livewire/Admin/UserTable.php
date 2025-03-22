@@ -6,6 +6,7 @@ use App\Models\User;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
 use Livewire\WithPagination;
+use Spatie\Permission\Models\Role;
 
 class UserTable extends Component
 {
@@ -16,11 +17,11 @@ class UserTable extends Component
 
     public $search = '';
 
-    protected $listeners = ['searchUpdated' => 'updateSearch'];
+    public $query = '';
 
-    public function updateSearch($term)
+    public function search()
     {
-        $this->search = $term;
+        $this->resetPage();
     }
 
     public function addUser()
@@ -34,11 +35,11 @@ class UserTable extends Component
 
         // 2. Filter users based on the search term
         $users = User::query()
+            ->with('roles')
             ->where('name', 'like', '%' . $this->search . '%')
             ->orWhere('email', 'like', '%' . $this->search . '%')
             ->paginate(10);
 
-        $users = DB::table('users')->paginate(10);
 
         return view('livewire.admin.user-table', ['users' => $users]);
     }

@@ -12,7 +12,9 @@
     <flux:separator />
     <flux:subheading class="p-2" size="lg">Posted: {{ $post->created_at->diffForHumans() }}</flux:subheading>
     <flux:separator />
-    <div class="p-2">Blog image</div>
+    <div class="p-2">
+        <img class="w-full" src="{{ $post->post_image ? asset('storage/' . $post->post_image) : asset('placeholder/850.jpg') }}" alt="{{ $post->title }}">
+    </div>
     <flux:separator />
     <div class="p-2">
         <p>{{ $post->body }}</p>        

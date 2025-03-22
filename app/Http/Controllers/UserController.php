@@ -4,15 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Livewire\WithPagination;
 
 class UserController extends Controller
 {
+    public $search = '';
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $users = User::query()
+            ->where('name', 'like', '%' . $this->search . '%')
+            ->orWhere('email', 'like', '%' . $this->search . '%')
+            ->paginate(10);
+
+        return view('admin.users.index', ['users' => $users]);
     }
 
     /**
@@ -34,9 +41,9 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(User $user)
     {
-        //
+        return view('admin.users.show', compact('user'));
     }
 
     /**

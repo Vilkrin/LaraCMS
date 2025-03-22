@@ -28,17 +28,16 @@
     </div>
 
     <div class="mb-5">
-      <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="user_avatar">Upload file</label>
-      <input id="post_image" name="post_image" type="file" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" >
+      <flux:input type="file" wire:model="post_image" label="Upload Image" multiple />
     </div>
 
     <div class="mb-5">
-      <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your message</label>
-      <textarea id="body" name="body" rows="5" placeholder="Leave a comment..." class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" ></textarea>
+      <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Post Content</label>
+      <textarea id="body" name="body" rows="5" placeholder="Post Content Here." class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" ></textarea>
     </div>
 
-    <button type="submit" class="rounded-md bg-slate-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">Save</button>
-
+    <flux:button type="submit">Save</flux:button>
+    
   </form>
 
 </div>
