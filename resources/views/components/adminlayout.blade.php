@@ -16,12 +16,17 @@
         <link href="{{ asset('assets/css/brands.css') }}" rel="stylesheet" />
         <link href="{{ asset('assets/css/solid.css') }}" rel="stylesheet" />
 
+        <!-- TinyMCE configuration and source script -->
+        <x-head.tinymce-config/>
+
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
         <!-- Styles -->
         @livewireStyles
         @fluxAppearance
+
+
 
     </head>
 
@@ -41,7 +46,7 @@
                 <flux:input as="button" variant="filled" placeholder="Search..." icon="magnifying-glass" />
         
                 <flux:navlist variant="outline">
-                    <flux:navlist.item icon="home" href="{{ route('admin.dashboard') }}" current>Home</flux:navlist.item>
+                    <flux:navlist.item icon="home" href="{{ route('admin.dashboard') }}" current>Dashboard</flux:navlist.item>
                     <flux:navlist.item icon="user-group" href="{{ route('admin.users.index') }}">User Management</flux:navlist.item>
                     <flux:navlist.item icon="document" href="{{ route('admin.pages.index') }}">Pages</flux:navlist.item>
                     <flux:navlist.group heading="Blog" expandable :expanded="false">
@@ -126,6 +131,13 @@
                         
 
         <!-- Your main content goes here -->
+
+           {{-- <main>
+
+                {{ $slot }} 
+
+                </main> --}}
+
             <flux:main>
 
                 {{ $slot }}                        

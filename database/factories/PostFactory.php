@@ -19,7 +19,7 @@ class PostFactory extends Factory
         return [
             'user_id' => fake('App\User'),
             'title' => fake()->sentence(),
-            'post_image' => fake()->imageUrl($width = 900, $height = 400),
+            'post_image' => fake()->image(null),
             'body' => fake()->paragraph(),
 
         ];

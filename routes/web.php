@@ -3,6 +3,8 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\AlbumController;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +24,10 @@ Route::get('/blog/{post}', [BlogController::class, 'show'])->name('blog.show');
 
 Route::get('/contact', function () {
     return view('contact');
+});
+
+Route::get('/test', function () {
+    return view('test');
 });
 
 
@@ -49,12 +55,14 @@ Route::prefix('admin')->name('admin.')->middleware('auth:sanctum', config('jetst
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
 
     // User Management
-    Route::get('/users', [AdminController::class, 'users'])->name('users.index');
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/{user}', [AdminController::class, 'show'])->name('users.show');
-    Route::get('/users/{user}/create', [AdminController::class, 'edit'])->name('users.create');
+    Route::get('/users/create', [AdminController::class, 'createUser'])->name('users.create');
     Route::get('/users/{user}/edit', [AdminController::class, 'edit'])->name('users.edit');
     Route::delete('/users/{user}', [AdminController::class, 'destroy'])->name('users.delete');
-    Route::get('/roles', [AdminController::class, 'roles'])->name('roles.index');
+    // User Management - Roles & Permissions
+    Route::resource('roles', RoleController::class);
+
 
     // Pages
     Route::get('/pages', [AdminController::class, 'pages'])->name('pages.index');
@@ -62,11 +70,17 @@ Route::prefix('admin')->name('admin.')->middleware('auth:sanctum', config('jetst
 
     // Blog
     Route::get('/blog/posts', [BlogController::class, 'posts'])->name('blog.posts');
-    Route::post('/blog/posts', [BlogController::class, 'store'])->name('blog.store');
     Route::get('/blog/create', [BlogController::class, 'create'])->name('blog.create');
+    Route::post('/blog/posts', [BlogController::class, 'store'])->name('blog.store');
+    Route::get('/blog/posts/{post}/edit', [BlogController::class, 'edit'])->name('blog.edit');
+    Route::delete('/blog/posts/{post}', [BlogController::class, 'destroy'])->name('blog.destroy');
+    Route::patch('/blog/posts/{post}/update', [BlogController::class, 'update'])->name('blog.update');
     Route::get('/blog/categories', [BlogController::class, 'categories'])->name('blog.categories');
 
     // Gallery
     Route::get('/gallery', [AdminController::class, 'gallery'])->name('gallery.index');
     Route::get('/gallery/upload', [AdminController::class, 'uploadImage'])->name('gallery.upload');
+
+    // Gallery - Albums
+    Route::post('/albums', [AlbumController::class, 'store'])->name('albums.store');
 });

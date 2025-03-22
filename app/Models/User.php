@@ -9,6 +9,8 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
+
 
 class User extends Authenticatable
 {
@@ -17,6 +19,7 @@ class User extends Authenticatable
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -72,24 +75,5 @@ class User extends Authenticatable
     public function groups()
     {
         return $this->belongsToMany(Group::class, 'group_user');
-    }
-
-    public function hasPermission($permission)
-    {
-        // Check individual role
-        if ($this->role && $this->role->permissions->contains('slug', $permission)) {
-            return true;
-        }
-
-        // Check permissions through groups
-        foreach ($this->groups as $group) {
-            foreach ($group->roles as $role) {
-                if ($role->permissions->contains('slug', $permission)) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
     }
 }
