@@ -21,7 +21,7 @@
 
         <!-- Styles -->        
         @livewireStyles
-        @fluxAppearance
+
 
     </head>
     <body class="min-h-screen antialiased dark:bg-gray-800">
@@ -223,6 +223,6 @@
 
 
      @livewireScripts
-    @fluxScripts
+
  </body>
 </html>
