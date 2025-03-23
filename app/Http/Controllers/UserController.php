@@ -9,6 +9,7 @@ use Livewire\WithPagination;
 class UserController extends Controller
 {
     public $search = '';
+
     /**
      * Display a listing of the resource.
      */
@@ -25,17 +26,42 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(User $user)
     {
-        //
+        return view('admin.users.create', compact('user'));
     }
+
+
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:6',
+        ]);
+
+        User::create($validated);
+
+        return redirect()->route('admin.users.index')->with('message', 'User added successfully.');
+    }
+
+    /**
+     * Update an Existing resource in storage.
+     */
+    public function update(Request $request, User $user)
+    {
+        $validated = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+        ]);
+
+        $user->update($validated);
+
+        return redirect()->route('admin.users.index')->with('message', 'User updated successfully.');
     }
 
     /**
@@ -49,17 +75,9 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(User $user)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
+        return view('admin.users.edit', compact('user'));
     }
 
     /**
@@ -67,7 +85,11 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $user->delete();
+        $user->tokens->each->delete(); // Revokes API tokens
+        $user->delete(); // Deletes user
+
+        session()->flash('message', 'User Deleted Successfully.');
+
 
         return redirect()->route(route: 'admin.users.index');
     }
