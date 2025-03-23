@@ -10,10 +10,13 @@ use illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Livewire\WithPagination;
 
 class BlogController extends Controller
 {
     use AuthorizesRequests;
+
+    public $search = '';
 
     public function index()
     {
@@ -29,9 +32,12 @@ class BlogController extends Controller
 
     public function posts()
     {
-        $posts = auth()->user()->posts;
+        $posts = Post::query()
+            ->where('name', 'like', '%' . $this->search . '%')
+            ->orWhere('email', 'like', '%' . $this->search . '%')
+            ->paginate(10);
 
-        return view('admin.blog.posts', compact('posts'));
+        return view('admin.blog.posts', ['posts' => $posts]);
     }
 
     public function create(Post $post)

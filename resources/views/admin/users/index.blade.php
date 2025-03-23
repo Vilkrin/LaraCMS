@@ -126,7 +126,7 @@
                         </a>
 
                         <!-- Delete Button -->
-                        <form method="POST" action="{{ route('admin.users.delete', $user->id) }}" onsubmit="return confirm('Are you sure?');">
+                        <form method="POST" action="{{ route('admin.users.destroy', $user->id) }}" onsubmit="return confirm('Are you sure?');">
                             @csrf
                             @method('DELETE')
                             <button class="rounded-lg cursor-pointer" type="submit"><span class="fa-solid fa-trash px-2"></span></button>

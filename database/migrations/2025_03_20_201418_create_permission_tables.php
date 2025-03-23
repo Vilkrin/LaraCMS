@@ -149,16 +149,15 @@ return new class extends Migration
 
         // Create roles and assign permissions
         $role = Role::create(['name' => 'writer']);
-        $role->givePermissionTo(['create articles', 'edit articles']);
+        $role->givePermissionTo(['create articles', 'edit articles', 'view dashboard']);
 
         $role = Role::create(['name' => 'moderator']);
-        $role->givePermissionTo(['publish articles', 'unpublish articles']);
+        $role->givePermissionTo(['publish articles', 'unpublish articles', 'view dashboard']);
 
         $role = Role::create(['name' => 'admin']);
         $role->givePermissionTo(['create articles', 'edit articles', 'delete articles', 'manage users', 'view dashboard']);
 
         $role = Role::create(['name' => 'user']);
-        $role->givePermissionTo('view dashboard');
 
         $role = Role::create(['name' => 'Super Admin']);
 

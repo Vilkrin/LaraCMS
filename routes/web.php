@@ -57,11 +57,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth:sanctum', config('jetst
     Route::get('/test', [AdminController::class, 'test'])->name('test');
 
     // User Management
-    Route::get('/users', [UserController::class, 'index'])->name('users.index');
-    Route::get('/users/{user}', [AdminController::class, 'show'])->name('users.show');
-    Route::get('/users/create', [AdminController::class, 'createUser'])->name('users.create');
-    Route::get('/users/{user}/edit', [AdminController::class, 'edit'])->name('users.edit');
-    Route::delete('/users/{user}', [AdminController::class, 'destroy'])->name('users.delete');
+    Route::resource('users', UserController::class);
     // User Management - Roles & Permissions
     Route::resource('roles', RoleController::class);
 
