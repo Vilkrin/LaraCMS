@@ -31,23 +31,6 @@ class RoleController extends Controller
         }
 
         return view('admin.roles.create', ['permissions' => $custom_permission]);
-
-        // \DB::statement("SET SQL_MODE=''");;
-        // $role_permission = Permission::select('name', 'id')->groupBy('name')->get();
-
-        // $custom_permission = array();
-
-        // foreach ($role_permission as $per) {
-
-        //     $key = substr($per->name, 0, strpos($per->name, "."));
-
-        //     if (str_starts_with($per->name, $key)) {
-
-        //         $custom_permission[$key][] = $per;
-        //     }
-        // }
-
-        // return view('admin.roles.create')->with('permissions', $custom_permission);
     }
 
     public function store(Request $request)
