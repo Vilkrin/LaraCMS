@@ -8,6 +8,6 @@ Alpha Development Build of LaraCMS
 
 ## Description
 
-LaraCMS is an open-source content management system (CMS) built on the Laravel framework. It aims to provide a user-friendly interface for managing and publishing content on the web. The system aims to be a highly customizable, extensible, and designed to cater to various types of websites, including blogs, business websites, and more.
+LaraCMS is an open-source content management system (CMS) built on the Laravel framework. It aims to provide a user-friendly interface for managing and publishing content on the web.
 
 LaraCMS is currently in Early Alpha Development.

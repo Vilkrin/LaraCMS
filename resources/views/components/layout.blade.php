@@ -11,11 +11,6 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=inter:400,500,600&display=swap" rel="stylesheet" />
        
-        <!-- Font Awesome Solid + Brands -->
-        <link href="/resources/css/fontawesome.css" rel="stylesheet" />
-        <link href="/resources/css/brands.css" rel="stylesheet" />
-        <link href="/resources/css/solid.css" rel="stylesheet" />
-
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 

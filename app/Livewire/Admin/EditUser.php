@@ -4,11 +4,17 @@ namespace App\Livewire\Admin;
 
 use Livewire\Component;
 use App\Models\User;
+use Livewire\WithFileUploads;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 class EditUser extends Component
 {
+    use WithFileUploads;
 
-    public $user, $name, $email;
+    public User $user;
+    public $avatar;
+
+    public $name, $email;
 
     public function mount(User $user)
     {
@@ -17,21 +23,22 @@ class EditUser extends Component
         $this->email = $user->email;
     }
 
-    public function updateUser()
+    public function save()
     {
         $this->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $this->user->id,
+            'avatar' => 'nullable|image|max:2048',
         ]);
 
-        $this->user->update([
-            'name' => $this->name,
-            'email' => $this->email,
-        ]);
+        if ($this->avatar) {
+            // Remove old avatar & upload new one
+            $this->user->clearMediaCollection('avatars');
+            $this->user->addMedia($this->avatar->getRealPath())
+                ->toMediaCollection('avatars');
+        }
+
+        $this->user->save();
 
         session()->flash('message', 'User updated successfully.');
-
-        return redirect()->route('users.index');
     }
 
     public function render()
