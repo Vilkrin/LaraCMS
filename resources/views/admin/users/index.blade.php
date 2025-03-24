@@ -104,7 +104,9 @@
         <x-slot name="body">
             @foreach ( $users as $user )
             <x-table.row> 
-                <x-table.cell><img src="{{asset('/assets/img/avatars/'. ($user->profile_photo_path ?? 'default-avatar.jpg'))}}" class="w-10 h-10 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" alt="avatar"></x-table.cell>
+                <x-table.cell><img src="{{ $user->getAvatarUrl() }}" 
+                    class="w-10 h-10 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" 
+                    alt="avatar"></x-table.cell>
                 <x-table.cell>{{ $user->name }}</x-table.cell>
                 <x-table.cell>{{ $user->email }}</x-table.cell>
                 <x-table.cell>{{ $user->email_verified_at }}</x-table.cell>

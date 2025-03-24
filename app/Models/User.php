@@ -10,9 +10,14 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\Image\Enums\Fit;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 
-class User extends Authenticatable
+
+class User extends Authenticatable implements HasMedia
 {
     use HasApiTokens;
     use HasFactory;
@@ -20,6 +25,7 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
     use HasRoles;
+    use InteractsWithMedia;
 
     /**
      * The attributes that are mass assignable.
@@ -72,8 +78,24 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
-    public function groups()
+    // Define media collection for avatars
+    public function registerMediaCollections(): void
     {
-        return $this->belongsToMany(Group::class, 'group_user');
+        $this->addMediaCollection('avatars')->singleFile();
+    }
+
+    // Optional: Define media conversions (e.g., resizing thumbnails)
+    public function registerMediaConversions(?Media $media = null): void
+    {
+        $this
+            ->addMediaConversion('preview')
+            ->fit(Fit::Contain, 300, 300)
+            ->nonQueued();
+    }
+
+    // Helper method to get avatar URL
+    public function getAvatarUrl()
+    {
+        return $this->getFirstMediaUrl('avatars', 'preview') ?: asset('assets/img/avatars/default-avatar.jpg');
     }
 }
