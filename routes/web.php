@@ -53,8 +53,6 @@ Route::prefix('admin')->name('admin.')->middleware('auth:sanctum', config('jetst
 
     // Dashboard Route
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
-    Route::get('/table', [AdminController::class, 'table'])->name('table');
-    Route::get('/test', [AdminController::class, 'test'])->name('test');
 
     // User Management
     Route::resource('users', UserController::class);

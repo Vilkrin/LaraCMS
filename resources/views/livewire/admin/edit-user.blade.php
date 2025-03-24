@@ -3,19 +3,18 @@
         <div class="w-full max-w-2xl rounded-lg shadow-lg p-6">
             <h2 class="text-2xl font-semibold mb-4">Edit User</h2>
             <form action="/admin/users/update" method="POST" enctype="multipart/form-data" class="space-y-4">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center gap-4">
                     <div class="w-24 h-24 rounded-full overflow-hidden border border-gray-300 dark:border-gray-600">
-                        <!-- Show current avatar or preview new selection -->
                         <img id="avatarPreview" 
                              src="{{ $avatar ? $avatar->temporaryUrl() : $user->getAvatarUrl() }}" 
                              alt="Avatar" 
-                             class="w-24 h-24 rounded-full overflow-hidden ">
+                             class="w-full h-full object-cover">
                     </div>
-                    
-                    <div>
-                        <flux:input type="file" wire:model="avatar" label="Avatar" />
-                    </div>
+                
+                    <flux:input type="file" wire:model="avatar" label="Avatar" class="w-auto"/>
                 </div>
+                
+                
                 <div>
                     <flux:input wire:model="name" label="Username" />
                 </div>
