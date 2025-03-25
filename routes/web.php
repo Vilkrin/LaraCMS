@@ -4,7 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\RoleController;
-use App\Http\Controllers\AlbumController;
+use App\Http\Controllers\GalleryController;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +21,16 @@ Route::get('/about', function () {
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{post}', [BlogController::class, 'show'])->name('blog.show');
 
+Route::prefix('gallery')->name('gallery.')->group(function () {
+    // Gallery index page for public users
+    Route::get('/', [GalleryController::class, 'index'])->name('index');
+
+    // Show a single album
+    Route::get('/album/{slug}', [GalleryController::class, 'showAlbum'])->name('showAlbum');
+
+    // Show an individual photo (for photos not in any album)
+    Route::get('/photo/{media}', [GalleryController::class, 'showPhoto'])->name('showPhoto');
+});
 
 Route::get('/contact', function () {
     return view('contact');
@@ -74,9 +84,11 @@ Route::prefix('admin')->name('admin.')->middleware('auth:sanctum', config('jetst
     Route::get('/blog/categories', [BlogController::class, 'categories'])->name('blog.categories');
 
     // Gallery
-    Route::get('/gallery', [AdminController::class, 'gallery'])->name('gallery.index');
-    Route::get('/gallery/upload', [AdminController::class, 'uploadImage'])->name('gallery.upload');
-
-    // Gallery - Albums
-    Route::post('/albums', [AlbumController::class, 'store'])->name('albums.store');
+    Route::prefix('gallery')->name('gallery.')->group(function () {
+        Route::get('/', [GalleryController::class, 'adminIndex'])->name('index');
+        Route::get('/create', [GalleryController::class, 'create'])->name('create');
+        Route::post('/', [GalleryController::class, 'store'])->name('store');
+        Route::get('/{album}', [GalleryController::class, 'show'])->name('show');
+        Route::delete('/{album}', [GalleryController::class, 'destroy'])->name('destroy');
+    });
 });

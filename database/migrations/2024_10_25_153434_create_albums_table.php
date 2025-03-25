@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('albums', function (Blueprint $table) {
             $table->id();
-            $table->string('album_name')->nullable();
-            $table->string('slug')->nullable();
+            $table->string('album_name')->nullable(); // Now nullable
+            $table->string('slug')->unique()->nullable(); // Nullable for non-album images
+            $table->text('description')->nullable(); // Already nullable
             $table->string('category')->nullable();
             $table->timestamps();
         });
