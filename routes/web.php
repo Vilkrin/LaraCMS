@@ -23,7 +23,7 @@ Route::get('/blog/{post}', [BlogController::class, 'show'])->name('blog.show');
 
 Route::prefix('gallery')->name('gallery.')->group(function () {
     // Gallery index page for public users
-    Route::get('/', [GalleryController::class, 'index'])->name('index');
+    Route::get('/', [GalleryController::class, 'publicGallery'])->name('publicGallery');
 
     // Show a single album
     Route::get('/album/{slug}', [GalleryController::class, 'showAlbum'])->name('showAlbum');

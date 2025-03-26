@@ -4,7 +4,7 @@
     <div class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-4xl w-full p-8">
         <div class="flex flex-col md:flex-row">
             <div class="md:w-1/3 text-center mb-8 md:mb-0">
-                <img src="https://i.pravatar.cc/300" alt="Profile Picture" class="rounded-full w-48 h-48 mx-auto mb-4 border-4 border-indigo-800 dark:border-blue-900 transition-transform duration-300 hover:scale-105">
+                <img src="{{ $user->getAvatarUrl() }}" alt="Profile Picture" class="rounded-full w-48 h-48 mx-auto mb-4 border-4 border-indigo-800 dark:border-blue-900 transition-transform duration-300 hover:scale-105">
                 <h1 class="text-2xl font-bold text-indigo-800 dark:text-white mb-2">{{ $user->name }}</h1>
                 <p class="text-gray-600 dark:text-gray-300 px-4 py-2">Software Developer</p>
                 <flux:button :href="route('admin.users.edit', $user->id)">Edit</flux:button>
@@ -20,7 +20,7 @@
                     <strong>Account Created:</strong> {{ $user->created_at->format('d M Y, H:i') }}
                 </div>
 
-                <h2 class="text-xl font-semibold text-indigo-800 dark:text-white mb-4">Skills</h2>
+                <h2 class="text-xl font-semibold text-indigo-800 dark:text-white mb-4">Roles</h2>
                 <div class="flex flex-wrap gap-2 mb-6">
                     <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">JavaScript</span>
                     <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">React</span>

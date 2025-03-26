@@ -77,10 +77,7 @@ class GalleryController extends Controller
         // Fetch all albums with their images
         $albums = Album::with('media')->get();
 
-        // Fetch images not tied to albums (general gallery images)
-        $galleryImages = \Spatie\MediaLibrary\Models\Media::whereNull('model_type')->get();
-
-        return view('gallery.index', compact('albums', 'galleryImages'));
+        return view('gallery.index', compact('albums'));
     }
 
     public function albums()

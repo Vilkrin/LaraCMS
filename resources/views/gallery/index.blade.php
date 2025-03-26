@@ -4,7 +4,6 @@
   </x-slot:heading>
 
 
-  <h1>Gallery</h1>
     <!-- Display Albums -->
     @foreach($albums as $album)
     <div class="album">

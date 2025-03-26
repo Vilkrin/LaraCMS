@@ -58,8 +58,15 @@ class RoleController extends Controller
     {
         $role = Role::with('permissions')->find($id);
 
-        \DB::statement("SET SQL_MODE=''");
-        $role_permission = Permission::select('name', 'id')->groupBy('name')->get();
+        // \DB::statement("SET SQL_MODE=''");
+        // $role_permission = Permission::select('name', 'id')->groupBy('name')->get();
+
+        if (\DB::connection()->getDriverName() === 'sqlite') {
+            $role_permission = Permission::selectRaw('name, MIN(id) as id')->groupBy('name')->get();
+        } else {
+            $role_permission = Permission::select('name', 'id')->groupBy('name')->get();
+        }
+
 
 
         $custom_permission = array();
@@ -76,7 +83,37 @@ class RoleController extends Controller
         return view('admin.roles.edit', compact('role'))->with('permissions', $custom_permission);
     }
 
-    public function update(Request $request, $id) {}
+    public function update(Request $request, $id)
+    {
+
+        $role = Role::where('id', $id)->first();
+
+        $request->validate([
+            'name' => 'required'
+        ]);
+
+        $role->update([
+            "name" => $request->name
+        ]);
+
+        $role->syncPermissions($request->permissions);
+
+
+        return redirect()->route('admin.roles.all')->with('success', 'Roles Updated Successfully');
+    }
+
+    public function delete($id)
+    {
+        $role = Role::where('id', $id)->first();
+
+        if (isset($role)) {
+
+            $role->permissions()->detach();
+            $role->delete();
+
+            return redirect()->route('roles.all')->with('success', 'Roles Deleted Successfully');
+        }
+    }
 
     public function destroy(Role $role)
     {

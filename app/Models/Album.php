@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\Image\Enums\Fit;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Album extends Model implements HasMedia
@@ -37,8 +38,16 @@ class Album extends Model implements HasMedia
     }
 
     // Relationship to Spatie Media Library
-    public function media()
+    // public function media()
+    // {
+    //     return $this->morphMany(Media::class, 'model');
+    // }
+
+    public function registerMediaConversions(?Media $media = null): void
     {
-        return $this->morphMany(Media::class, 'model');
+        $this
+            ->addMediaConversion('preview')
+            ->fit(Fit::Contain, 300, 300)
+            ->nonQueued();
     }
 }
