@@ -2,7 +2,7 @@
     <div class="flex items-center justify-center p-4">
         <div class="w-full max-w-2xl rounded-lg shadow-lg p-6">
             <h2 class="text-2xl font-semibold mb-4">Edit User</h2>
-
+            {{-- <pre>{{ dd($user) }}</pre> --}}
             <form wire:submit.prevent="save" class="space-y-4">
                 <div>
                     <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Username</label>
@@ -35,12 +35,7 @@
                         placeholder="Confirm new password">
                 </div>
             
-                <div>
-                    <label for="avatar" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Avatar</label>
-                    <input type="file" id="avatar" wire:model="avatar" class="mt-1 block w-full">
-                    @error('avatar') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-                </div>
-            
+                <!-- Role Selection -->
                 <div>
                     <label for="roles" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Roles</label>
                     <select id="roles" wire:model="roles" multiple
@@ -51,9 +46,13 @@
                     </select>
                     @error('roles') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>
-                
-            </form>
             
+                <!-- Save & Cancel Buttons -->
+                <div class="flex items-center justify-between">
+                    <flux:button variant="primary" type="submit">{{ __('Save') }}</flux:button>
+                    <flux:button variant="filled" href="{{ route('admin.users.index') }}">Cancel</flux:button>                    
+                </div>
+            </form>
             
         </div>
     </div>
