@@ -3,17 +3,30 @@
         <div class="w-full max-w-2xl rounded-lg shadow-lg p-6">
             <h2 class="text-2xl font-semibold mb-4">Edit User</h2>
             <form wire:submit.prevent="save" class="space-y-6 bg-white dark:bg-gray-900 p-6 rounded-lg shadow-md">
+                @csrf
                 <!-- Avatar -->
                 <div class="flex items-center gap-4">
+                    <!-- Avatar Preview -->
                     <div class="w-24 h-24 rounded-full overflow-hidden border border-gray-300 dark:border-gray-600">
-                        <img id="avatarPreview"
-                            src="{{ $avatar ? $avatar->temporaryUrl() : $user->getAvatarUrl() }}"
-                            alt="Avatar"
-                            class="w-full h-full object-cover">
+
+                        <img id="avatarPreview" 
+
+                        src="{{ $avatar ? $avatar->temporaryUrl() : $user->getAvatarUrl() }}" 
+
+                        alt="Avatar" 
+
+                        class="w-full h-full object-cover">
+
                     </div>
-                    <input type="file" wire:model="avatar"
-                        class="block w-auto text-sm text-gray-900 dark:text-gray-300 file:bg-indigo-600 file:text-white file:rounded-md file:px-3 file:py-1 file:border-none hover:file:bg-indigo-700 focus:outline-none">
-                    @error('avatar') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                
+                    <!-- File Input -->
+
+                    <flux:input type="file" wire:model="avatar" label="Avatar" class="w-auto"/>
+
+                    <!-- Validation Error -->
+                    @error('avatar') 
+                        <span class="text-red-500 text-sm">{{ $message }}</span> 
+                    @enderror
                 </div>
             
                 <!-- Username -->
@@ -68,14 +81,8 @@
             
                 
                 <div class="flex items-center justify-between">
-                    <button type="submit"
-                        class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 focus:outline-none shadow-md">
-                        Save Changes
-                    </button>
-                    <a href="{{ route('admin.users.index') }}"
-                        class="text-gray-600 dark:text-gray-300 hover:underline">
-                        Cancel
-                    </a>
+                    <flux:button variant="primary" type="submit">Save</flux:button>
+                    <flux:button variant="filled" href="{{ route('admin.users.index') }}" >Cancel</flux:button>
                 </div>
             </form>
             
