@@ -26,7 +26,7 @@ class EditUser extends Component
 
     public $password_confirmation;
 
-    #[Validate('nullable|image|mimes:png,jpg,jpeg|max:2048', as: 'Avatar')] // Max 2MB image
+    #[Validate('nullable|file|mimes:png,jpg,jpeg|max:2048', as: 'Avatar')] // Max 2MB image
     public $avatar;
 
     public $roles = [];
