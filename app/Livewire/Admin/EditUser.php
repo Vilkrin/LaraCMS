@@ -48,11 +48,6 @@ class EditUser extends Component
     public function save()
     {
 
-        // Debugging the mime type of the uploaded file
-        if ($this->avatar) {
-            dd($this->avatar->getMimeType(), $this->avatar->getClientOriginalExtension());
-        }
-
         // Save user details
         $this->user->name = $this->name;
         $this->user->email = $this->email;
@@ -61,10 +56,10 @@ class EditUser extends Component
             $this->user->password = bcrypt($this->password);
         }
 
-        // if ($this->avatar) {
-        //     $this->user->clearMediaCollection('avatars');
-        //     $this->user->addMedia($this->avatar->getRealPath())->toMediaCollection('avatars');
-        // }
+        if ($this->avatar) {
+            $this->user->clearMediaCollection('avatars');
+            $this->user->addMedia($this->avatar->getRealPath())->toMediaCollection('avatars');
+        }
 
         $this->user->save();
 

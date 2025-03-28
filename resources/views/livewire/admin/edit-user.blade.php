@@ -28,7 +28,8 @@
                         >
                 
                         <!-- Remove Avatar Button (Below input) -->
-                        @if ($avatar)
+                        
+                        @if ($avatar || $user->getAvatarUrl())
                             <div class="mt-2">
                                 <button type="button" wire:click="$set('avatar', null)" class="bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-500">
                                     Remove Avatar
