@@ -2,38 +2,8 @@
     <div class="flex items-center justify-center p-4">
         <div class="w-full max-w-2xl rounded-lg shadow-lg p-6">
             <h2 class="text-2xl font-semibold mb-4">Edit User</h2>
-            <form wire:submit.prevent="save" class="space-y-6 bg-white dark:bg-gray-900 p-6 rounded-lg shadow-md">
-                @csrf
-                <!-- Avatar -->
-                <div class="space-y-2 flex items-start gap-4">
-                    <!-- Avatar Preview (Left side) -->
-                    <div class="w-24 h-24 rounded-full overflow-hidden border border-gray-300 dark:border-gray-600">
-                        <img 
-                            id="avatarPreview" 
-                            src="{{ $avatar ? $avatar->temporaryUrl() : $user->getAvatarUrl() }}" 
-                            alt="Avatar" 
-                            class="w-full h-full object-cover"
-                        >
-                    </div>
-                
-                    <!-- File Input & Label (Right side) -->
-                    <div class="flex flex-col justify-between">
-                        <label for="avatar" class="block text-sm font-medium text-gray-300">Upload Avatar</label>
-                        <input 
-                            type="file" 
-                            id="avatar" 
-                            wire:model="avatar" 
-                            accept="image/*" 
-                            class="block w-full text-sm text-gray-300 bg-gray-700 border border-gray-700 rounded-lg cursor-pointer file:py-2 file:px-4 file:bg-gray-500 file:text-white hover:file:bg-gray-400"
-                        >                
-                    </div>
-                
-                    <!-- Validation Error -->
-                    @error('avatar')
-                        <p class="text-red-500 text-sm">{{ $message }}</p>
-                    @enderror
-                </div>                               
-            
+            <form wire:submit="save" class="space-y-6 bg-white dark:bg-gray-900 p-6 rounded-lg shadow-md">
+                @csrf          
                 <!-- Username -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Username</label>

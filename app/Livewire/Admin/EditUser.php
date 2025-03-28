@@ -4,14 +4,11 @@ namespace App\Livewire\Admin;
 
 use Livewire\Component;
 use App\Models\User;
-use Livewire\WithFileUploads;
 use Livewire\Attributes\Validate;
-use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Permission\Models\Role;
 
 class EditUser extends Component
 {
-    use WithFileUploads;
 
     public User $user;
 
@@ -25,9 +22,6 @@ class EditUser extends Component
     public $password;
 
     public $password_confirmation;
-
-    #[Validate('nullable|file|mimes:png,jpg,jpeg|max:2048', as: 'Avatar')] // Max 2MB image
-    public $avatar;
 
     public $roles = [];
     public $availableRoles = []; // Will be populated dynamically
@@ -54,11 +48,6 @@ class EditUser extends Component
 
         if ($this->password) {
             $this->user->password = bcrypt($this->password);
-        }
-
-        if ($this->avatar) {
-            $this->user->clearMediaCollection('avatars');
-            $this->user->addMedia($this->avatar->getRealPath())->toMediaCollection('avatars');
         }
 
         $this->user->save();
