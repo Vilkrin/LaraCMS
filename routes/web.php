@@ -21,16 +21,14 @@ Route::get('/about', function () {
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{post}', [BlogController::class, 'show'])->name('blog.show');
 
-Route::prefix('gallery')->name('gallery.')->group(function () {
-    // Gallery index page for public users
-    Route::get('/', [GalleryController::class, 'publicGallery'])->name('publicGallery');
+// Gallery index page 
+Route::get('/gallery', [GalleryController::class, 'publicGallery'])->name('publicGallery');
 
-    // Show a single album
-    Route::get('/album/{slug}', [GalleryController::class, 'showAlbum'])->name('showAlbum');
+// Show a single album
+Route::get('/gallery/album/{slug}', [GalleryController::class, 'showAlbum'])->name('showAlbum');
 
-    // Show an individual photo (for photos not in any album)
-    Route::get('/photo/{media}', [GalleryController::class, 'showPhoto'])->name('showPhoto');
-});
+// Show an individual image 
+Route::get('/image/{media}', [GalleryController::class, 'showImage'])->name('showImage');
 
 Route::get('/contact', function () {
     return view('contact');

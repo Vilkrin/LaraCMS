@@ -33,8 +33,6 @@ class BlogController extends Controller
     public function posts()
     {
         $posts = Post::query()
-            ->where('name', 'like', '%' . $this->search . '%')
-            ->orWhere('email', 'like', '%' . $this->search . '%')
             ->paginate(10);
 
         return view('admin.blog.posts', ['posts' => $posts]);
@@ -61,6 +59,7 @@ class BlogController extends Controller
             'title' => 'required|unique:posts|min:8|max:255',
             'post_image' => 'file',
             'body' => 'required',
+            'slug' => 'required',
 
         ]);
 

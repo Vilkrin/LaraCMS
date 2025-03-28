@@ -86,4 +86,11 @@ class GalleryController extends Controller
 
         return view('gallery.albums', compact('albums'));
     }
+
+    public function showImage()
+    {
+        $albums = Album::with('media')->get();
+
+        return view('gallery.albums', compact('albums'));
+    }
 }
