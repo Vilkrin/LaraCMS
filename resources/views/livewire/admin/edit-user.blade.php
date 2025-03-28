@@ -25,17 +25,7 @@
                             wire:model="avatar" 
                             accept="image/*" 
                             class="block w-full text-sm text-gray-300 bg-gray-700 border border-gray-700 rounded-lg cursor-pointer file:py-2 file:px-4 file:bg-gray-500 file:text-white hover:file:bg-gray-400"
-                        >
-                
-                        <!-- Remove Avatar Button (Below input) -->
-                        
-                        @if ($avatar || $user->getAvatarUrl())
-                            <div class="mt-2">
-                                <button type="button" wire:click="$set('avatar', null)" class="bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-500">
-                                    Remove Avatar
-                                </button>
-                            </div>
-                        @endif
+                        >                
                     </div>
                 
                     <!-- Validation Error -->
