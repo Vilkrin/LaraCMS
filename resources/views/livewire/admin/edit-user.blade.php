@@ -5,29 +5,43 @@
             <form wire:submit.prevent="save" class="space-y-6 bg-white dark:bg-gray-900 p-6 rounded-lg shadow-md">
                 @csrf
                 <!-- Avatar -->
-                <div class="flex items-center gap-4">
-                    <!-- Avatar Preview -->
+                <div class="space-y-2 flex items-start gap-4">
+                    <!-- Avatar Preview (Left side) -->
                     <div class="w-24 h-24 rounded-full overflow-hidden border border-gray-300 dark:border-gray-600">
-
-                        <img id="avatarPreview" 
-
-                        src="{{ $avatar ? $avatar->temporaryUrl() : $user->getAvatarUrl() }}" 
-
-                        alt="Avatar" 
-
-                        class="w-full h-full object-cover">
-
+                        <img 
+                            id="avatarPreview" 
+                            src="{{ $avatar ? $avatar->temporaryUrl() : $user->getAvatarUrl() }}" 
+                            alt="Avatar" 
+                            class="w-full h-full object-cover"
+                        >
                     </div>
                 
-                    <!-- File Input -->
-
-                    <flux:input type="file" wire:model="avatar" label="Avatar" class="w-auto"/>
-
+                    <!-- File Input & Label (Right side) -->
+                    <div class="flex flex-col justify-between">
+                        <label for="avatar" class="block text-sm font-medium text-gray-300">Upload Avatar</label>
+                        <input 
+                            type="file" 
+                            id="avatar" 
+                            wire:model="avatar" 
+                            accept="image/*" 
+                            class="block w-full text-sm text-gray-300 bg-gray-700 border border-gray-700 rounded-lg cursor-pointer file:py-2 file:px-4 file:bg-gray-500 file:text-white hover:file:bg-gray-400"
+                        >
+                
+                        <!-- Remove Avatar Button (Below input) -->
+                        @if ($avatar)
+                            <div class="mt-2">
+                                <button type="button" wire:click="$set('avatar', null)" class="bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-500">
+                                    Remove Avatar
+                                </button>
+                            </div>
+                        @endif
+                    </div>
+                
                     <!-- Validation Error -->
-                    @error('avatar') 
-                        <span class="text-red-500 text-sm">{{ $message }}</span> 
+                    @error('avatar')
+                        <p class="text-red-500 text-sm">{{ $message }}</p>
                     @enderror
-                </div>
+                </div>                               
             
                 <!-- Username -->
                 <div>
