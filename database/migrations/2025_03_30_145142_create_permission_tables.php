@@ -3,6 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 return new class extends Migration
 {
@@ -66,13 +68,16 @@ return new class extends Migration
                 $table->unsignedBigInteger($columnNames['team_foreign_key']);
                 $table->index($columnNames['team_foreign_key'], 'model_has_permissions_team_foreign_key_index');
 
-                $table->primary([$columnNames['team_foreign_key'], $pivotPermission, $columnNames['model_morph_key'], 'model_type'],
-                    'model_has_permissions_permission_model_type_primary');
+                $table->primary(
+                    [$columnNames['team_foreign_key'], $pivotPermission, $columnNames['model_morph_key'], 'model_type'],
+                    'model_has_permissions_permission_model_type_primary'
+                );
             } else {
-                $table->primary([$pivotPermission, $columnNames['model_morph_key'], 'model_type'],
-                    'model_has_permissions_permission_model_type_primary');
+                $table->primary(
+                    [$pivotPermission, $columnNames['model_morph_key'], 'model_type'],
+                    'model_has_permissions_permission_model_type_primary'
+                );
             }
-
         });
 
         Schema::create($tableNames['model_has_roles'], static function (Blueprint $table) use ($tableNames, $columnNames, $pivotRole, $teams) {
@@ -90,11 +95,15 @@ return new class extends Migration
                 $table->unsignedBigInteger($columnNames['team_foreign_key']);
                 $table->index($columnNames['team_foreign_key'], 'model_has_roles_team_foreign_key_index');
 
-                $table->primary([$columnNames['team_foreign_key'], $pivotRole, $columnNames['model_morph_key'], 'model_type'],
-                    'model_has_roles_role_model_type_primary');
+                $table->primary(
+                    [$columnNames['team_foreign_key'], $pivotRole, $columnNames['model_morph_key'], 'model_type'],
+                    'model_has_roles_role_model_type_primary'
+                );
             } else {
-                $table->primary([$pivotRole, $columnNames['model_morph_key'], 'model_type'],
-                    'model_has_roles_role_model_type_primary');
+                $table->primary(
+                    [$pivotRole, $columnNames['model_morph_key'], 'model_type'],
+                    'model_has_roles_role_model_type_primary'
+                );
             }
         });
 
@@ -118,6 +127,40 @@ return new class extends Migration
         app('cache')
             ->store(config('permission.cache.store') != 'default' ? config('permission.cache.store') : null)
             ->forget(config('permission.cache.key'));
+
+        // Seeding Initial User Roles & Permissions
+
+        // Reset cached roles and permissions
+        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+
+        // Create permissions
+        Permission::create(['name' => 'create articles']);
+        Permission::create(['name' => 'edit articles']);
+        Permission::create(['name' => 'delete articles']);
+        Permission::create(['name' => 'publish articles']);
+        Permission::create(['name' => 'unpublish articles']);
+        Permission::create(['name' => 'manage users']);
+        Permission::create(['name' => 'view dashboard']);
+
+        // Update cache to ensure newly created permissions are recognized
+        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+
+        // Create roles and assign permissions
+        $role = Role::create(['name' => 'writer']);
+        $role->givePermissionTo(['create articles', 'edit articles', 'view dashboard']);
+
+        $role = Role::create(['name' => 'moderator']);
+        $role->givePermissionTo(['publish articles', 'unpublish articles', 'view dashboard']);
+
+        $role = Role::create(['name' => 'admin']);
+        $role->givePermissionTo(['create articles', 'edit articles', 'delete articles', 'manage users', 'view dashboard']);
+
+        $role = Role::create(['name' => 'user']);
+
+        $role = Role::create(['name' => 'Super Admin']);
+
+        // Refresh permission cache
+        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
     }
 
     /**

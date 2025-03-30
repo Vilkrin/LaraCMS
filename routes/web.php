@@ -8,14 +8,23 @@ use App\Http\Controllers\GalleryController;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 
+// to be removed and replaced
+use App\Livewire\Settings\Appearance;
+use App\Livewire\Settings\Password;
+use App\Livewire\Settings\Profile;
+
+// Also to be Replaced.
+Route::middleware(['auth'])->group(function () {
+    Route::redirect('settings', 'settings/profile');
+    Route::get('settings/profile', Profile::class)->name('settings.profile');
+    Route::get('settings/password', Password::class)->name('settings.password');
+    Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
+});
+
 // Frontend
 Route::get('/', function () {
     return view('home');
-});
-
-Route::get('/about', function () {
-    return view('about');
-});
+})->name('home');
 
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
@@ -33,13 +42,8 @@ Route::get('/contact', function () {
     return view('contact');
 });
 
-Route::get('/test', function () {
-    return view('test');
-});
-
-
 // Admin Dashboard - Grouping routes under 'admin' middleware and prefix for organization
-Route::prefix('admin')->name('admin.')->middleware('auth:sanctum', config('jetstream.auth_session'), 'verified',)->group(function () {
+Route::prefix('admin')->name('admin.')->middleware('auth', 'verified', 'permission:view dashboard')->group(function () {
 
     // Dashboard Route
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
