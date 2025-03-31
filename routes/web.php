@@ -3,7 +3,9 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\GalleryController;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
@@ -26,8 +28,8 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
-Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
-Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
+Route::get('/blog', [PostController::class, 'index'])->name('blog.index');
+Route::get('/blog/{slug}', [PostController::class, 'show'])->name('blog.show');
 
 // Gallery index page 
 Route::get('/gallery', [GalleryController::class, 'publicGallery'])->name('publicGallery');
@@ -36,7 +38,7 @@ Route::get('/gallery', [GalleryController::class, 'publicGallery'])->name('publi
 Route::get('/gallery/album/{slug}', [GalleryController::class, 'showAlbum'])->name('showAlbum');
 
 // Show an individual image 
-Route::get('/image/{media}', [GalleryController::class, 'showImage'])->name('showImage');
+Route::get('/image/{media}', [PhotoController::class, 'show'])->name('show');
 
 Route::get('/contact', function () {
     return view('contact');
@@ -70,7 +72,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth', 'verified', 'permissi
 
     // Gallery
     Route::prefix('gallery')->name('gallery.')->group(function () {
-        Route::get('/', [GalleryController::class, 'adminIndex'])->name('index');
+        Route::get('/', [GalleryController::class, 'index'])->name('index');
         Route::get('/create', [GalleryController::class, 'create'])->name('create');
         Route::post('/', [GalleryController::class, 'store'])->name('store');
         Route::get('/{album}', [GalleryController::class, 'show'])->name('show');
