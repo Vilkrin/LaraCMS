@@ -61,7 +61,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth', 'verified', 'permissi
     Route::get('/pages/create', [AdminController::class, 'createPage'])->name('pages.create');
 
     // Blog
-    Route::get('/blog/posts', [BlogController::class, 'posts'])->name('blog.posts');
+    Route::get('/blog/posts', [BlogController::class, 'index'])->name('blog.posts');
     Route::get('/blog/create', [BlogController::class, 'create'])->name('blog.create');
     Route::post('/blog/posts', [BlogController::class, 'store'])->name('blog.store');
     Route::get('/blog/posts/{post}', [BlogController::class, 'show'])->name('blog.show');

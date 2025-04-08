@@ -134,11 +134,14 @@ return new class extends Migration
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         // Create permissions
-        Permission::create(['name' => 'create articles']);
-        Permission::create(['name' => 'edit articles']);
-        Permission::create(['name' => 'delete articles']);
-        Permission::create(['name' => 'publish articles']);
-        Permission::create(['name' => 'unpublish articles']);
+        Permission::create(['name' => 'create posts']);
+        Permission::create(['name' => 'edit own posts']);
+        Permission::create(['name' => 'edit all posts']);
+        Permission::create(['name' => 'delete own posts']);
+        Permission::create(['name' => 'delete any posts']);
+        Permission::create(['name' => 'publish posts']);
+        Permission::create(['name' => 'unpublish posts']);
+        Permission::create(['name' => 'view unpublished posts']);
         Permission::create(['name' => 'manage users']);
         Permission::create(['name' => 'view dashboard']);
 
@@ -147,13 +150,13 @@ return new class extends Migration
 
         // Create roles and assign permissions
         $role = Role::create(['name' => 'writer']);
-        $role->givePermissionTo(['create articles', 'edit articles', 'view dashboard']);
+        $role->givePermissionTo(['create posts', 'edit own posts', 'delete own posts', 'view dashboard']);
 
-        $role = Role::create(['name' => 'moderator']);
-        $role->givePermissionTo(['publish articles', 'unpublish articles', 'view dashboard']);
+        $role = Role::create(['name' => 'editor']);
+        $role->givePermissionTo(['publish posts', 'unpublish posts', 'edit all posts', 'delete any post', 'view unpublished posts', 'view dashboard']);
 
         $role = Role::create(['name' => 'admin']);
-        $role->givePermissionTo(['create articles', 'edit articles', 'delete articles', 'manage users', 'view dashboard']);
+        $role->givePermissionTo(['view unpublished posts', 'manage users', 'view dashboard']);
 
         $role = Role::create(['name' => 'user']);
 
