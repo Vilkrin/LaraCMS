@@ -131,13 +131,6 @@
                         @endforelse
                     </select>
 
-                    <select class="categories" name="states[]" multiple="multiple">
-                        <option value="AL">Alabama</option>
-                          ...
-                        <option value="WY">Wyoming</option>
-                      </select>
-
-
                 <div>
                     <button>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -177,6 +170,5 @@
             </div>
         </div>
 </div>
-
 
 </x-adminlayout>

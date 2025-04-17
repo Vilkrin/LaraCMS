@@ -28,6 +28,10 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
+Route::get('/test', function () {
+    return view('home2');
+})->name('home2');
+
 Route::get('/blog', [PostController::class, 'index'])->name('blog.index');
 Route::get('/blog/{slug}', [PostController::class, 'show'])->name('blog.show');
 

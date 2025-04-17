@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->text('body');
             $table->boolean('is_published')->default(false);
-            $table->dateTime('published_at')->default(null);
+            $table->timestamp('published_at')->nullable();
             $table->timestamps();
         });
     }

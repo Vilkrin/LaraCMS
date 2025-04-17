@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'tinymce' => [
+        'api' => env('TINYMCE_API', 'https://www.tiny.cloud/'),
+    ],
+
 ];

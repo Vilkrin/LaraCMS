@@ -153,7 +153,7 @@ return new class extends Migration
         $role->givePermissionTo(['create posts', 'edit own posts', 'delete own posts', 'view dashboard']);
 
         $role = Role::create(['name' => 'editor']);
-        $role->givePermissionTo(['publish posts', 'unpublish posts', 'edit all posts', 'delete any post', 'view unpublished posts', 'view dashboard']);
+        $role->givePermissionTo(['publish posts', 'unpublish posts', 'edit all posts', 'delete any posts', 'view unpublished posts', 'view dashboard']);
 
         $role = Role::create(['name' => 'admin']);
         $role->givePermissionTo(['view unpublished posts', 'manage users', 'view dashboard']);
