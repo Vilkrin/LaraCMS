@@ -1,5 +1,4 @@
 <x-adminlayout>
-
   <section class="max-w-4xl mx-auto p-6 shadow-lg rounded-lg">
     <div class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-4xl w-full p-8">
         <div class="flex flex-col md:flex-row">

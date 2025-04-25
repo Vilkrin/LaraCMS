@@ -7,6 +7,8 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\Admin\VideoController;
+use App\Models\Video;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 
@@ -47,6 +49,12 @@ Route::get('/gallery/album/{slug}', [GalleryController::class, 'showAlbum'])->na
 // Show an individual image 
 Route::get('/image/{media}', [PhotoController::class, 'show'])->name('show');
 
+
+// Video Player
+Route::get('/video/{video:name}', function (Video $video) {
+    return view('video.show', compact('video'));
+});
+
 Route::get('/contact', function () {
     return view('contact');
 });
@@ -84,6 +92,12 @@ Route::prefix('admin')->name('admin.')->middleware('auth', 'verified', 'permissi
         Route::post('/', [GalleryController::class, 'store'])->name('store');
         Route::get('/{album}', [GalleryController::class, 'show'])->name('show');
         Route::delete('/{album}', [GalleryController::class, 'destroy'])->name('destroy');
+    });
+
+    // Video Management
+    Route::prefix('videos')->name('videos.')->group(function () {
+        Route::get('/', [VideoController::class, 'index'])->name('index');
+        Route::get('/upload', [VideoController::class, 'create'])->name('create');
     });
 });
 
