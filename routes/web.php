@@ -8,6 +8,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\Admin\VideoController;
+use App\Http\Controllers\AlbumController;
 use App\Models\Video;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
+use App\Models\Album;
 
 // Also to be Replaced.
 Route::middleware(['auth'])->group(function () {
@@ -40,20 +42,16 @@ Route::get('/test', function () {
 Route::get('/blog', [PostController::class, 'index'])->name('blog.index');
 Route::get('/blog/{slug}', [PostController::class, 'show'])->name('blog.show');
 
-// Gallery index page 
-Route::get('/gallery', [GalleryController::class, 'publicGallery'])->name('publicGallery');
-
-// Show a single album
-Route::get('/gallery/album/{slug}', [GalleryController::class, 'showAlbum'])->name('showAlbum');
+// Gallery
+Route::prefix('gallery')->name('gallery.')->group(function () {
+    Route::resource('photos', GalleryController::class)->only([
+        'index',
+        'show'
+    ]);
+});
 
 // Show an individual image 
 Route::get('/image/{media}', [PhotoController::class, 'show'])->name('show');
-
-
-// Video Player
-Route::get('/video/{video:name}', function (Video $video) {
-    return view('video.show', compact('video'));
-});
 
 Route::get('/contact', function () {
     return view('contact');
@@ -87,17 +85,11 @@ Route::prefix('admin')->name('admin.')->middleware('auth', 'verified', 'permissi
 
     // Gallery
     Route::prefix('gallery')->name('gallery.')->group(function () {
-        Route::get('/', [GalleryController::class, 'index'])->name('index');
-        Route::get('/create', [GalleryController::class, 'create'])->name('create');
-        Route::post('/', [GalleryController::class, 'store'])->name('store');
-        Route::get('/{album}', [GalleryController::class, 'show'])->name('show');
-        Route::delete('/{album}', [GalleryController::class, 'destroy'])->name('destroy');
-    });
-
-    // Video Management
-    Route::prefix('videos')->name('videos.')->group(function () {
-        Route::get('/', [VideoController::class, 'index'])->name('index');
-        Route::get('/upload', [VideoController::class, 'create'])->name('create');
+        Route::get('/', [AlbumController::class, 'index'])->name('index');
+        Route::get('/create', [AlbumController::class, 'create'])->name('create');
+        Route::post('/', [AlbumController::class, 'store'])->name('store');
+        Route::get('/{album}', [AlbumController::class, 'show'])->name('show');
+        Route::delete('/{album}', [AlbumController::class, 'destroy'])->name('destroy');
     });
 });
 
