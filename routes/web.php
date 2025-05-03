@@ -5,21 +5,18 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RoleController;
-use App\Http\Controllers\PhotoController;
-use App\Http\Controllers\GalleryController;
-use App\Http\Controllers\Admin\VideoController;
-use App\Http\Controllers\AlbumController;
-use App\Models\Video;
-use Illuminate\Support\Arr;
+use App\Http\Controllers\Admin\AlbumController;
+use App\Http\Controllers\Admin\PhotoController;
+// use App\Http\Controllers\GalleryController;
 use Illuminate\Support\Facades\Route;
 
-// to be removed and replaced
+
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use App\Models\Album;
 
-// Also to be Replaced.
+
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
     Route::get('settings/profile', Profile::class)->name('settings.profile');
@@ -42,16 +39,14 @@ Route::get('/test', function () {
 Route::get('/blog', [PostController::class, 'index'])->name('blog.index');
 Route::get('/blog/{slug}', [PostController::class, 'show'])->name('blog.show');
 
-// Gallery
-Route::prefix('gallery')->name('gallery.')->group(function () {
-    Route::resource('photos', GalleryController::class)->only([
-        'index',
-        'show'
-    ]);
-});
+// Route::prefix('gallery')->group(function () {
+//     Route::get('/', GalleryController::class, 'index')->name('gallery.index');
+//     Route::get('/album/{album:slug}', GalleryController::class, 'album')->name('gallery.album');
+//     Route::get('/album/{album:slug}/{image}', GalleryController::class, 'image')->name('gallery.image');
+// });
 
 // Show an individual image 
-Route::get('/image/{media}', [PhotoController::class, 'show'])->name('show');
+// Route::get('/image/{media}', [PhotoController::class, 'show'])->name('show');
 
 Route::get('/contact', function () {
     return view('contact');
@@ -90,6 +85,9 @@ Route::prefix('admin')->name('admin.')->middleware('auth', 'verified', 'permissi
         Route::post('/', [AlbumController::class, 'store'])->name('store');
         Route::get('/{album}', [AlbumController::class, 'show'])->name('show');
         Route::delete('/{album}', [AlbumController::class, 'destroy'])->name('destroy');
+        Route::get('/photo/create', [PhotoController::class, 'create'])->name('photo.create');
+        Route::get('/photo/{photo}', [PhotoController::class, 'show'])->name('photo.show');
+        Route::delete('/photo/{photo}', [PhotoController::class, 'destroy'])->name('photo.destroy');
     });
 });
 
