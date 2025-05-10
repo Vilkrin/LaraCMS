@@ -24,10 +24,16 @@ class UploadPhoto extends Component
             $photo = new Photo();
             $photo->save(); // Save the Photo instance to associate media with it
 
-            // Add media to the 'images' collection
-            $photo->addMedia($file->getRealPath())
+            // Move the file to a temporary location before uploading to S3
+            $temporaryPath = $file->store('temp'); // Store the file temporarily
+
+            // Add media to the 'images' collection using Spatie Media Library
+            $photo->addMedia(storage_path('app/' . $temporaryPath))
                 ->usingFileName($file->getClientOriginalName())
-                ->toMediaCollection('images', 's3');
+                ->toMediaCollection('images', 's3'); // Specify the S3 disk
+
+            // Delete the temporary file after uploading
+            \Illuminate\Support\Facades\Storage::delete($temporaryPath);
         }
 
         $this->photos = [];
