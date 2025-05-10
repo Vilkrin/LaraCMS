@@ -22,11 +22,12 @@ class UploadPhoto extends Component
         foreach ($this->photos as $file) {
             // Create a new Photo instance or use an existing one
             $photo = new Photo();
+            $photo->save(); // Save the Photo instance to associate media with it
 
             // Add media to the 'images' collection
             $photo->addMedia($file->getRealPath())
                 ->usingFileName($file->getClientOriginalName())
-                ->toMediaCollection('images');
+                ->toMediaCollection('images', 's3');
         }
 
         $this->photos = [];
