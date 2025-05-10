@@ -12,6 +12,13 @@ class Photo extends Model implements HasMedia
 {
     use InteractsWithMedia;
 
+    protected $guarded = [];
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('images');
+    }
+
     public function registerMediaConversions(?Media $media = null): void
     {
         $this

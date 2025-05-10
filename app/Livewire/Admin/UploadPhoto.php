@@ -11,18 +11,20 @@ class UploadPhoto extends Component
 {
     use WithFileUploads;
 
-    #[Validate(['photos.*' => 'image|max:1024'])]
+    #[Validate(['photos.*' => 'image|max:20480'])]
     public $photos = [];
+
 
     public function save()
     {
         $this->validate();
 
         foreach ($this->photos as $file) {
-            $photo = Photo::create(); // you can store extra fields later like title, alt, etc.
+            // Create a new Photo instance or use an existing one
+            $photo = new Photo();
 
-            $photo
-                ->addMedia($file->getRealPath())
+            // Add media to the 'images' collection
+            $photo->addMedia($file->getRealPath())
                 ->usingFileName($file->getClientOriginalName())
                 ->toMediaCollection('images');
         }

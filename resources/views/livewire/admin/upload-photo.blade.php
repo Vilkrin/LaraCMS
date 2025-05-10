@@ -12,14 +12,16 @@
       </select>
     </div>
 
-    @if ($photos) 
-        <img src="{{ $photo->temporaryUrl() }}">
+    @if ($photos)
+      @foreach ($photos as $photo)
+          <img src="{{ $photo->temporaryUrl() }}" class="w-24 h-24 object-cover rounded mb-2">
+      @endforeach
     @endif
 
     <!-- File Upload -->
     <div>
       <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Select Images</label>
-      <input type="file" wire:model="photo" multiple
+      <input type="file" wire:model="photos" multiple
              class="block w-full text-sm text-gray-700 dark:text-gray-100 dark:bg-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100" />
     </div>
 
