@@ -14,7 +14,18 @@
 
     @if ($photos)
       @foreach ($photos as $photo)
+        <!-- Preview of selected images -->
+        <div class="flex items-center">
           <img src="{{ $photo->temporaryUrl() }}" class="w-24 h-24 object-cover rounded mb-2">
+          <div class="ml-4">
+            <p class="text-sm text-gray-700 dark:text-gray-300">{{ $photo->getClientOriginalName() }}</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">{{ $photo->getSize() }} bytes</p>
+          </div>
+          <button type="button" wire:click="removePhoto({{ $loop->index }})"
+                  class="ml-auto text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-500">
+            Remove
+          </button>
+        </div>
       @endforeach
     @endif
 

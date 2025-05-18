@@ -52,7 +52,7 @@
   <!-- Unassigned Photos Grid -->
 <div id="unassigned-section" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
   <!-- Unassigned Photo Card -->
-  {{-- @forelse ($albums as $album)    --}}
+  @forelse ( as )   
 
   <div class="bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-md transition p-4">
     <img src="https://placehold.co/300x200?text=Unassigned+Photo" alt="Unassigned" class="rounded-md mb-3 w-full h-40 object-cover">
@@ -69,12 +69,12 @@
     </div>
   </div>
 
-    {{-- @empty --}}
-    {{-- <div class="col-span-4 text-center p-6 bg-gray-50 dark:bg-gray-800 rounded-lg shadow">
+    @empty
+    <div class="col-span-4 text-center p-6 bg-gray-50 dark:bg-gray-800 rounded-lg shadow">
       <p class="text-gray-500 dark:text-gray-400">No unassigned photos available.</p>
-    </div> --}}
+    </div>
     
-  {{-- @endforelse --}}
+  @endforelse
 
 </div>
 

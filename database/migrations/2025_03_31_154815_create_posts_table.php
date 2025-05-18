@@ -20,6 +20,10 @@ return new class extends Migration
             $table->text('body');
             $table->boolean('is_published')->default(false);
             $table->timestamp('published_at')->nullable();
+            $table->unsignedBigInteger('view_count')->default(0);
+            $table->unsignedBigInteger('like_count')->default(0);
+            $table->unsignedBigInteger('dislike_count')->default(0);
+            $table->unsignedBigInteger('comment_count')->default(0);
             $table->timestamps();
         });
     }

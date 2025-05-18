@@ -7,6 +7,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\Admin\AlbumController;
 use App\Http\Controllers\Admin\PhotoController;
+use App\Http\Controllers\PhotoController as FrontendPhotoController;
 // use App\Http\Controllers\GalleryController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,7 +30,6 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
-
 // just to test functionality
 Route::get('/test', function () {
     return view('home2');
@@ -46,7 +46,7 @@ Route::get('/blog/{slug}', [PostController::class, 'show'])->name('blog.show');
 // });
 
 // Show an individual image 
-// Route::get('/image/{media}', [PhotoController::class, 'show'])->name('show');
+Route::get('/image/{image}', [FrontendPhotoController::class, 'show'])->name('image.show');
 
 Route::get('/contact', function () {
     return view('contact');
