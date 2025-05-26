@@ -120,7 +120,7 @@
                 <!-- Category Card -->
                 <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4">
                     <h3 class="text-lg font-medium mb-4 text-gray-900 dark:text-white">Category</h3>
-                    <select name="category_id" class="w-full border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                    <select name="category_id" class="w-full border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out mb-4">
                         <option value="">Select a Category</option>
                         @forelse($blogCategories as $category)
                             <option value="{{ $category->id }}" {{ old('category_id', $post->category_id ?? '') == $category->id ? 'selected' : '' }}>
@@ -130,15 +130,12 @@
                             <option disabled>No categories available</option>
                         @endforelse
                     </select>
-
-                <div>
-                    <button>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <button type="button" class="flex items-center gap-2 px-3 py-2 mt-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                          </svg>
+                        </svg>
                         Add Category                          
                     </button>
-                </div>
                 </div>
 
                 <!-- Tags Card -->

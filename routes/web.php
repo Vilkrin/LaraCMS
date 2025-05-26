@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\PostController;
@@ -30,10 +31,23 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact');
+
+// Fetches custom pages from the database
+// Route::get('/{slug}', [PageController::class, 'show'])
+//     ->where('slug', '^(?!admin|login|register|api).*$')
+//     ->name('page.show');
+
 // just to test functionality
-Route::get('/test', function () {
-    return view('home2');
-})->middleware('password.confirm')->name('home2');
+Route::get('/subscribers', function () {
+    return view('subscribers');
+})->middleware('password.confirm')->name('subscribers');
 
 // Blog
 Route::get('/blog', [PostController::class, 'index'])->name('blog.index');

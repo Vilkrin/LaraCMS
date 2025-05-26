@@ -18,12 +18,13 @@ return new class extends Migration
             $table->text('post_image')->nullable();
             $table->string('slug')->unique();
             $table->text('body');
+            $table->string('status')->default('draft');
             $table->boolean('is_published')->default(false);
             $table->timestamp('published_at')->nullable();
-            $table->unsignedBigInteger('view_count')->default(0);
-            $table->unsignedBigInteger('like_count')->default(0);
-            $table->unsignedBigInteger('dislike_count')->default(0);
-            $table->unsignedBigInteger('comment_count')->default(0);
+            $table->integer('view_count')->default(0);
+            $table->integer('like_count')->default(0);
+            $table->integer('dislike_count')->default(0);
+            $table->integer('comment_count')->default(0);
             $table->timestamps();
         });
     }
