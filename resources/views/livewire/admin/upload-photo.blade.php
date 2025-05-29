@@ -16,9 +16,10 @@
         <div class="relative">
             <input 
                 type="file" 
-                wire:model="image" 
+                wire:model="images" 
                 class="form-control" 
                 accept="image/*"
+                multiple
                 id="file-upload"
             >
             <label for="file-upload" class="cursor-pointer">
@@ -27,42 +28,16 @@
                         <svg class="w-12 h-12 text-gray-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
                         </svg>
-                        <span class="text-gray-500">Click to select an image</span>
+                        <span class="text-gray-500">Click to select or drag and drop images</span>
                         <span class="text-sm text-gray-400 mt-1">PNG, JPG, GIF up to 20MB</span>
                     </div>
                 </div>
             </label>
         </div>
-        @error('image') 
+        @error('images.*') 
             <span class="text-red-500 text-sm mt-1">{{ $message }}</span> 
         @enderror
     </div>
-
-    <!-- Upload Queue -->
-    @if(count($uploadQueue) > 0)
-        <div class="mb-4">
-            <h3 class="text-lg font-semibold mb-2">Images to Upload ({{ count($uploadQueue) }})</h3>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                @foreach($uploadQueue as $index => $image)
-                    <div class="relative group">
-                        <img 
-                            src="{{ $image->temporaryUrl() }}" 
-                            class="w-full h-32 object-cover rounded-lg"
-                            alt="Image to upload"
-                        >
-                        <button 
-                            wire:click="removeFromQueue({{ $index }})"
-                            class="absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full hover:bg-red-600"
-                        >
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                            </svg>
-                        </button>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-    @endif
 
     @if($isUploading)
         <div class="mb-4">
@@ -96,9 +71,9 @@
         <button 
             type="submit" 
             class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
-            {{ count($uploadQueue) === 0 ? 'disabled' : '' }}
+            {{ count($images) === 0 ? 'disabled' : '' }}
         >
-            Upload {{ count($uploadQueue) }} Images
+            Upload {{ count($images) }} Images
         </button>
     </div>
 

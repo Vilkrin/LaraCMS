@@ -12,13 +12,12 @@ class UploadPhoto extends Component
 {
     use WithFileUploads;
 
-    #[Validate(['image' => 'image|max:20480'])]
-    public $image;
+    #[Validate(['images.*' => 'image|max:20480'])]
+    public $images = [];
     public $model;
     public $collection = 'images';
     public $existingImages = [];
     public $isUploading = false;
-    public $uploadQueue = [];
     public $uploadProgress = 0;
 
     public function mount($model)
@@ -27,34 +26,37 @@ class UploadPhoto extends Component
         $this->existingImages = $model->getMedia($this->collection);
     }
 
-    public function updatedImage()
+    public function updatedImages()
     {
         $this->validate([
-            'image' => 'image|max:20480',
+            'images.*' => 'image|max:20480',
         ]);
-
-        // Add to queue
-        $this->uploadQueue[] = $this->image;
-        $this->image = null;
     }
 
     public function save()
     {
         try {
+            $this->validate([
+                'images.*' => 'image|max:20480',
+            ]);
+
             $this->isUploading = true;
-            $totalFiles = count($this->uploadQueue);
+            $totalFiles = count($this->images);
             $processedFiles = 0;
 
-            foreach ($this->uploadQueue as $image) {
+            foreach ($this->images as $image) {
+                // Create a temporary file for S3
+                $tempPath = $image->getRealPath();
+
                 $this->model
-                    ->addMedia($image->getRealPath())
+                    ->addMedia($tempPath)
                     ->toMediaCollection($this->collection, 's3');
 
                 $processedFiles++;
                 $this->uploadProgress = ($processedFiles / $totalFiles) * 100;
             }
 
-            $this->uploadQueue = [];
+            $this->images = [];
             $this->existingImages = $this->model->fresh()->getMedia($this->collection);
             $this->isUploading = false;
             $this->uploadProgress = 0;
@@ -65,12 +67,6 @@ class UploadPhoto extends Component
             $this->uploadProgress = 0;
             session()->flash('error', 'Error uploading images: ' . $e->getMessage());
         }
-    }
-
-    public function removeFromQueue($index)
-    {
-        unset($this->uploadQueue[$index]);
-        $this->uploadQueue = array_values($this->uploadQueue);
     }
 
     public function removeImage($mediaId)
