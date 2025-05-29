@@ -26,13 +26,6 @@ class UploadPhoto extends Component
         $this->existingImages = $model->getMedia($this->collection);
     }
 
-    public function updatedImages()
-    {
-        $this->validate([
-            'images.*' => 'image|max:20480',
-        ]);
-    }
-
     public function save()
     {
         try {
@@ -45,7 +38,6 @@ class UploadPhoto extends Component
             $processedFiles = 0;
 
             foreach ($this->images as $image) {
-                // Use the default disk configuration
                 $this->model
                     ->addMedia($image->getRealPath())
                     ->usingName($image->getClientOriginalName())
