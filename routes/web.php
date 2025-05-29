@@ -9,7 +9,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\Admin\AlbumController;
 use App\Http\Controllers\Admin\PhotoController;
 use App\Http\Controllers\PhotoController as FrontendPhotoController;
-// use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\GalleryController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -40,9 +40,9 @@ Route::get('/contact', function () {
 })->name('contact');
 
 // Fetches custom pages from the database
-// Route::get('/{slug}', [PageController::class, 'show'])
-//     ->where('slug', '^(?!admin|login|register|api).*$')
-//     ->name('page.show');
+Route::get('/{slug}', [PageController::class, 'show'])
+    ->where('slug', '^(?!admin|login|register|verify-email|api).*$')
+    ->name('page.show');
 
 // just to test functionality
 Route::get('/subscribers', function () {
@@ -53,18 +53,14 @@ Route::get('/subscribers', function () {
 Route::get('/blog', [PostController::class, 'index'])->name('blog.index');
 Route::get('/blog/{slug}', [PostController::class, 'show'])->name('blog.show');
 
-// Route::prefix('gallery')->group(function () {
-//     Route::get('/', GalleryController::class, 'index')->name('gallery.index');
-//     Route::get('/album/{album:slug}', GalleryController::class, 'album')->name('gallery.album');
-//     Route::get('/album/{album:slug}/{image}', GalleryController::class, 'image')->name('gallery.image');
-// });
+Route::prefix('gallery')->group(function () {
+    Route::get('/', [GalleryController::class, 'index'])->name('gallery.index');
+    Route::get('/album/{album:slug}', [GalleryController::class, 'album'])->name('gallery.album');
+    Route::get('/album/{album:slug}/{image}', [GalleryController::class, 'image'])->name('gallery.image');
+});
 
 // Show an individual image 
 Route::get('/image/{image}', [FrontendPhotoController::class, 'show'])->name('image.show');
-
-Route::get('/contact', function () {
-    return view('contact');
-});
 
 // Admin Dashboard - Grouping routes under 'admin' middleware and prefix for organization
 Route::prefix('admin')->name('admin.')->middleware('auth', 'verified', 'permission:view dashboard')->group(function () {

@@ -6,38 +6,70 @@ use App\Models\Photo;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\Attributes\Validate;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class UploadPhoto extends Component
 {
     use WithFileUploads;
 
-    #[Validate(['photos.*' => 'image|max:20480'])]
-    public $photos = [];
+    #[Validate(['image.*' => 'image|max:20480'])]
+    public $image;
+    public $model;
+    public $collection = 'images';
+    public $existingImages = [];
+    public $uploadQueue = [];
+    public $isUploading = false;
 
-
-    public function save()
+    public function mount($model)
     {
-        $this->validate();
+        $this->model = $model;
+        $this->existingImages = $model->getMedia($this->collection);
+    }
 
-        foreach ($this->photos as $file) {
-            // Create a new Photo instance or use an existing one
-            $photo = new Photo();
-            $photo->save(); // Save the Photo instance to associate media with it
+    public function updatedImage()
+    {
+        $this->validate([
+            'image' => 'image|max:20480', // 20MB max
+        ]);
 
-            // Use the correct path of the temporary uploaded file
-            $tempFilePath = $file->getPathname();
+        // Add to queue
+        $this->uploadQueue[] = $this->image;
+        $this->image = null;
 
+        // Start processing queue if not already processing
+        if (!$this->isUploading) {
+            $this->processQueue();
+        }
+    }
 
-            // Add media to the 'images' collection using Spatie Media Library
-            $photo->addMedia($tempFilePath)
-                ->usingFileName($file->getClientOriginalName())
-                ->toMediaCollection('images', 's3'); // Specify the S3 disk
-
-            // No need to manually delete the temporary file; Livewire handles cleanup
+    public function processQueue()
+    {
+        if (empty($this->uploadQueue)) {
+            $this->isUploading = false;
+            return;
         }
 
-        $this->photos = [];
-        session()->flash('success', 'Photos uploaded successfully.');
+        $this->isUploading = true;
+        $image = array_shift($this->uploadQueue);
+
+        $this->model
+            ->addMedia($image->getRealPath())
+            ->toMediaCollection($this->collection, 's3');
+
+        $this->existingImages = $this->model->fresh()->getMedia($this->collection);
+        $this->emit('imagesUpdated');
+
+        // Process next item in queue
+        $this->processQueue();
+    }
+
+    public function removeImage($mediaId)
+    {
+        $media = Media::find($mediaId);
+        if ($media) {
+            $media->delete();
+        }
+        $this->existingImages = $this->model->fresh()->getMedia($this->collection);
     }
 
     public function render()
