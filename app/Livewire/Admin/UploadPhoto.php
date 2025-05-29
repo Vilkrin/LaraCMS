@@ -45,19 +45,11 @@ class UploadPhoto extends Component
             $processedFiles = 0;
 
             foreach ($this->images as $image) {
-                // Store the file temporarily in the local disk
-                $path = $image->store('temp', 'local');
-
-                // Add the file to the media collection from the local disk
+                // Use the default disk configuration
                 $this->model
-                    ->addMedia(storage_path('app/' . $path))
+                    ->addMedia($image->getRealPath())
                     ->usingName($image->getClientOriginalName())
-                    ->toMediaCollection($this->collection, 's3');
-
-                // Clean up the temporary file
-                if (file_exists(storage_path('app/' . $path))) {
-                    unlink(storage_path('app/' . $path));
-                }
+                    ->toMediaCollection($this->collection);
 
                 $processedFiles++;
                 $this->uploadProgress = ($processedFiles / $totalFiles) * 100;
