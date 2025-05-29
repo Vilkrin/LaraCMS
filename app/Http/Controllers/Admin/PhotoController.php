@@ -14,7 +14,8 @@ class PhotoController extends Controller
      */
     public function index()
     {
-        return view('admin.gallery.photo.index');
+        $photos = Photo::with('media')->get();
+        return view('admin.gallery.photo.index', compact('photos'));
     }
 
     /**
@@ -32,7 +33,9 @@ class PhotoController extends Controller
      */
     public function store(StorePhotoRequest $request)
     {
-        //
+        $photo = Photo::create($request->validated());
+        return redirect()->route('admin.photos.index')
+            ->with('success', 'Photo created successfully.');
     }
 
     /**
@@ -40,7 +43,7 @@ class PhotoController extends Controller
      */
     public function show(Photo $photo)
     {
-        //
+        return view('admin.gallery.photo.show', compact('photo'));
     }
 
     /**
@@ -48,7 +51,7 @@ class PhotoController extends Controller
      */
     public function edit(Photo $photo)
     {
-        //
+        return view('admin.gallery.photo.edit', compact('photo'));
     }
 
     /**
@@ -56,7 +59,9 @@ class PhotoController extends Controller
      */
     public function update(UpdatePhotoRequest $request, Photo $photo)
     {
-        //
+        $photo->update($request->validated());
+        return redirect()->route('admin.photos.index')
+            ->with('success', 'Photo updated successfully.');
     }
 
     /**
@@ -64,6 +69,8 @@ class PhotoController extends Controller
      */
     public function destroy(Photo $photo)
     {
-        //
+        $photo->delete();
+        return redirect()->route('admin.photos.index')
+            ->with('success', 'Photo deleted successfully.');
     }
 }

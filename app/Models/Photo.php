@@ -12,7 +12,7 @@ class Photo extends Model implements HasMedia
 {
     use InteractsWithMedia;
 
-    protected $guarded = [];
+    protected $table = 'photos';
 
     public function registerMediaCollections(): void
     {

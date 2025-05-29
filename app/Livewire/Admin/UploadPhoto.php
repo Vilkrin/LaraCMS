@@ -12,29 +12,31 @@ class UploadPhoto extends Component
 {
     use WithFileUploads;
 
-    #[Validate(['image.*' => 'image|max:20480'])]
-    public $image;
-    public Photo $model; // Type hint the model
+    #[Validate(['images.*' => 'image|max:20480'])] // Changed from image to images.*
+    public $images = []; // Changed from $image to $images array
+    public $model;
     public $collection = 'images';
     public $existingImages = [];
     public $uploadQueue = [];
     public $isUploading = false;
 
-    public function mount(Photo $model) // Type hint the parameter
+    public function mount($model)
     {
         $this->model = $model;
         $this->existingImages = $model->getMedia($this->collection);
     }
 
-    public function updatedImage()
+    public function updatedImages()
     {
         $this->validate([
-            'image' => 'image|max:20480',
+            'images.*' => 'image|max:20480', // 20MB max
         ]);
 
         // Add to queue
-        $this->uploadQueue[] = $this->image;
-        $this->image = null;
+        foreach ($this->images as $image) {
+            $this->uploadQueue[] = $image;
+        }
+        $this->images = [];
 
         // Start processing queue if not already processing
         if (!$this->isUploading) {
