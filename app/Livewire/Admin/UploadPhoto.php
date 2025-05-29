@@ -12,8 +12,8 @@ class UploadPhoto extends Component
 {
     use WithFileUploads;
 
-    #[Validate(['images.*' => 'image|max:20480'])] // Changed from image to images.*
-    public $images = []; // Changed from $image to $images array
+    #[Validate(['images.*' => 'image|max:20480'])]
+    public $images = [];
     public $model;
     public $collection = 'images';
     public $existingImages = [];
@@ -28,19 +28,23 @@ class UploadPhoto extends Component
 
     public function updatedImages()
     {
-        $this->validate([
-            'images.*' => 'image|max:20480', // 20MB max
-        ]);
+        try {
+            $this->validate([
+                'images.*' => 'image|max:20480',
+            ]);
 
-        // Add to queue
-        foreach ($this->images as $image) {
-            $this->uploadQueue[] = $image;
-        }
-        $this->images = [];
+            // Add to queue
+            foreach ($this->images as $image) {
+                $this->uploadQueue[] = $image;
+            }
+            $this->images = [];
 
-        // Start processing queue if not already processing
-        if (!$this->isUploading) {
-            $this->processQueue();
+            // Start processing queue if not already processing
+            if (!$this->isUploading) {
+                $this->processQueue();
+            }
+        } catch (\Exception $e) {
+            session()->flash('error', 'Error validating images: ' . $e->getMessage());
         }
     }
 
@@ -61,6 +65,7 @@ class UploadPhoto extends Component
 
             $this->existingImages = $this->model->fresh()->getMedia($this->collection);
             $this->emit('imagesUpdated');
+            session()->flash('success', 'Image uploaded successfully');
         } catch (\Exception $e) {
             session()->flash('error', 'Error uploading image: ' . $e->getMessage());
         }
@@ -71,11 +76,16 @@ class UploadPhoto extends Component
 
     public function removeImage($mediaId)
     {
-        $media = Media::find($mediaId);
-        if ($media) {
-            $media->delete();
+        try {
+            $media = Media::find($mediaId);
+            if ($media) {
+                $media->delete();
+                $this->existingImages = $this->model->fresh()->getMedia($this->collection);
+                session()->flash('success', 'Image deleted successfully');
+            }
+        } catch (\Exception $e) {
+            session()->flash('error', 'Error deleting image: ' . $e->getMessage());
         }
-        $this->existingImages = $this->model->fresh()->getMedia($this->collection);
     }
 
     public function render()
