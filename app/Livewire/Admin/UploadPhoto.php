@@ -45,26 +45,18 @@ class UploadPhoto extends Component
             $processedFiles = 0;
 
             foreach ($this->images as $image) {
-                // Store the file locally first
-                $localPath = storage_path('app/temp/' . uniqid() . '_' . $image->getClientOriginalName());
+                // Store the file temporarily in the local disk
+                $path = $image->store('temp', 'local');
 
-                // Ensure the temp directory exists
-                if (!file_exists(storage_path('app/temp'))) {
-                    mkdir(storage_path('app/temp'), 0755, true);
-                }
-
-                // Move the uploaded file to local storage
-                $image->storeAs('temp', basename($localPath));
-
-                // Add the file to the media collection from local storage
+                // Add the file to the media collection from the local disk
                 $this->model
-                    ->addMedia(storage_path('app/temp/' . basename($localPath)))
+                    ->addMedia(storage_path('app/' . $path))
                     ->usingName($image->getClientOriginalName())
                     ->toMediaCollection($this->collection, 's3');
 
-                // Clean up the local file
-                if (file_exists($localPath)) {
-                    unlink($localPath);
+                // Clean up the temporary file
+                if (file_exists(storage_path('app/' . $path))) {
+                    unlink(storage_path('app/' . $path));
                 }
 
                 $processedFiles++;
