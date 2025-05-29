@@ -19,7 +19,7 @@
                 wire:model="images" 
                 class="form-control" 
                 accept="image/*"
-                multiple 
+                multiple
                 id="file-upload"
             >
             <label for="file-upload" class="cursor-pointer">
@@ -29,12 +29,12 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
                         </svg>
                         <span class="text-gray-500">Click to select or drag and drop images</span>
-                        <span class="text-sm text-gray-400 mt-1">PNG, JPG, GIF up to 20MB</span> <!-- Updated size limit -->
+                        <span class="text-sm text-gray-400 mt-1">PNG, JPG, GIF up to 20MB</span>
                     </div>
                 </div>
             </label>
         </div>
-        @error('images.*') <!-- Changed from image to images.* -->
+        @error('images.*') 
             <span class="text-red-500 text-sm mt-1">{{ $message }}</span> 
         @enderror
     </div>
@@ -50,13 +50,27 @@
         </div>
     @endif
 
+    <!-- Error Messages -->
+    @if (session()->has('error'))
+        <div class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+            {{ session('error') }}
+        </div>
+    @endif
+
+    <!-- Success Messages -->
+    @if (session()->has('success'))
+        <div class="mb-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <div class="mb-4">
         <button 
             type="submit" 
             class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
-            {{ empty($images) ? 'disabled' : '' }} <!-- Changed condition -->
+            {{ count($images) === 0 ? 'disabled' : '' }}
         >
-            Upload Images <!-- Changed text -->
+            Upload Images
         </button>
     </div>
 
@@ -83,50 +97,3 @@
     </div>
   </form>
 </div>
-
-@push('scripts')
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const dropZone = document.querySelector('.border-dashed');
-        
-        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-            dropZone.addEventListener(eventName, preventDefaults, false);
-        });
-
-        function preventDefaults (e) {
-            e.preventDefault();
-            e.stopPropagation();
-        }
-
-        ['dragenter', 'dragover'].forEach(eventName => {
-            dropZone.addEventListener(eventName, highlight, false);
-        });
-
-        ['dragleave', 'drop'].forEach(eventName => {
-            dropZone.addEventListener(eventName, unhighlight, false);
-        });
-
-        function highlight(e) {
-            dropZone.classList.add('border-blue-500');
-            dropZone.classList.add('bg-blue-50');
-        }
-
-        function unhighlight(e) {
-            dropZone.classList.remove('border-blue-500');
-            dropZone.classList.remove('bg-blue-50');
-        }
-
-        dropZone.addEventListener('drop', handleDrop, false);
-
-        function handleDrop(e) {
-            const dt = e.dataTransfer;
-            const files = dt.files;
-            
-            // Trigger file input with dropped files
-            const fileInput = document.querySelector('#file-upload');
-            fileInput.files = files;
-            fileInput.dispatchEvent(new Event('change'));
-        }
-    });
-</script>
-@endpush
