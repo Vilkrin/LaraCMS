@@ -14,13 +14,13 @@ class UploadPhoto extends Component
 
     #[Validate(['image.*' => 'image|max:20480'])]
     public $image;
-    public $model;
+    public Photo $model; // Type hint the model
     public $collection = 'images';
     public $existingImages = [];
     public $uploadQueue = [];
     public $isUploading = false;
 
-    public function mount($model)
+    public function mount(Photo $model) // Type hint the parameter
     {
         $this->model = $model;
         $this->existingImages = $model->getMedia($this->collection);
@@ -29,7 +29,7 @@ class UploadPhoto extends Component
     public function updatedImage()
     {
         $this->validate([
-            'image' => 'image|max:20480', // 20MB max
+            'image' => 'image|max:20480',
         ]);
 
         // Add to queue
@@ -52,12 +52,16 @@ class UploadPhoto extends Component
         $this->isUploading = true;
         $image = array_shift($this->uploadQueue);
 
-        $this->model
-            ->addMedia($image->getRealPath())
-            ->toMediaCollection($this->collection, 's3');
+        try {
+            $this->model
+                ->addMedia($image->getRealPath())
+                ->toMediaCollection($this->collection, 's3');
 
-        $this->existingImages = $this->model->fresh()->getMedia($this->collection);
-        $this->emit('imagesUpdated');
+            $this->existingImages = $this->model->fresh()->getMedia($this->collection);
+            $this->emit('imagesUpdated');
+        } catch (\Exception $e) {
+            session()->flash('error', 'Error uploading image: ' . $e->getMessage());
+        }
 
         // Process next item in queue
         $this->processQueue();

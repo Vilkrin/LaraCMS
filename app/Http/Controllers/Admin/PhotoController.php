@@ -22,7 +22,9 @@ class PhotoController extends Controller
      */
     public function create()
     {
-        return view('admin.gallery.photo.create');
+        $photo = new Photo();
+        $photo->save(); // Create a new photo record to attach media to
+        return view('admin.gallery.photo.create', compact('photo'));
     }
 
     /**
