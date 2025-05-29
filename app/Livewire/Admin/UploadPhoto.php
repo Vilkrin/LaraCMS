@@ -45,12 +45,27 @@ class UploadPhoto extends Component
             $processedFiles = 0;
 
             foreach ($this->images as $image) {
-                // For Laravel Cloud, we can use the temporary file directly
-                // as it's already in a format that works with their infrastructure
+                // Store the file locally first
+                $localPath = storage_path('app/temp/' . uniqid() . '_' . $image->getClientOriginalName());
+
+                // Ensure the temp directory exists
+                if (!file_exists(storage_path('app/temp'))) {
+                    mkdir(storage_path('app/temp'), 0755, true);
+                }
+
+                // Move the uploaded file to local storage
+                $image->storeAs('temp', basename($localPath));
+
+                // Add the file to the media collection from local storage
                 $this->model
-                    ->addMedia($image->getRealPath())
+                    ->addMedia(storage_path('app/temp/' . basename($localPath)))
                     ->usingName($image->getClientOriginalName())
                     ->toMediaCollection($this->collection, 's3');
+
+                // Clean up the local file
+                if (file_exists($localPath)) {
+                    unlink($localPath);
+                }
 
                 $processedFiles++;
                 $this->uploadProgress = ($processedFiles / $totalFiles) * 100;
