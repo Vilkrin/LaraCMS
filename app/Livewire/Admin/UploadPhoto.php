@@ -45,12 +45,21 @@ class UploadPhoto extends Component
             $processedFiles = 0;
 
             foreach ($this->images as $image) {
-                // Create a temporary file for S3
+                // Get the temporary file path
                 $tempPath = $image->getRealPath();
 
+                // Create a temporary file with a unique name
+                $tempFile = tempnam(sys_get_temp_dir(), 'upload_');
+                copy($tempPath, $tempFile);
+
+                // Add the file to the media collection
                 $this->model
-                    ->addMedia($tempPath)
+                    ->addMedia($tempFile)
+                    ->usingName($image->getClientOriginalName())
                     ->toMediaCollection($this->collection, 's3');
+
+                // Clean up the temporary file
+                @unlink($tempFile);
 
                 $processedFiles++;
                 $this->uploadProgress = ($processedFiles / $totalFiles) * 100;
