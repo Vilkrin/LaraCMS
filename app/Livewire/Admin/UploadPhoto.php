@@ -17,8 +17,8 @@ class UploadPhoto extends Component
     public $model;
     public $collection = 'images';
     public $existingImages = [];
-    public $uploadQueue = [];
     public $isUploading = false;
+    public $uploadProgress = 0;
 
     public function mount($model)
     {
@@ -28,50 +28,42 @@ class UploadPhoto extends Component
 
     public function updatedImages()
     {
+        $this->validate([
+            'images.*' => 'image|max:20480',
+        ]);
+    }
+
+    public function save()
+    {
         try {
             $this->validate([
                 'images.*' => 'image|max:20480',
             ]);
 
-            // Add to queue
+            $this->isUploading = true;
+            $totalFiles = count($this->images);
+            $processedFiles = 0;
+
             foreach ($this->images as $image) {
-                $this->uploadQueue[] = $image;
+                $this->model
+                    ->addMedia($image->getRealPath())
+                    ->toMediaCollection($this->collection, 's3');
+
+                $processedFiles++;
+                $this->uploadProgress = ($processedFiles / $totalFiles) * 100;
             }
+
             $this->images = [];
-
-            // Start processing queue if not already processing
-            if (!$this->isUploading) {
-                $this->processQueue();
-            }
-        } catch (\Exception $e) {
-            session()->flash('error', 'Error validating images: ' . $e->getMessage());
-        }
-    }
-
-    public function processQueue()
-    {
-        if (empty($this->uploadQueue)) {
-            $this->isUploading = false;
-            return;
-        }
-
-        $this->isUploading = true;
-        $image = array_shift($this->uploadQueue);
-
-        try {
-            $this->model
-                ->addMedia($image->getRealPath())
-                ->toMediaCollection($this->collection, 's3');
-
             $this->existingImages = $this->model->fresh()->getMedia($this->collection);
-            $this->emit('imagesUpdated');
-            session()->flash('success', 'Image uploaded successfully');
-        } catch (\Exception $e) {
-            session()->flash('error', 'Error uploading image: ' . $e->getMessage());
-        }
+            $this->isUploading = false;
+            $this->uploadProgress = 0;
 
-        // Process next item in queue
-        $this->processQueue();
+            session()->flash('success', 'Images uploaded successfully');
+        } catch (\Exception $e) {
+            $this->isUploading = false;
+            $this->uploadProgress = 0;
+            session()->flash('error', 'Error uploading images: ' . $e->getMessage());
+        }
     }
 
     public function removeImage($mediaId)

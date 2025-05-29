@@ -44,8 +44,11 @@
             <div class="flex items-center space-x-2">
                 <div class="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-500"></div>
                 <div class="text-sm text-gray-500">
-                    Uploading... {{ count($uploadQueue) }} files remaining
+                    Uploading images... {{ round($uploadProgress) }}%
                 </div>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2">
+                <div class="bg-blue-600 h-2.5 rounded-full" style="width: {{ $uploadProgress }}%"></div>
             </div>
         </div>
     @endif
