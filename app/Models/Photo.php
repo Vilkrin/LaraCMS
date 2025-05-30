@@ -14,6 +14,11 @@ class Photo extends Model implements HasMedia
 
     protected $table = 'photos';
 
+    protected $fillable = [
+        'title',
+        'description'
+    ];
+
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('images');
@@ -25,5 +30,10 @@ class Photo extends Model implements HasMedia
             ->addMediaConversion('preview')
             ->fit(Fit::Contain, 300, 300)
             ->nonQueued();
+    }
+
+    public function albums()
+    {
+        return $this->belongsToMany(Album::class, 'album_photo', 'photo_id', 'album_id');
     }
 }

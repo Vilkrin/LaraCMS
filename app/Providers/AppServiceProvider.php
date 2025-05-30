@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
     {
         //
 
-        DB::prohibitDestructiveCommands($this->app->isProduction());
+        // DB::prohibitDestructiveCommands($this->app->isProduction());
 
         // Implicitly grant "Super Admin" role all permissions
         // This works in the app by using gate-related functions like auth()->user->can() and @can()

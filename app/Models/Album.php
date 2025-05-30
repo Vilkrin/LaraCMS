@@ -13,6 +13,8 @@ class Album extends Model implements HasMedia
 {
     use InteractsWithMedia;
 
+    protected $table = 'album';
+
     protected $fillable = [
         'album_name',
         'slug',
@@ -37,17 +39,16 @@ class Album extends Model implements HasMedia
         return 'slug';
     }
 
-    // Relationship to Spatie Media Library
-    // public function media()
-    // {
-    //     return $this->morphMany(Media::class, 'model');
-    // }
-
     public function registerMediaConversions(?Media $media = null): void
     {
         $this
             ->addMediaConversion('preview')
             ->fit(Fit::Contain, 300, 300)
             ->nonQueued();
+    }
+
+    public function photos()
+    {
+        return $this->belongsToMany(Photo::class, 'album_photo');
     }
 }
