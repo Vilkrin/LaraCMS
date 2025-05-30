@@ -38,10 +38,16 @@ class UploadPhoto extends Component
             $processedFiles = 0;
 
             foreach ($this->images as $image) {
-                $this->model
+                // $image is a temporary local file uploaded by Livewire
+                $media = $this->model
                     ->addMedia($image->getRealPath())
                     ->usingName($image->getClientOriginalName())
-                    ->toMediaCollection($this->collection);
+                    ->toMediaCollection($this->collection, 's3'); // Specify S3 disk
+
+                // Optionally delete the temp file after upload
+                if (file_exists($image->getRealPath())) {
+                    @unlink($image->getRealPath());
+                }
 
                 $processedFiles++;
                 $this->uploadProgress = ($processedFiles / $totalFiles) * 100;
