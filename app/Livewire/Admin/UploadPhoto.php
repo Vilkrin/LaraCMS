@@ -1,4 +1,5 @@
 <?php
+<?php
 
 namespace App\Livewire\Admin;
 
@@ -14,16 +15,13 @@ class UploadPhoto extends Component
 
     #[Validate(['images.*' => 'image|max:20480'])]
     public $images = [];
-    public $model;
-    public $collection = 'images';
     public $existingImages = [];
     public $isUploading = false;
     public $uploadProgress = 0;
 
-    public function mount($model)
+    public function mount()
     {
-        $this->model = $model;
-        $this->existingImages = $model->getMedia($this->collection);
+        $this->existingImages = Photo::with('media')->get();
     }
 
     public function save()
@@ -38,13 +36,13 @@ class UploadPhoto extends Component
             $processedFiles = 0;
 
             foreach ($this->images as $image) {
-                // $image is a temporary local file uploaded by Livewire
-                $media = $this->model
-                    ->addMedia($image->getRealPath())
-                    ->usingName($image->getClientOriginalName())
-                    ->toMediaCollection($this->collection, 's3'); // Specify S3 disk
+                $photo = new Photo();
+                $photo->save();
 
-                // Optionally delete the temp file after upload
+                $photo->addMedia($image->getRealPath())
+                    ->usingName($image->getClientOriginalName())
+                    ->toMediaCollection('images', 's3');
+
                 if (file_exists($image->getRealPath())) {
                     @unlink($image->getRealPath());
                 }
@@ -54,7 +52,7 @@ class UploadPhoto extends Component
             }
 
             $this->images = [];
-            $this->existingImages = $this->model->fresh()->getMedia($this->collection);
+            $this->existingImages = Photo::with('media')->get();
             $this->isUploading = false;
             $this->uploadProgress = 0;
 
@@ -69,12 +67,19 @@ class UploadPhoto extends Component
     public function removeImage($mediaId)
     {
         try {
-            $media = Media::find($mediaId);
-            if ($media) {
-                $media->delete();
-                $this->existingImages = $this->model->fresh()->getMedia($this->collection);
-                session()->flash('success', 'Image deleted successfully');
+            $photo = Photo::whereHas('media', function ($q) use ($mediaId) {
+                $q->where('id', $mediaId);
+            })->first();
+
+            if ($photo) {
+                $media = $photo->media()->find($mediaId);
+                if ($media) {
+                    $media->delete();
+                }
             }
+
+            $this->existingImages = Photo::with('media')->get();
+            session()->flash('success', 'Image deleted successfully');
         } catch (\Exception $e) {
             session()->flash('error', 'Error deleting image: ' . $e->getMessage());
         }
