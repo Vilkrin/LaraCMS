@@ -39,6 +39,20 @@
         @enderror
     </div>
 
+    {{-- Image Previews for Selected Files --}}
+    @if ($images)
+        <div class="mb-4">
+            <h2 class="text-lg font-semibold mb-2">Preview Selected Images</h2>
+            <div class="flex flex-wrap gap-4">
+                @foreach ($images as $image)
+                    <div>
+                        <img src="{{ $image->temporaryUrl() }}" class="w-24 h-24 object-cover rounded border" alt="Preview">
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    @endif
+
     @if($isUploading)
         <div class="mb-4">
             <div class="flex items-center space-x-2">
