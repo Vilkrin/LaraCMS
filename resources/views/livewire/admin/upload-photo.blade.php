@@ -91,30 +91,35 @@
         </button>
     </div>
 
-    <!-- Existing Images -->
-    <div class="mt-8">
-        <h2 class="text-xl font-semibold mb-4">Uploaded Images</h2>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            @foreach($existingImages as $image)
-                <div class="relative group">
+<!-- Existing Images -->
+<div class="mt-8">
+    <h2 class="text-xl font-semibold mb-4">Uploaded Images</h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        @foreach($existingImages as $image)
+            <div class="relative group">
+                @php
+                    $media = $image->getFirstMedia('images');
+                @endphp
+                @if($media)
                     <img 
-                        src="{{ $image->getUrl() }}" 
+                        src="{{ $media->getUrl() }}" 
                         class="w-full h-32 object-cover rounded-lg"
                         alt="Uploaded image"
                     >
-                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-200 rounded-lg flex items-center justify-center">
-                        <button 
-                            wire:click="removeImage({{ $image->id }})"
-                            class="opacity-0 group-hover:opacity-100 bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition-all duration-200"
-                        >
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-                            </svg>
-                        </button>
-                    </div>
+                @endif
+                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-200 rounded-lg flex items-center justify-center">
+                    <button 
+                        wire:click="removeImage({{ $image->id }})"
+                        class="opacity-0 group-hover:opacity-100 bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition-all duration-200"
+                    >
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                        </svg>
+                    </button>
                 </div>
-            @endforeach
-        </div>
+            </div>
+        @endforeach
     </div>
+</div>
   </form>
 </div>
