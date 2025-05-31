@@ -96,6 +96,7 @@
     <h2 class="text-xl font-semibold mb-4">Uploaded Images</h2>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
             @foreach($existingImages as $image)
+             <div class="relative group">
                 @php
                     $media = $image->getFirstMedia('images');
                 @endphp
