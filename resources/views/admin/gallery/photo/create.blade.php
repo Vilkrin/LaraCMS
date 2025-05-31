@@ -1,5 +1,5 @@
 <x-adminlayout>
 
-  <livewire:admin.upload-photo :model="$photo" />
+  <livewire:admin.upload-photo />
 
 </x-adminlayout>

@@ -95,7 +95,7 @@
 <div class="mt-8">
     <h2 class="text-xl font-semibold mb-4">Uploaded Images</h2>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            @foreach($existingImages)
+            @foreach($existingImages as $image)
              <div class="relative group">
                 @php
                     $media = $image->getFirstMedia('images');
@@ -106,6 +106,7 @@
                         class="w-full h-32 object-cover rounded-lg"
                         alt="Uploaded image"
                     >
+                @endif
                 <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-200 rounded-lg flex items-center justify-center">
                     <button 
                         wire:click="removeImage({{ $image->id }})"
