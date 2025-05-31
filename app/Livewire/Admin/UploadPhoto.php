@@ -38,12 +38,12 @@ class UploadPhoto extends Component
                 $photo = new Photo();
                 $photo->save();
 
-                $photo->addMedia($image->getRealPath())
+                $photo->addMedia($image->getPathname())
                     ->usingName($image->getClientOriginalName())
                     ->toMediaCollection('images', 's3');
 
-                if (file_exists($image->getRealPath())) {
-                    @unlink($image->getRealPath());
+                if (file_exists($image->getPathname())) {
+                    @unlink($image->getPathname());
                 }
 
                 $processedFiles++;
