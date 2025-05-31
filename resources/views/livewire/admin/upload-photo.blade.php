@@ -44,12 +44,25 @@
         <div class="mb-4">
             <h2 class="text-lg font-semibold mb-2">Preview Selected Images</h2>
             <div class="flex flex-wrap gap-4">
+                @php $hasInvalid = false; @endphp
                 @foreach ($images as $image)
                     <div>
-                        <img src="{{ $image->temporaryUrl() }}" class="w-24 h-24 object-cover rounded border" alt="Preview">
+                        @if ($image && method_exists($image, 'temporaryUrl'))
+                            <img src="{{ $image->temporaryUrl() }}" class="w-24 h-24 object-cover rounded border" alt="Preview">
+                        @else
+                            @php $hasInvalid = true; @endphp
+                            <div class="w-24 h-24 flex items-center justify-center bg-red-200 rounded border text-xs text-red-700">
+                                Invalid or not previewable
+                            </div>
+                        @endif
                     </div>
                 @endforeach
             </div>
+            @if ($hasInvalid)
+                <div class="mt-2 text-red-600 text-sm font-semibold">
+                    One or more selected files are not valid images and will not be uploaded.
+                </div>
+            @endif
         </div>
     @endif
 
