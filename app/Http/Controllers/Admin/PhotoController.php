@@ -23,7 +23,7 @@ class PhotoController extends Controller
      */
     public function create()
     {
-        return view('admin.gallery.photo.create', compact('photo'));
+        return view('admin.gallery.photo.create');
     }
 
     /**
