@@ -38,9 +38,20 @@ class UploadPhoto extends Component
                 $photo = new Photo();
                 $photo->save();
 
-                $photo->addMedia($image->getPathname())
+                \Log::info('Uploading image', [
+                    'file' => $image->getClientOriginalName(),
+                    'path' => $image->getPathname(),
+                    'exists' => file_exists($image->getPathname()),
+                ]);
+
+                $media = $photo->addMedia($image->getPathname())
                     ->usingName($image->getClientOriginalName())
                     ->toMediaCollection('images', 's3');
+
+                \Log::info('Upload complete', [
+                    'media_id' => $media->id ?? null,
+                    'media_path' => $media->getPath() ?? null,
+                ]);
 
                 if (file_exists($image->getPathname())) {
                     @unlink($image->getPathname());
