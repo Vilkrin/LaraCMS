@@ -57,7 +57,7 @@ Route::get('/forum', function () {
 
 // Fetches custom pages from the database
 Route::get('/{slug}', [PageController::class, 'show'])
-    ->where('slug', '^(?!admin|login|register|logout|profile|verify-email|store|subscribers|forum|api).*$')
+    ->where('slug', '^(?!admin|login|register|logout|verify-email|blog|profile|store|subscribers|forum|confirm-password|api).*$')
     ->name('page.show');
 
 // just to test functionality
