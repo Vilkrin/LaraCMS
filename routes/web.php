@@ -1,15 +1,17 @@
 <?php
 
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\AlbumController;
 use App\Http\Controllers\Admin\PhotoController;
 use App\Http\Controllers\PhotoController as FrontendPhotoController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\ContactFormController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -31,17 +33,19 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
-Route::get('/about', function () {
-    return view('about');
-})->name('about');
+Route::prefix('profile')->group(function () {
+    Route::get('/', [ProfileController::class, 'profile'])->name('profile');
+});
 
 Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
 
+Route::post('/contact', [ContactFormController::class, 'submit'])->name('contact.submit');
+
 // Fetches custom pages from the database
 Route::get('/{slug}', [PageController::class, 'show'])
-    ->where('slug', '^(?!admin|login|register|verify-email|api).*$')
+    ->where('slug', '^(?!admin|login|register|logout|profile|verify-email|api).*$')
     ->name('page.show');
 
 // just to test functionality
@@ -66,7 +70,7 @@ Route::get('/image/{image}', [FrontendPhotoController::class, 'show'])->name('im
 Route::prefix('admin')->name('admin.')->middleware('auth', 'verified', 'permission:view dashboard')->group(function () {
 
     // Dashboard Route
-    Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
+    Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
 
     // User Management
     Route::resource('users', UserController::class);

@@ -7,7 +7,7 @@
         <div class="relative z-10 text-center px-4">
             <h1 class="text-5xl md:text-7xl font-bold mb-6">Welcome to My Stream</h1>
             <p class="text-xl md:text-2xl text-gray-300 mb-8">Gaming | Community | Entertainment</p>
-            <p class="text-xl md:text-2xl text-gray-300 mb-8">This website is currently Under Development, so there wont't be other areas of the site for awhile and i'll be trickling out as i add them.</p>
+            <p class="text-xl md:text-2xl text-gray-300 mb-8">This website is currently Under Development, so there wont't be other areas of the site for awhile and i'll be adding content soon as there done.</p>
             <div class="flex justify-center space-x-4">
                 <a href="#" class="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-lg text-lg font-semibold transition duration-300">
                     <i class="fab fa-twitch mr-2"></i>Follow on Twitch

@@ -43,12 +43,17 @@
             @forelse ($users as $user)
                 <x-table.row>
                     <x-table.cell>
-                        <img src="#" 
-                        class="w-10 h-10 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" 
-                        alt="{{ $user->name }}'s avatar">
-                        {{-- <img src="{{ $user->getAvatarUrl() }}" 
-                            class="w-10 h-10 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" 
-                            alt="{{ $user->name }}'s avatar"> --}}
+                        @if($user->hasMedia('avatar'))
+                            <img src="{{ $user->getFirstMediaUrl('avatar') }}"
+                                class="w-10 h-10 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
+                                alt="{{ $user->name }}'s avatar">
+                        @else
+                            <span class="inline-block w-10 h-10 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500 bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-gray-400 dark:text-gray-500">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                </svg>
+                            </span>
+                        @endif
                     </x-table.cell>
                     <x-table.cell>{{ $user->name }}</x-table.cell>
                     <x-table.cell class="whitespace-nowrap">{{ $user->getRoleNames()->implode(', ') }}</x-table.cell>

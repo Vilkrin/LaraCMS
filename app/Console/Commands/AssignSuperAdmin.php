@@ -37,14 +37,16 @@ class AssignSuperAdmin extends Command
             return;
         }
 
-        if (!$this->confirm("Are you sure you want to assign 'Super Admin' role to {$email}?", false)) {
-            $this->warn("Operation cancelled.");
-            return;
-        }
+        // Confirm the action
+        // if (!$this->confirm("Are you sure you want to assign 'Super Admin' role to {$email}?", false)) {
+        //     $this->warn("Operation cancelled.");
+        //     return;
+        // }
 
         // Ensure the Super Admin role exists
         $role = Role::firstOrCreate(['name' => 'Super Admin']);
 
+        // Check if the user already has the role
         if ($user->hasRole($role)) {
             $this->info("User {$user->email} already has the Super Admin role.");
             return;

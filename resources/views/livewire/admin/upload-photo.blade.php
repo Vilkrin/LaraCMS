@@ -1,7 +1,7 @@
 <div class="p-6 max-w-4xl mx-auto bg-white dark:bg-gray-800 shadow rounded-lg">
   <h1 class="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-100">Upload Images</h1>
 
-  <form class="space-y-6" wire:submit.prevent="save">
+  <form class="space-y-6" wire:submit="save">
     <!-- Album Selector -->
     <div>
       <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Assign to Album (optional)</label>
@@ -13,7 +13,14 @@
     </div>
 
     <div class="mb-4">
-        <div class="relative">
+        <div class="relative"     
+                x-data="{ uploading: false, progress: 0 }"
+                x-on:livewire-upload-start="uploading = true"
+                x-on:livewire-upload-finish="uploading = false"
+                x-on:livewire-upload-cancel="uploading = false"
+                x-on:livewire-upload-error="uploading = false"
+                x-on:livewire-upload-progress="progress = $event.detail.progress"
+        >
             <input 
                 type="file" 
                 wire:model="images" 
@@ -22,6 +29,10 @@
                 multiple
                 id="file-upload"
             >
+            <!-- Progress Bar -->
+            <div x-show="uploading">
+                <progress max="100" x-bind:value="progress"></progress>
+            </div>
             <label for="file-upload" class="cursor-pointer">
                 <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-500 transition-colors">
                     <div class="flex flex-col items-center">
@@ -63,20 +74,6 @@
                     One or more selected files are not valid images and will not be uploaded.
                 </div>
             @endif
-        </div>
-    @endif
-
-    @if($isUploading)
-        <div class="mb-4">
-            <div class="flex items-center space-x-2">
-                <div class="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-500"></div>
-                <div class="text-sm text-gray-500">
-                    Uploading images... {{ round($uploadProgress) }}%
-                </div>
-            </div>
-            <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2">
-                <div class="bg-blue-600 h-2.5 rounded-full" style="width: {{ $uploadProgress }}%"></div>
-            </div>
         </div>
     @endif
 

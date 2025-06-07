@@ -11,3 +11,24 @@ Alpha Development Build of LaraCMS
 LaraCMS is an open-source content management system (CMS) built on the Laravel framework. It aims to provide a user-friendly interface for managing and publishing content on the web.
 
 LaraCMS is currently in Early Alpha Development.
+
+## Features (That are in the Alpha)
+
+-   Blog
+-   Gallery
+-   Admin - User Management (with Roles & Perms)
+
+## Planned Features
+
+-   Custom Pages
+-   Custom Drag & Drop Menu's
+-   Plugins to Expand on features
+-   Themes
+
+## 🏗️ Tech Stack
+
+-   Laravel 12+
+-   Livewire
+-   Tailwind CSS
+-   Spatie Laravel-Permission
+-   Spatie Media Library
