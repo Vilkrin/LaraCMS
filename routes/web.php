@@ -43,9 +43,21 @@ Route::get('/contact', function () {
 
 Route::post('/contact', [ContactFormController::class, 'submit'])->name('contact.submit');
 
+Route::get('/store', function () {
+    return view('store');
+})->name('store');
+
+Route::get('/subscribers', function () {
+    return view('subscribers');
+})->name('subscribers');
+
+Route::get('/forum', function () {
+    return view('forum');
+})->name('forum');
+
 // Fetches custom pages from the database
 Route::get('/{slug}', [PageController::class, 'show'])
-    ->where('slug', '^(?!admin|login|register|logout|profile|verify-email|api).*$')
+    ->where('slug', '^(?!admin|login|register|logout|profile|verify-email|store|subscribers|forum|api).*$')
     ->name('page.show');
 
 // just to test functionality

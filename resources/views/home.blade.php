@@ -102,7 +102,7 @@
     </section>
 
     <!-- Stream Highlights Section -->
-    <section class="py-20 bg-gray-800">
+    {{-- <section class="py-20 bg-gray-800">
         <div class="container mx-auto px-4">
             <div class="flex flex-col md:flex-row md:items-end justify-between mb-10">
                 <div>
@@ -268,6 +268,6 @@
                 </button>
             </div>
         </div>
-    </section>
+    </section> --}}
 
 </x-layout>
