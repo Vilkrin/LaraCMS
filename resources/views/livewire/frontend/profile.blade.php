@@ -140,6 +140,9 @@
                                             <label class="block text-sm font-medium text-gray-400 mb-2">Confirm Password</label>
                                             <input type="password" class="w-full bg-gray-800 border border-gray-600 rounded-md px-4 py-2 text-white focus:outline-none focus:border-purple-500" placeholder="Confirm new password">
                                         </div>
+                                        {{-- <div>
+                                            <livewire:passkeys />
+                                        </div> --}}
                                     </div>
                                 </div>
 

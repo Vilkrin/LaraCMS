@@ -36,6 +36,9 @@ class Register extends Component
 
         event(new Registered(($user = User::create($validated))));
 
+        // Assign the 'user' role after the user is created
+        $user->assignRole('user');
+
         Auth::login($user);
 
         $this->redirect(route('home', absolute: false), navigate: true);

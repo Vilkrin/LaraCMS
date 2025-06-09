@@ -57,7 +57,7 @@ Route::get('/forum', function () {
 
 // Fetches custom pages from the database
 Route::get('/{slug}', [PageController::class, 'show'])
-    ->where('slug', '^(?!admin|login|register|logout|verify-email|blog|profile|store|subscribers|forum|confirm-password|api).*$')
+    ->where('slug', '^(?!admin|login|register|logout|verify-email|passkeys|blog|profile|store|subscribers|forum|confirm-password|api).*$')
     ->name('page.show');
 
 // just to test functionality
@@ -75,6 +75,9 @@ Route::prefix('gallery')->group(function () {
     Route::get('/album/{album:slug}/{image}', [GalleryController::class, 'image'])->name('gallery.image');
 });
 
+// Spatie Passkeys routes
+Route::passkeys();
+
 // Show an individual image 
 Route::get('/image/{image}', [FrontendPhotoController::class, 'show'])->name('image.show');
 
@@ -91,8 +94,8 @@ Route::prefix('admin')->name('admin.')->middleware('auth', 'verified', 'permissi
 
 
     // Pages
-    Route::get('/pages', [AdminController::class, 'pages'])->name('pages.index');
-    Route::get('/pages/create', [AdminController::class, 'createPage'])->name('pages.create');
+    // Route::get('/pages', [AdminController::class, 'pages'])->name('pages.index');
+    // Route::get('/pages/create', [AdminController::class, 'createPage'])->name('pages.create');
 
     // Blog
     Route::get('/blog/posts', [BlogController::class, 'index'])->name('blog.posts');
