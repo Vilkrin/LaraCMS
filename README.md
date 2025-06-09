@@ -33,4 +33,4 @@ LaraCMS is currently in Early Alpha Development.
 -   Spatie Laravel-Permission
 -   Spatie Media Library
 -   Spatie Laravel Sitemap
--   Spatie One Time Passwords
+-   Spatie Passkeys
