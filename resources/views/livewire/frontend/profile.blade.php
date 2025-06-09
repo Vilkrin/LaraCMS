@@ -144,11 +144,7 @@
                                 </div>
 
                                 <!-- Passkey Authentication -->
-                                <div class="bg-gray-700/50 rounded-lg p-6">
-                                    <h2 class="text-xl font-semibold mb-4">Passkey Authentication</h2>
-                                    <p class="text-sm text-gray-400 mb-4">Secure your account with passkey authentication for a more secure login experience.</p>
-                                    <livewire:passkeys />
-                                </div>
+                                <livewire:passkeys />
 
                                 <!-- Notification Preferences -->
                                 <div class="bg-gray-700/50 rounded-lg p-6">
