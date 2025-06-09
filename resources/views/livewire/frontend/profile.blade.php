@@ -140,10 +140,14 @@
                                             <label class="block text-sm font-medium text-gray-400 mb-2">Confirm Password</label>
                                             <input type="password" class="w-full bg-gray-800 border border-gray-600 rounded-md px-4 py-2 text-white focus:outline-none focus:border-purple-500" placeholder="Confirm new password">
                                         </div>
-                                        {{-- <div>
-                                            <livewire:passkeys />
-                                        </div> --}}
                                     </div>
+                                </div>
+
+                                <!-- Passkey Authentication -->
+                                <div class="bg-gray-700/50 rounded-lg p-6">
+                                    <h2 class="text-xl font-semibold mb-4">Passkey Authentication</h2>
+                                    <p class="text-sm text-gray-400 mb-4">Secure your account with passkey authentication for a more secure login experience.</p>
+                                    <livewire:passkeys />
                                 </div>
 
                                 <!-- Notification Preferences -->
