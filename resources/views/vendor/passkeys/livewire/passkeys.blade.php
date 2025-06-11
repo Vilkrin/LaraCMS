@@ -1,4 +1,4 @@
-<div class="bg-gray-700/50 rounded-lg p-6">
+<div>
     <h1>{{ __('passkeys::passkeys.passkeys') }}</h1>
     <div class="mt-2">
         <form id="passkeyForm" wire:submit="validatePasskeyProperties" class="flex items-center space-x-2">

@@ -111,6 +111,7 @@
                         <button type="submit" class="w-full bg-[#9146FF] hover:bg-[#9146FF]/80 text-white py-3 rounded-lg transition-colors">
                             Send Message
                         </button>
+                        
                     </form>
                 </div>
             </div>
