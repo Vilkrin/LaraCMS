@@ -56,9 +56,9 @@ Route::get('/forum', function () {
 })->name('forum');
 
 // Fetches custom pages from the database
-Route::get('/{slug}', [PageController::class, 'show'])
-    ->where('slug', '^(?!admin|login|register|logout|verify-email|passkeys|blog|profile|store|subscribers|forum|confirm-password|api).*$')
-    ->name('page.show');
+// Route::get('/{slug}', [PageController::class, 'show'])
+//     ->where('slug', '^(?!admin|login|register|logout|verify-email|passkeys|blog|profile|store|subscribers|forum|confirm-password|api).*$')
+//     ->name('page.show');
 
 // just to test functionality
 Route::get('/subscribers', function () {
