@@ -20,7 +20,6 @@ use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use App\Models\Album;
 
-
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
     Route::get('settings/profile', Profile::class)->name('settings.profile');
@@ -33,7 +32,7 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
-Route::prefix('profile')->group(function () {
+Route::prefix('profile')->middleware('auth')->group(function () {
     Route::get('/', [ProfileController::class, 'profile'])->name('profile');
 });
 

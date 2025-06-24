@@ -13,7 +13,7 @@
                                     </svg>
                                 </div>
                                 <div>
-                                    <h2 class="font-semibold">{{ $user->firstName . ' ' . $user->lastName }}</h2>
+                                    <h2 class="font-semibold">John Doe</h2>
                                     <p class="text-sm text-gray-400">{{ '@' . $user->name }}</p>
                                 </div>
                             </div>
@@ -65,7 +65,7 @@
                         <div class="pt-20 pb-8 px-8">
                             <div class="flex justify-between items-start mb-8">
                                 <div>
-                                    <h1 class="text-2xl font-bold">{{ $user->firstName . ' ' . $user->lastName }}</h1>
+                                    <h1 class="text-2xl font-bold">John Doe</h1>
                                     <p class="text-gray-400">{{ '@' . $user->name }}</p>
                                 </div>
                             </div>
@@ -115,20 +115,20 @@
                                                 <label class="block text-sm font-medium text-gray-400 mb-2">Phone</label>
                                                 <input type="tel" class="w-full bg-gray-800 border border-gray-600 rounded-md px-4 py-2 text-white focus:outline-none focus:border-purple-500" value="{{ $user->phone}}">
                                             </div>
-                                        </div>
-                                    </div>
 
-                                    <!-- Account Settings -->
-                                    <div class="bg-gray-700/50 rounded-lg p-6 mt-6">
-                                        <h2 class="text-xl font-semibold mb-4">Account Settings</h2>
                                         <div class="space-y-4">
                                             <div>
                                                 <label class="block text-sm font-medium text-gray-400 mb-2">Username</label>
                                                 <input type="text" class="w-full bg-gray-800 border border-gray-600 rounded-md px-4 py-2 text-white focus:outline-none focus:border-purple-500" value="{{ $user->name }}">
                                             </div>
                                         </div>
-                                        <!-- Password Settings -->
-                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                                        <div class="space-y-4">
+                                            {{-- <div>
+                                                <label class="block text-sm font-medium text-gray-400 mb-2">Username</label>
+                                                <input type="text" class="w-full bg-gray-800 border border-gray-600 rounded-md px-4 py-2 text-white focus:outline-none focus:border-purple-500" value="{{ $user->name }}">
+                                            </div> --}}
+                                        </div>
+                                        <div class="space-y-4 grid grid-cols-1 md:grid-cols-2 gap-6">
                                             <div>
                                                 <label class="block text-sm font-medium text-gray-400 mb-2">Current Password</label>
                                                 <input type="password" placeholder="Current Password" class="w-full bg-gray-800 border border-gray-600 rounded-md px-4 py-2 text-white focus:outline-none focus:border-purple-500">
