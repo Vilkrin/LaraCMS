@@ -19,27 +19,27 @@
                             </div>
                         </div>
                         <nav class="p-2">
-                            <a href="#profile" wire:click.prevent="setTab('profile')" class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-gray-700/50 rounded-lg transition-colors">
+                            <button type="button" wire:click="setTab('profile')" class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-gray-700/50 rounded-lg transition-colors w-full text-left">
                                 <i class="fas fa-user w-5"></i>
                                 <span>Profile</span>
-                            </a>
-                            <a href="#security" wire:click.prevent="setTab('security')" class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-gray-700/50 rounded-lg transition-colors">
+                            </button>
+                            <button type="button" wire:click="setTab('security')" class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-gray-700/50 rounded-lg transition-colors w-full text-left">
                                 <i class="fas fa-shield-alt w-5"></i>
                                 <span>Security</span>
-                            </a>
-                            <a href="#notifications" wire:click.prevent="setTab('notifications')" class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-gray-700/50 rounded-lg transition-colors">
+                            </button>
+                            <button type="button" wire:click="setTab('notifications')" class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-gray-700/50 rounded-lg transition-colors w-full text-left">
                                 <i class="fas fa-bell w-5"></i>
                                 <span>Notifications</span>
-                            </a>
-                            <a href="#connections" wire:click.prevent="setTab('connections')" class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-gray-700/50 rounded-lg transition-colors">
+                            </button>
+                            <button type="button" wire:click="setTab('connections')" class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-gray-700/50 rounded-lg transition-colors w-full text-left">
                                 <i class="fas fa-link w-5"></i>
                                 <span>Connections</span>
-                            </a>
+                            </button>
                             <div class="border-t border-gray-700 my-2"></div>
-                            <a href="#help" wire:click.prevent="setTab('help')" class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-gray-700/50 rounded-lg transition-colors">
+                            <button type="button" wire:click="setTab('help')" class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-gray-700/50 rounded-lg transition-colors w-full text-left">
                                 <i class="fas fa-question-circle w-5"></i>
                                 <span>Help & Support</span>
-                            </a>
+                            </button>
                         </nav>
                     </div>
                 </div>
