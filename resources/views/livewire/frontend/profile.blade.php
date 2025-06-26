@@ -71,7 +71,7 @@
                             </div>
 
                             <!-- Profile Section -->
-                            <div id="profile" class="section {{ $activeTab === 'profile' ? '' : 'hidden' }}">
+                            <div id="profile" class="section {{ $activeTab === 'profile' ? 'block' : 'hidden' }}">
                                 <form>
                                     <!-- Personal Information -->
                                     <div class="bg-gray-700/50 rounded-lg p-6">
@@ -150,7 +150,7 @@
                             </div>
 
                             <!-- Security Section -->
-                            <div id="security" class="section {{ $activeTab === 'security' ? '' : 'hidden' }}">
+                            <div id="security" class="section {{ $activeTab === 'security' ? 'block' : 'hidden' }}">
                                 <div class="bg-gray-700/50 rounded-lg p-6">
                                     <h2 class="text-xl font-semibold mb-4">Security Settings</h2>
                                     <p class="text-sm text-gray-400 mb-4">Manage your account security and Sessions.</p>
@@ -180,7 +180,7 @@
                             </div>
 
                             <!-- Notifications Section -->
-                            <div id="notifications" class="section {{ $activeTab === 'notifications' ? '' : 'hidden' }}">
+                            <div id="notifications" class="section {{ $activeTab === 'notifications' ? 'block' : 'hidden' }}">
                                 <div class="bg-gray-700/50 rounded-lg p-6">
                                     <h2 class="text-xl font-semibold mb-4">Notification Preferences</h2>
                                     <p class="text-sm text-gray-400 mb-4">Choose how you want to be notified about stream updates and community activities.</p>
@@ -210,7 +210,7 @@
                             </div>
 
                             <!-- Connections Section -->
-                            <div id="connections" class="section {{ $activeTab === 'connections' ? '' : 'hidden' }}">
+                            <div id="connections" class="section {{ $activeTab === 'connections' ? 'block' : 'hidden' }}">
                                 <div class="bg-gray-700/50 rounded-lg p-6">
                                     <h2 class="text-xl font-semibold mb-4">Connected Accounts</h2>
                                     <div class="space-y-4">
