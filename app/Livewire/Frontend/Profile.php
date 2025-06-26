@@ -27,7 +27,6 @@ class Profile extends Component
     {
         return view('livewire.frontend.profile', [
             'user' => $this->user,
-            'activeTab' => $this->activeTab,
         ]);
     }
 }
