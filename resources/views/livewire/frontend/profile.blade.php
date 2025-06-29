@@ -104,7 +104,7 @@
                                                             </svg>
                                                             Not Verified
                                                         </span>
-                                                        <a href="{{ route('verify-email') }}" class="text-purple-400 hover:text-purple-300 text-sm">
+                                                        <a href="{{ route('verification.notice') }}" class="text-purple-400 hover:text-purple-300 text-sm">
                                                             Resend
                                                         </a>
                                                     @endif

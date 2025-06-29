@@ -40,6 +40,7 @@ class GenerateSitemap extends Command
                     str_starts_with($path, '/admin') ||
                     str_starts_with($path, '/login') ||
                     str_starts_with($path, '/register') ||
+                    str_starts_with($path, '/confirm-password') ||
                     str_starts_with($path, '/verify-email')
                 );
             })
@@ -52,6 +53,7 @@ class GenerateSitemap extends Command
                     str_starts_with($path, 'admin') ||
                     str_starts_with($path, 'login') ||
                     str_starts_with($path, 'register') ||
+                    str_starts_with($path, 'confirm-password') ||
                     str_starts_with($path, 'verify-email')
                 ) {
                     return null; // Skip this URL
