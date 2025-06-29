@@ -14,13 +14,11 @@ class Profile extends Component
     public function mount()
     {
         $this->user = Auth::user();
-        $this->activeTab = 'profile';
     }
 
     public function setTab($tab)
     {
         $this->activeTab = $tab;
-        $this->resetPage();
     }
 
     public function render()

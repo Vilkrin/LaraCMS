@@ -19,24 +19,24 @@
                             </div>
                         </div>
                         <nav class="p-2">
-                            <button type="button" wire:click="setTab('profile')" class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-gray-700/50 rounded-lg transition-colors w-full text-left">
+                            <button wire:click="setTab('profile')" type="button" class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-gray-700/50 rounded-lg transition-colors w-full text-left">
                                 <i class="fas fa-user w-5"></i>
                                 <span>Profile</span>
                             </button>
-                            <button type="button" wire:click="setTab('security')" class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-gray-700/50 rounded-lg transition-colors w-full text-left">
+                            <button wire:click="setTab('security')" type="button" class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-gray-700/50 rounded-lg transition-colors w-full text-left">
                                 <i class="fas fa-shield-alt w-5"></i>
                                 <span>Security</span>
                             </button>
-                            <button type="button" wire:click="setTab('notifications')" class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-gray-700/50 rounded-lg transition-colors w-full text-left">
+                            <button wire:click="setTab('notifications')" type="button" class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-gray-700/50 rounded-lg transition-colors w-full text-left">
                                 <i class="fas fa-bell w-5"></i>
                                 <span>Notifications</span>
                             </button>
-                            <button type="button" wire:click="setTab('connections')" class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-gray-700/50 rounded-lg transition-colors w-full text-left">
+                            <button wire:click="setTab('connections')" type="button" class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-gray-700/50 rounded-lg transition-colors w-full text-left">
                                 <i class="fas fa-link w-5"></i>
                                 <span>Connections</span>
                             </button>
                             <div class="border-t border-gray-700 my-2"></div>
-                            <button type="button" wire:click="setTab('help')" class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-gray-700/50 rounded-lg transition-colors w-full text-left">
+                            <button wire:click="setTab('help')" type="button" class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-gray-700/50 rounded-lg transition-colors w-full text-left">
                                 <i class="fas fa-question-circle w-5"></i>
                                 <span>Help & Support</span>
                             </button>
@@ -59,7 +59,7 @@
                                     </svg>
                                 </div>
                             </div>
-                        </div>
+                        </div>                        
 
                         <!-- Profile Content -->
                         <div class="pt-20 pb-8 px-8">
@@ -71,7 +71,7 @@
                             </div>
 
                             <!-- Profile Section -->
-                            <div id="profile" class="section {{ $activeTab === 'profile' ? 'block' : 'hidden' }}">
+                            <div class="{{ $this->activeTab === 'profile' ? 'block' : 'hidden' }}">
                                 <form>
                                     <!-- Personal Information -->
                                     <div class="bg-gray-700/50 rounded-lg p-6">
@@ -150,7 +150,7 @@
                             </div>
 
                             <!-- Security Section -->
-                            <div id="security" class="section {{ $activeTab === 'security' ? 'block' : 'hidden' }}">
+                            <div class="{{ $this->activeTab === 'security' ? 'block' : 'hidden' }}">
                                 <div class="bg-gray-700/50 rounded-lg p-6">
                                     <h2 class="text-xl font-semibold mb-4">Security Settings</h2>
                                     <p class="text-sm text-gray-400 mb-4">Manage your account security and Sessions.</p>
@@ -180,7 +180,7 @@
                             </div>
 
                             <!-- Notifications Section -->
-                            <div id="notifications" class="section {{ $activeTab === 'notifications' ? 'block' : 'hidden' }}">
+                            <div class="{{ $this->activeTab === 'notifications' ? 'block' : 'hidden' }}">
                                 <div class="bg-gray-700/50 rounded-lg p-6">
                                     <h2 class="text-xl font-semibold mb-4">Notification Preferences</h2>
                                     <p class="text-sm text-gray-400 mb-4">Choose how you want to be notified about stream updates and community activities.</p>
@@ -210,7 +210,7 @@
                             </div>
 
                             <!-- Connections Section -->
-                            <div id="connections" class="section {{ $activeTab === 'connections' ? 'block' : 'hidden' }}">
+                            <div class="{{ $this->activeTab === 'connections' ? 'block' : 'hidden' }}">
                                 <div class="bg-gray-700/50 rounded-lg p-6">
                                     <h2 class="text-xl font-semibold mb-4">Connected Accounts</h2>
                                     <div class="space-y-4">
