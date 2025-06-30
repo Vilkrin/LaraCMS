@@ -1,8 +1,8 @@
 <div>
     <div class="flex items-center justify-center p-4">
-        <div class="w-full max-w-2xl rounded-lg shadow-lg p-6">
+        <div class="w-full max-w-2xl rounded-lg shadow-lg p-6 bg-white dark:bg-gray-800">
             <h2 class="text-2xl font-semibold mb-4">Edit User</h2>
-            <form wire:submit="save" class="space-y-6 bg-white dark:bg-gray-900 p-6 rounded-lg shadow-md">
+            <form wire:submit="save" class="space-y-6 bg-white dark:bg-gray-800 p-6">
                 @csrf          
                 <!-- Username -->
                 <div>
