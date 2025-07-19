@@ -33,7 +33,7 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             <!-- Contact Information -->
             <div class="md:col-span-1">
-                <div class="bg-[rgba(17,17,17,0.7)] backdrop-blur-md border border-white/10 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
+                <div class="bg-[rgba(17,17,17,0.7)] backdrop-blur-md border border-white/10 rounded-2xl p-6">
                     <h2 class="text-xl font-bold text-[#60A5FA] mb-4">Get in Touch</h2>
                     <p class="text-gray-500 mb-6">Reach out to us directly</p>
                     <div class="space-y-4">
@@ -80,7 +80,7 @@
 
             <!-- Contact Form -->
             <div class="md:col-span-2">
-                <div class="bg-[rgba(17,17,17,0.7)] backdrop-blur-md border border-white/10 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
+                <div class="bg-[rgba(17,17,17,0.7)] backdrop-blur-md border border-white/10 rounded-2xl p-6">
                     <h2 class="text-xl font-bold text-[#60A5FA] mb-4">Send Us a Message</h2>
                     <p class="text-gray-500 mb-6">We'll get back to you as soon as possible</p>
                     <form class="space-y-6" method="POST" action="{{ route('contact.submit') }}">

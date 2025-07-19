@@ -23,6 +23,8 @@ class EditUser extends Component
 
     public $password_confirmation;
 
+    public $status;
+
     public $roles = [];
     public $availableRoles = []; // Will be populated dynamically
 
@@ -31,6 +33,7 @@ class EditUser extends Component
         $this->user = $user;
         $this->name = $user->name;
         $this->email = $user->email;
+        $this->status = $user->status;
 
         // Load all roles except 'Super Admin'
         $this->availableRoles = Role::where('name', '!=', 'Super Admin')->pluck('name')->toArray();
@@ -68,6 +71,25 @@ class EditUser extends Component
         // Redirect to the user list page
         return redirect()->route('admin.users.index');
     }
+
+    public function ban($id)
+    {
+        $user = User::findOrFail($id);
+        $user->status = 'banned';
+        $user->save();
+
+        return back()->with('message', 'User has been banned.');
+    }
+
+    public function unban()
+    {
+        $this->user->status = 'active';
+        $this->user->save();
+
+        session()->flash('message', 'User has been unbanned.');
+        return redirect()->route('admin.users.index');
+    }
+
 
     public function render()
     {

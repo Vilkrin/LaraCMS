@@ -155,8 +155,7 @@
                                     <h2 class="text-xl font-semibold mb-4">Security Settings</h2>
                                     <p class="text-sm text-gray-400 mb-4">Manage your account security and Sessions.</p>
                                     
-                                    <!-- Passkey Authentication -->
-                                    <livewire:passkeys />
+                                    <!-- Two-Factor Authentication -->
                                                                         
                                     <!-- Session Management -->
                                     <div class="space-y-4">

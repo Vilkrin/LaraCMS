@@ -1,7 +1,26 @@
 <div>
+
+
     <div class="flex items-center justify-center p-4">
         <div class="w-full max-w-2xl rounded-lg shadow-lg p-6 bg-white dark:bg-gray-800">
+            @if (session()->has('message'))
+                <div class="mb-4 p-3 rounded bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                    {{ session('message') }}
+                </div>
+            @endif
+            <div class="flex items-center justify-between mb-4">
             <h2 class="text-2xl font-semibold mb-4">Edit User</h2>
+                @if ($status === 'banned')
+                <flux:button variant="secondary" wire:click="unban">Unban User</flux:button>
+                @endif
+
+
+                @if ($status !== 'banned')
+                    <flux:button variant="danger" wire:click="ban" onclick="return confirm('Are you sure you want to ban this user?')">
+                        Ban User
+                    </flux:button>
+                @endif
+            </div>
             <form wire:submit="save" class="space-y-6 bg-white dark:bg-gray-800 p-6">
                 @csrf          
                 <!-- Username -->

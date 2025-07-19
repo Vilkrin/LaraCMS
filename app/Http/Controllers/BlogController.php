@@ -26,7 +26,8 @@ class BlogController extends Controller
     public function index()
     {
         $posts = Post::query()
-            ->paginate(10);
+            ->paginate(10)
+            ->withQueryString();
 
         return view('admin.blog.posts', ['posts' => $posts]);
     }

@@ -68,7 +68,8 @@ class UserList extends Component
                     ->orWhere('email', 'like', '%' . $this->search . '%');
             })
             ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate(10);
+            ->paginate(10)
+            ->withQueryString();
 
         return view('livewire.admin.user-list', ['users' => $users]);
     }

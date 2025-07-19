@@ -22,6 +22,8 @@ LaraCMS is currently in Early Alpha Development.
 
 -   Custom Pages
 -   Custom Drag & Drop Menu's
+-   URL Shortner
+-   URL Redirects
 -   Plugins to Expand on features
 -   Themes
 
@@ -32,7 +34,4 @@ LaraCMS is currently in Early Alpha Development.
 -   Tailwind CSS
 -   Spatie Laravel-Permission
 -   Spatie Media Library
--   Spatie Laravel Sitemap
--   Spatie Passkeys
--   Spatie One Time Password
 -   Spatie Laravel Sitemap

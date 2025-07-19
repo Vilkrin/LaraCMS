@@ -3,7 +3,7 @@
     <!-- Hero Section -->
     <div class="relative min-h-screen flex items-center justify-center">
         <div class="absolute inset-0 bg-gradient-to-b from-purple-900/50 to-gray-900"></div>
-        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3')] bg-cover bg-center opacity-20"></div>
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1563863251222-11d3e3bd3b62?ixlib=rb-4.0.3')] bg-cover bg-center opacity-20"></div>
         <div class="relative z-10 text-center px-4">
             <h1 class="text-5xl md:text-7xl font-bold mb-6">Welcome to My Stream</h1>
             <p class="text-xl md:text-2xl text-gray-300 mb-8">Gaming | Community | Entertainment</p>

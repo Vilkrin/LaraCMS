@@ -39,6 +39,11 @@ return [
         'api' => env('TINYMCE_API', 'https://www.tiny.cloud/'),
     ],
 
+    'cookiebot' => [
+        'id' => env('COOKIEBOT_ID'),
+        'blocking_mode' => env('COOKIEBOT_BLOCKING_MODE', 'auto'),
+    ],
+
     'recaptcha' => [
         'site_key' => env('RECAPTCHA_SITE_KEY'),
         'secret_key' => env('RECAPTCHA_SECRET_KEY'),

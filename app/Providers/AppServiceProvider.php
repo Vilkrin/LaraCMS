@@ -29,5 +29,13 @@ class AppServiceProvider extends ServiceProvider
         Gate::before(function ($user, $ability) {
             return $user->hasRole('Super Admin') ? true : null;
         });
+
+        // Nightwatch - minimising nightwatch events
+        // Nightwatch::rejectCacheEvents(function (CacheEvent $cacheEvent) {
+        //     return in_array($cacheEvent->key, [
+        //         'laravel:reverb:restart',
+        //         'illuminate:queue:restart',
+        //     ]);
+        // });
     }
 }
