@@ -12,7 +12,7 @@ class UploadPhoto extends Component
 {
     use WithFileUploads;
 
-    #[Validate(['image|max:20480'])]
+    #[Validate('image|max:20480')]
     public $image;
 
     public function save()
