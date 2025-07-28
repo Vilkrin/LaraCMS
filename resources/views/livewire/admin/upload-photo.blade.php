@@ -2,19 +2,6 @@
   <h1 class="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-100">Upload Images</h1>
 
   <form class="space-y-6" wire:submit="save">
-    <!-- Album Selector -->
-    <div>
-      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Assign to Album (optional)</label>
-      <select 
-        wire:model="selectedAlbum"
-        class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-      >
-        <option value="">-- No Album --</option>
-        @foreach($albums as $album)
-          <option value="{{ $album->id }}">{{ $album->name }}</option>
-        @endforeach
-      </select>
-    </div>
 
     <div class="mb-4">
         <div class="relative"     
@@ -25,115 +12,16 @@
                 x-on:livewire-upload-error="uploading = false"
                 x-on:livewire-upload-progress="progress = $event.detail.progress"
         >
-            <input 
-                type="file" 
-                wire:model="images" 
-                class="form-control" 
-                accept="image/*"
-                multiple
-                id="file-upload"
-            >
-            <!-- Progress Bar -->
-            <div x-show="uploading">
-                <progress max="100" x-bind:value="progress"></progress>
-            </div>
-            <label for="file-upload" class="cursor-pointer">
-                <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-500 transition-colors">
-                    <div class="flex flex-col items-center">
-                        <svg class="w-12 h-12 text-gray-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
-                        </svg>
-                        <span class="text-gray-500">Click to select or drag and drop images</span>
-                        <span class="text-sm text-gray-400 mt-1">PNG, JPG, GIF up to 20MB</span>
-                    </div>
-                </div>
-            </label>
-        </div>
-        @error('images.*') 
-            <span class="text-red-500 text-sm mt-1">{{ $message }}</span> 
-        @enderror
-    </div>
+            <input type="file" wire:model="image">
 
-    {{-- Image Previews for Selected Files --}}
-    @if ($images)
-        <div class="mb-4">
-            <h2 class="text-lg font-semibold mb-2">Preview Selected Images</h2>
-            <div class="flex flex-wrap gap-4">
-                @php $hasInvalid = false; @endphp
-                @foreach ($images as $image)
-                    <div>
-                        @if ($image && method_exists($image, 'temporaryUrl'))
-                            <img src="{{ $image->temporaryUrl() }}" class="w-24 h-24 object-cover rounded border" alt="Preview">
-                        @else
-                            @php $hasInvalid = true; @endphp
-                            <div class="w-24 h-24 flex items-center justify-center bg-red-200 rounded border text-xs text-red-700">
-                                Invalid or not previewable
-                            </div>
-                        @endif
-                    </div>
-                @endforeach
-            </div>
-            @if ($hasInvalid)
-                <div class="mt-2 text-red-600 text-sm font-semibold">
-                    One or more selected files are not valid images and will not be uploaded.
-                </div>
-            @endif
-        </div>
-    @endif
-
-    <!-- Error Messages -->
-    @if (session()->has('error'))
-        <div class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
-            {{ session('error') }}
-        </div>
-    @endif
-
-    <!-- Success Messages -->
-    @if (session()->has('success'))
-        <div class="mb-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    <div class="mb-4">
-        <button 
-            type="submit" 
-            class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
-            {{ count($images) === 0 ? 'disabled' : '' }}
-        >
-            Upload {{ count($images) }} Images
-        </button>
-    </div>
-
-<!-- Existing Images -->
-<div class="mt-8">
-    <h2 class="text-xl font-semibold mb-4">Uploaded Images</h2>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            @foreach($existingImages as $image)
-             <div class="relative group">
-                @php
-                    $media = $image->getFirstMedia('images');
-                @endphp
-                @if($media)
-                    <img 
-                        src="{{ $media->getUrl() }}" 
-                        class="w-full h-32 object-cover rounded-lg"
-                        alt="Uploaded image"
-                    >
+                @if ($image) 
+                    <img src="{{ $photo->temporaryUrl() }}">
                 @endif
-                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-200 rounded-lg flex items-center justify-center">
-                    <button 
-                        wire:click="removeImage({{ $image->id }})"
-                        class="opacity-0 group-hover:opacity-100 bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition-all duration-200"
-                    >
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        @endforeach
-    </div>
-</div>
+            
+            @error('image') <span class="error">{{ $message }}</span> @enderror
+            
+            <button type="submit">Save Images</button>
+
+
   </form>
 </div>
