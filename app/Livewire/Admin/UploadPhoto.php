@@ -12,78 +12,25 @@ class UploadPhoto extends Component
 {
     use WithFileUploads;
 
-    #[Validate(['images.*' => 'image|max:20480'])]
-    public $images = [];
-    public $existingImages = [];
-    public $isUploading = false;
-    public $uploadProgress = 0;
-
-    public function mount()
-    {
-        $this->existingImages = Photo::with('media')->get();
-    }
+    #[Validate(['image|max:20480'])]
+    public $image;
 
     public function save()
     {
-        try {
-            $this->validate([
-                'images.*' => 'image|max:20480',
-            ]);
+        $this->validate();
 
-            $this->isUploading = true;
-            $totalFiles = count($this->images);
-            $processedFiles = 0;
+        // Create a new photo record
+        $photo = Photo::create();
 
-            foreach ($this->images as $image) {
-                $photo = new Photo();
-                $photo->save();
+        // Add media to 'photos' collection on 's3' disk
+        $photo
+            ->addMedia($this->image->getRealPath())
+            ->usingFileName($this->image->getClientOriginalName())
+            ->toMediaCollection('photos', 's3');
 
-
-                $photo->addMedia($image->getPathname())
-                    ->usingName($image->getClientOriginalName())
-                    ->toMediaCollection('images', 's3');
-
-
-                if (file_exists($image->getPathname())) {
-                    @unlink($image->getPathname());
-                }
-
-                $processedFiles++;
-                $this->uploadProgress = ($processedFiles / $totalFiles) * 100;
-            }
-
-            $this->images = [];
-            $this->existingImages = Photo::with('media')->get();
-            $this->isUploading = false;
-            $this->uploadProgress = 0;
-
-            session()->flash('success', 'Images uploaded successfully');
-        } catch (\Exception $e) {
-            $this->isUploading = false;
-            $this->uploadProgress = 0;
-            session()->flash('error', 'Error uploading images: ' . $e->getMessage());
-        }
-    }
-
-    public function removeImage($mediaId)
-    {
-        try {
-            $photo = Photo::whereHas('media', function ($q) use ($mediaId) {
-                $q->where('id', $mediaId);
-            })->first();
-
-            if ($photo) {
-                $media = $photo->media()->find($mediaId);
-                if ($media) {
-                    $media->delete();
-                }
-            }
-
-            $this->existingImages = Photo::with('media')->get();
-            session()->flash('success', 'Image deleted successfully');
-        } catch (\Exception $e) {
-            session()->flash('error', 'Error deleting image: ' . $e->getMessage());
-        }
+        // Clear input and show success message
+        $this->reset('image');
+        session()->flash('success', 'Photo uploaded!');
     }
 
     public function render()

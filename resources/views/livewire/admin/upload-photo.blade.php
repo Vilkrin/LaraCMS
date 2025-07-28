@@ -5,10 +5,14 @@
     <!-- Album Selector -->
     <div>
       <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Assign to Album (optional)</label>
-      <select class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+      <select 
+        wire:model="selectedAlbum"
+        class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+      >
         <option value="">-- No Album --</option>
-        <option>Summer 2023</option>
-        <option>Projects</option>
+        @foreach($albums as $album)
+          <option value="{{ $album->id }}">{{ $album->name }}</option>
+        @endforeach
       </select>
     </div>
 
