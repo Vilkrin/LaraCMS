@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\URLRedirect;
+use App\Http\Controllers\Admin\URLShortener;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BlogController;
@@ -20,7 +22,7 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
-Route::prefix('profile')->middleware('auth')->group(function () {
+Route::prefix('profile')->middleware('auth', 'auth.session')->group(function () {
     Route::get('/', [ProfileController::class, 'profile'])->name('profile');
 });
 
@@ -44,7 +46,7 @@ Route::get('/forum', function () {
 
 // Fetches custom pages from the database
 Route::get('/{slug}', [PageController::class, 'show'])
-    ->where('slug', '^(?!admin|login|register|logout|verify-email|blog|profile|store|subscribers|forum|confirm-password|api).*$')
+    ->where('slug', '^(?!admin|login|register|logout|verify-email|forgot-password|confirm-password|blog|profile|store|subscribers|forum|api).*$')
     ->name('page.show');
 
 // just to test functionality
@@ -70,6 +72,12 @@ Route::prefix('admin')->name('admin.')->middleware('auth', 'verified', 'permissi
 
     // Dashboard Route
     Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
+
+    // URL Shortener
+    Route::get('/url-shortener', [URLShortener::class, 'index'])->name('url.short');
+
+    // URL Redirect
+    Route::get('/url-redirect', [URLRedirect::class, 'index'])->name('url.redirect');
 
     // User Management
     Route::resource('users', UserController::class);
