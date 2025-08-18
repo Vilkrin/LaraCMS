@@ -44,11 +44,6 @@ Route::get('/forum', function () {
     return view('forum');
 })->name('forum');
 
-// Fetches custom pages from the database
-Route::get('/{slug}', [PageController::class, 'show'])
-    ->where('slug', '^(?!admin|login|register|logout|verify-email|forgot-password|confirm-password|blog|profile|store|subscribers|forum|api).*$')
-    ->name('page.show');
-
 // just to test functionality
 Route::get('/subscribers', function () {
     return view('subscribers');
@@ -142,3 +137,8 @@ Route::prefix('admin')->name('admin.')->middleware('auth', 'verified', 'permissi
 });
 
 require __DIR__ . '/auth.php';
+
+// CMS Dynamic Pages
+Route::get('/{slug}', [PageController::class, 'show'])
+    ->where('slug', '[A-Za-z0-9\-]+')
+    ->name('page.show');

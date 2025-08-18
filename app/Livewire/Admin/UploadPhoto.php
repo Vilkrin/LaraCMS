@@ -26,7 +26,7 @@ class UploadPhoto extends Component
         $photo
             ->addMedia($this->image->getRealPath())
             ->usingFileName($this->image->getClientOriginalName())
-            ->toMediaCollection('photos', 's3');
+            ->toMediaCollection('photos', 'public');
 
         // Clear input and show success message
         $this->reset('image');
