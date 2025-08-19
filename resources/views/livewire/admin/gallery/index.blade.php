@@ -76,7 +76,7 @@
                 @forelse($photos as $photo)
                     <div class="bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-md transition p-4">
                         @if($photo->hasMedia('images'))
-                            <img src="{{ $photo->getFirstMediaUrl('images') }}" 
+                            <img src="{{ $photo->getFirstMediaUrl('images','thumb'); }}" 
                                  alt="Photo" 
                                  class="rounded-md mb-3 w-full h-40 object-cover">
                         @else
