@@ -17,10 +17,8 @@ class PhotoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Photo $photo, $id)
+    public function show(Photo $photo)
     {
-        $media = $photo->getMedia('photos')->where('id', $id)->first();
-
         return view('image.show', compact('photo'));
     }
 }

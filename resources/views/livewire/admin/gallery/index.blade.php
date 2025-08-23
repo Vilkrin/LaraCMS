@@ -93,7 +93,7 @@
                             </p>
                         </div>
                         <div class="mt-4 flex justify-between items-center">
-                            <a href="{{ route('admin.gallery.photos.show', $photo) }}" 
+                            <a href="{{ route('image.show', $photo) }}" 
                                class="text-sm text-blue-600 hover:underline dark:text-blue-400">View</a>
                             <div class="space-x-2">
                                 <a href="{{ route('admin.gallery.photos.edit', $photo) }}" 

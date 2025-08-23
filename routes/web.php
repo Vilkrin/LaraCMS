@@ -60,7 +60,7 @@ Route::prefix('gallery')->group(function () {
 });
 
 // Show an individual image 
-Route::get('/image/{image}', [FrontendPhotoController::class, 'show'])->name('image.show');
+Route::get('/image/{photo}', [FrontendPhotoController::class, 'show'])->name('image.show');
 
 // Admin Dashboard - Grouping routes under 'admin' middleware and prefix for organization
 Route::prefix('admin')->name('admin.')->middleware('auth', 'verified', 'permission:view dashboard')->group(function () {
