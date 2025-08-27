@@ -134,33 +134,112 @@ return new class extends Migration
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         // Create permissions
-        Permission::create(['name' => 'create posts']);
-        Permission::create(['name' => 'edit own posts']);
-        Permission::create(['name' => 'edit all posts']);
-        Permission::create(['name' => 'delete own posts']);
-        Permission::create(['name' => 'delete any posts']);
-        Permission::create(['name' => 'publish posts']);
-        Permission::create(['name' => 'unpublish posts']);
-        Permission::create(['name' => 'view unpublished posts']);
-        Permission::create(['name' => 'manage users']);
-        Permission::create(['name' => 'view dashboard']);
+        // Posts
+        Permission::create(['name' => 'create.posts']);
+        Permission::create(['name' => 'edit.posts']);
+        Permission::create(['name' => 'delete.posts']);
+        Permission::create(['name' => 'publish.posts']);
+        Permission::create(['name' => 'unpublish.posts']);
+        Permission::create(['name' => 'view.unpublished.posts']);
+
+        // Gallery
+        Permission::create(['name' => 'create.images']);
+        Permission::create(['name' => 'edit.images']);
+        Permission::create(['name' => 'delete.images']);
+        Permission::create(['name' => 'manage.albums']);
+
+        // Videos
+        Permission::create(['name' => 'create.videos']);
+        Permission::create(['name' => 'edit.videos']);
+        Permission::create(['name' => 'delete.videos']);
+        Permission::create(['name' => 'publish.videos']);
+        Permission::create(['name' => 'unpublish.videos']);
+        Permission::create(['name' => 'view.unpublished.videos']);
+
+        // Events
+        Permission::create(['name' => 'create.events']);
+        Permission::create(['name' => 'edit.events']);
+        Permission::create(['name' => 'delete.events']);
+        Permission::create(['name' => 'publish.events']);
+        Permission::create(['name' => 'unpublish.events']);
+        Permission::create(['name' => 'view.unpublished.events']);
+
+        // Org / Members
+        Permission::create(['name' => 'view.member.dashboard']);
+        Permission::create(['name' => 'manage.org.members']);
+        Permission::create(['name' => 'assign.org.roles']);
+        Permission::create(['name' => 'manage.org.settings']);
+
+        // General / Admin
+        Permission::create(['name' => 'manage.users']);
+        Permission::create(['name' => 'access.admin.panel']);
 
         // Update cache to ensure newly created permissions are recognized
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         // Create roles and assign permissions
+        // Writer
         $role = Role::create(['name' => 'writer']);
-        $role->givePermissionTo(['create posts', 'edit own posts', 'delete own posts', 'view dashboard']);
+        $role->givePermissionTo([
+            'create.posts',
+            'edit.posts',
+            'delete.posts',
+        ]);
 
+        // Editor
         $role = Role::create(['name' => 'editor']);
-        $role->givePermissionTo(['publish posts', 'unpublish posts', 'edit all posts', 'delete any posts', 'view unpublished posts', 'view dashboard']);
+        $role->givePermissionTo([
+            'create.posts',
+            'edit.posts',
+            'delete.posts',
+            'publish.posts',
+            'unpublish.posts',
+            'view.unpublished.posts',
+            'access.admin.panel',
+        ]);
 
+        // Admin
         $role = Role::create(['name' => 'admin']);
-        $role->givePermissionTo(['view unpublished posts', 'manage users', 'view dashboard']);
+        $role->givePermissionTo([
+            'manage.users',
+            'access.admin.panel',
+            'view.unpublished.posts',
+            'publish.posts',
+            'unpublish.posts',
+            'create.events',
+            'edit.events',
+            'delete.events',
+            'publish.events',
+            'unpublish.events',
+            'view.unpublished.events',
+            'create.images',
+            'edit.images',
+            'delete.images',
+            'manage.albums',
+            'create.videos',
+            'edit.videos',
+            'delete.videos',
+            'publish.videos',
+            'unpublish.videos',
+            'view.unpublished.videos',
+            'manage.org.members',
+            'assign.org.roles',
+            'manage.org.settings',
+        ]);
 
+        // Org Member
+        $role = Role::create(['name' => 'org member']);
+        $role->givePermissionTo([
+            'view.member.dashboard',
+        ]);
+
+        // User
         $role = Role::create(['name' => 'user']);
+        // no perms – just a base role for logged-in accounts
 
+        // Super Admin
         $role = Role::create(['name' => 'Super Admin']);
+        // no perms – full access handled by Gate::before
 
         // Refresh permission cache
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();

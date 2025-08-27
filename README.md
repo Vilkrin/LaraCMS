@@ -15,7 +15,7 @@ LaraCMS is currently in Early Alpha Development.
 ## Features (Currently Live)
 
 -   Blog
--   Gallery
+-   Gallery - Single images atm - albums stil wip
 -   Admin - User Management (with Roles & Perms)
 
 ## Planned Features

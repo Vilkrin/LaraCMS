@@ -36,10 +36,6 @@ Route::get('/store', function () {
     return view('store');
 })->name('store');
 
-Route::get('/subscribers', function () {
-    return view('subscribers');
-})->name('subscribers');
-
 Route::get('/forum', function () {
     return view('forum');
 })->name('forum');
@@ -47,7 +43,7 @@ Route::get('/forum', function () {
 // just to test functionality
 Route::get('/subscribers', function () {
     return view('subscribers');
-})->middleware('password.confirm')->name('subscribers');
+})->middleware('auth', 'verified', 'permission:access.subscriber.area, password.confirm')->name('subscribers');
 
 // Blog
 Route::get('/blog', [PostController::class, 'index'])->name('blog.index');
@@ -63,7 +59,7 @@ Route::prefix('gallery')->group(function () {
 Route::get('/image/{photo}', [FrontendPhotoController::class, 'show'])->name('image.show');
 
 // Admin Dashboard - Grouping routes under 'admin' middleware and prefix for organization
-Route::prefix('admin')->name('admin.')->middleware('auth', 'verified', 'permission:view dashboard')->group(function () {
+Route::prefix('admin')->name('admin.')->middleware('auth', 'verified', 'permission:access.admin.panel')->group(function () {
 
     // Dashboard Route
     Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');

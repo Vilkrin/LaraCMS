@@ -35,6 +35,6 @@ class UploadPhoto extends Component
 
     public function render()
     {
-        return view('livewire.admin.upload-photo');
+        return view('livewire.admin.gallery.index');
     }
 }
