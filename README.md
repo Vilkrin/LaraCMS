@@ -15,7 +15,7 @@ LaraCMS is currently in Early Alpha Development.
 ## Features (Currently Live)
 
 -   Blog
--   Gallery - Single images atm - albums stil wip
+-   Gallery - Single images atm - albums still wip
 -   Admin - User Management (with Roles & Perms)
 
 ## Planned Features
@@ -35,3 +35,7 @@ LaraCMS is currently in Early Alpha Development.
 -   Spatie Laravel-Permission
 -   Spatie Media Library
 -   Spatie Laravel Sitemap
+
+## Installation
+
+Soon
