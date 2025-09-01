@@ -39,27 +39,27 @@ LaraCMS is currently in Early Alpha Development.
 
 ## Installation
 
-git clone https://github.com/Vilkrin/LaraCMS.git
-cd laracms
-git checkout -b feat/your-feature # or fix/your-fix
+git clone https://github.com/Vilkrin/LaraCMS.git  
+cd laracms  
+git checkout -b feat/your-feature # or fix/your-fix  
 
-> Don't push directly to the main branch. Instead, create a new branch and push it to your branch.
+> Don't push directly to the main branch. Instead, create a new branch and push it to your branch.  
 
-composer install
-npm install
+composer install  
+npm install  
 
-cp .env.example .env
-php artisan key:generate
+cp .env.example .env  
+php artisan key:generate  
 
-# Create or configure your database:
+# Create or configure your database:  
 
-# E.g. for SQLite:
+# E.g. for SQLite  
 
-touch database/database.sqlite
+touch database/database.sqlite  
 
-php artisan migrate
-php artisan storage:link
+php artisan migrate  
+php artisan storage:link  
 
-# Front-end asset build (watch mode) & Start Server
+# Front-end asset build (watch mode) & Start Server  
 
-Composer run dev
+Composer run dev  
