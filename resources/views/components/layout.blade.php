@@ -137,9 +137,9 @@
                 <div>
                     <h3 class="text-lg font-semibold mb-4 text-purple-500">Quick Links</h3>
                     <ul class="space-y-2">
-                        <li><a href="index.html" class="text-sm text-gray-400 hover:text-purple-500 transition">Home</a></li>
+                        <li><a href="{{ route('home') }}" class="text-sm text-gray-400 hover:text-purple-500 transition">Home</a></li>
                         <li><a href="#" class="text-sm text-gray-400 hover:text-purple-500 transition">Schedule</a></li>
-                        <li><a href="about.html" class="text-sm text-gray-400 hover:text-purple-500 transition">About</a></li>
+                        <li><a href="#" class="text-sm text-gray-400 hover:text-purple-500 transition">About</a></li>
                         <li><a href="#" class="text-sm text-gray-400 hover:text-purple-500 transition">Discord</a></li>
                         <li><a href="#" class="text-sm text-gray-400 hover:text-purple-500 transition">Merch</a></li>
                     </ul>

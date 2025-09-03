@@ -9,10 +9,10 @@
             <p class="text-xl md:text-2xl text-gray-300 mb-8">Gaming | Community | Entertainment</p>
             <p class="text-xl md:text-2xl text-gray-300 mb-8">This website is currently Under Development, so there wont't be other areas of the site for awhile and i'll be adding content soon as there done.</p>
             <div class="flex justify-center space-x-4">
-                <a href="#" class="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-lg text-lg font-semibold transition duration-300">
+                <a href="https://www.twitch.tv/vilkrin" class="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-lg text-lg font-semibold transition duration-300">
                     <i class="fab fa-twitch mr-2"></i>Follow on Twitch
                 </a>
-                <a href="#" class="bg-gray-700 hover:bg-gray-600 text-white px-8 py-3 rounded-lg text-lg font-semibold transition duration-300">
+                <a href="https://discord.gg/Rs6nzsuubm" class="bg-gray-700 hover:bg-gray-600 text-white px-8 py-3 rounded-lg text-lg font-semibold transition duration-300">
                     <i class="fab fa-discord mr-2"></i>Join Discord
                 </a>
             </div>
