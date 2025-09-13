@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\PhotoController;
 use App\Http\Controllers\PhotoController as FrontendPhotoController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\ContactFormController;
+use App\Http\Controllers\RedirectToURL;
 use Illuminate\Support\Facades\Route;
 
 
@@ -57,6 +58,9 @@ Route::prefix('gallery')->group(function () {
 
 // Show an individual image 
 Route::get('/image/{photo}', [FrontendPhotoController::class, 'show'])->name('image.show');
+
+// URL Redirection - Catch-all route for short URLs
+Route::get('{link:slug}', RedirectToURL::class)->name('redirect');
 
 // Admin Dashboard - Grouping routes under 'admin' middleware and prefix for organization
 Route::prefix('admin')->name('admin.')->middleware('auth', 'verified', 'permission:access.admin.panel')->group(function () {

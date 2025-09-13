@@ -36,7 +36,7 @@ class Index extends Component
         $this->activeTab = 'albums';
     }
 
-    public function toggleTab($tab)
+    public function setActiveTab($tab)
     {
         $this->activeTab = $tab;
         $this->resetPage();

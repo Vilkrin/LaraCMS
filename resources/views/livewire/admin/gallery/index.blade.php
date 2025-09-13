@@ -19,11 +19,11 @@
         <!-- Tabs -->
         <div class="mb-4 border-b border-gray-300 dark:border-gray-700">
             <nav class="flex space-x-6 text-sm font-medium text-gray-600 dark:text-gray-300">
-                <button wire:click="toggleTab('albums')" 
+                <button wire:click="setActiveTab('albums')" 
                         class="pb-2 {{ $activeTab === 'albums' ? 'border-b-2 border-blue-600 text-blue-600 dark:text-blue-400' : 'hover:text-blue-600 dark:hover:text-blue-400' }}">
                     Albums
                 </button>
-                <button wire:click="toggleTab('unassigned')" 
+                <button wire:click="setActiveTab('unassigned')" 
                         class="pb-2 {{ $activeTab === 'unassigned' ? 'border-b-2 border-blue-600 text-blue-600 dark:text-blue-400' : 'hover:text-blue-600 dark:hover:text-blue-400' }}">
                     Unassigned Photos
                 </button>

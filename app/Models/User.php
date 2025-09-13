@@ -78,4 +78,10 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
             ->fit(Fit::Contain, 300, 300)
             ->nonQueued();
     }
+
+    // Url Shortner relationship
+    public function links()
+    {
+        return $this->hasMany(Link::class);
+    }
 }
