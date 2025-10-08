@@ -3,7 +3,7 @@
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\URLRedirect;
 use App\Http\Controllers\Admin\URLShortener;
-use App\Http\Controllers\PageController;
+// use App\Http\Controllers\PageController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\PostController;
