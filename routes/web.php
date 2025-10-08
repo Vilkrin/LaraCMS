@@ -139,6 +139,6 @@ Route::prefix('admin')->name('admin.')->middleware('auth', 'verified', 'permissi
 require __DIR__ . '/auth.php';
 
 // CMS Dynamic Pages
-Route::get('/{slug}', [PageController::class, 'show'])
-    ->where('slug', '[A-Za-z0-9\-]+')
-    ->name('page.show');
+// Route::get('/{slug}', [PageController::class, 'show'])
+//     ->where('slug', '[A-Za-z0-9\-]+')
+//     ->name('page.show');
