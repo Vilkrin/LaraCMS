@@ -3,7 +3,7 @@
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\URLRedirect;
 use App\Http\Controllers\Admin\URLShortener;
-// use App\Http\Controllers\PageController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\PostController;
@@ -58,9 +58,6 @@ Route::prefix('gallery')->group(function () {
 
 // Show an individual image 
 Route::get('/image/{photo}', [FrontendPhotoController::class, 'show'])->name('image.show');
-
-// URL Redirection - Catch-all route for short URLs
-Route::get('{link:slug}', RedirectToURL::class)->name('redirect');
 
 // Admin Dashboard - Grouping routes under 'admin' middleware and prefix for organization
 Route::prefix('admin')->name('admin.')->middleware('auth', 'verified', 'permission:access.admin.panel')->group(function () {
@@ -138,7 +135,10 @@ Route::prefix('admin')->name('admin.')->middleware('auth', 'verified', 'permissi
 
 require __DIR__ . '/auth.php';
 
+// URL Redirection - Catch-all route for short URLs
+Route::get('{link:slug}', RedirectToURL::class)->name('redirect');
+
 // CMS Dynamic Pages
-// Route::get('/{slug}', [PageController::class, 'show'])
-//     ->where('slug', '[A-Za-z0-9\-]+')
-//     ->name('page.show');
+Route::get('/{slug}', [PageController::class, 'show'])
+    ->where('slug', '[A-Za-z0-9\-]+')
+    ->name('page.show');
