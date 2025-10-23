@@ -1,5 +1,4 @@
 <x-layout>
-<div class="flex-grow flex flex-col lg:flex-row">
 
     <!-- Header -->
     <header class="bg-gray-800 pt-24 pb-12">
@@ -11,13 +10,13 @@
         </div>
     </header>
 
-        <div class="container mx-auto px-4 py-8">
+    <div class="container mx-auto px-4 py-8">
         <div class="flex flex-col lg:flex-row gap-8">
             <!-- Main Content -->
             <div class="lg:w-2/3">
                 <div class="space-y-8">
                     <!-- Blog Post -->
-                    @forelse($posts as $post)
+                    @forelse ($posts as $post)
                     <article class="bg-white dark:bg-dark-bg-secondary rounded-lg shadow-md overflow-hidden">
                         <div class="flex flex-col">
                             <div class="w-full h-[350px] bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
@@ -72,13 +71,13 @@
                 <div class="border dark:border-gray-700 rounded-lg shadow-lg overflow-hidden bg-white dark:bg-dark-bg-secondary">
                     <div class="bg-gray-200 dark:bg-gray-700 px-4 py-3 font-bold">Categories</div>
                     <div class="p-4">
-                        <ul class="space-y-2">
+                        {{-- <ul class="space-y-2">
                             @forelse ($categories as $category)
                             <li><a href="{{ route('blog.category', $category) }}" class="text-blue-500 dark:text-blue-400 hover:underline">{{ $category->name }}</a></li>
                             @empty
                             <li class="text-gray-500 dark:text-gray-400">No categories found.</li>
                             @endforelse
-                        </ul>
+                        </ul> --}}
                     </div>
                 </div>
 
@@ -86,13 +85,13 @@
                 <div class="border dark:border-gray-700 rounded-lg shadow-lg overflow-hidden bg-white dark:bg-dark-bg-secondary">
                     <div class="bg-gray-200 dark:bg-gray-700 px-4 py-3 font-bold">Recent Posts</div>
                     <div class="p-4">
-                        <ul class="space-y-2">
+                        {{-- <ul class="space-y-2">
                             @forelse ($recentPosts as $post)
                             <li><a href="{{ route('blog.show', $post) }}" class="text-blue-500 dark:text-blue-400 hover:underline">{{ $post->title }}</a></li>
                             @empty
                             <li class="text-gray-500 dark:text-gray-400">No recent posts found.</li>
                             @endforelse
-                        </ul>
+                        </ul> --}}
                     </div>
                 </div>
 
@@ -107,5 +106,5 @@
         </div>
     </div>
 
-</div>
+
 </x-layout>
