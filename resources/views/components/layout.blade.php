@@ -43,15 +43,15 @@
                 </div>
                 <div class="flex-1 flex justify-center">
                     <div class="flex space-x-8">
-                        @if ($menu && $menu->items->where('parent_id', null)->count())
+                        {{-- @if ($menu && $menu->items->where('parent_id', null)->count())
                             <ul>
                                 @foreach ($menu->items->where('parent_id', null) as $item)
                                     <x-menu-item :item="$item" />
                                 @endforeach
                             </ul>
                         @else
-                            {{-- No menu items --}}
-                        @endif
+                            No menu items
+                        @endif --}}
                     </div>
                 </div>
                 <div class="flex items-center">

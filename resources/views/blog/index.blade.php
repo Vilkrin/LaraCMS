@@ -17,7 +17,7 @@
             <div class="lg:w-2/3">
                 <div class="space-y-8">
                     <!-- Blog Post -->
-                    @foreach($posts as $post)
+                    @forelse($posts as $post)
                     <article class="bg-white dark:bg-dark-bg-secondary rounded-lg shadow-md overflow-hidden">
                         <div class="flex flex-col">
                             <div class="w-full h-[350px] bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
@@ -61,7 +61,7 @@
                     <div class="bg-gray-200 dark:bg-gray-700 px-4 py-3 font-bold">Search</div>
                     <div class="p-4">
                     {{-- <form action="{{ route('blog.search') }}" method="GET"> --}}
-                        @csrf
+                        {{-- @csrf --}}
                         <input type="text" name="query" class="w-full border dark:border-gray-600 dark:bg-gray-800 dark:text-white rounded-sm p-2" placeholder="Enter search term...">
                         <button type="submit" class="mt-2 w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-sm">Go!</button>
                     {{-- </form> --}}
@@ -73,7 +73,7 @@
                     <div class="bg-gray-200 dark:bg-gray-700 px-4 py-3 font-bold">Categories</div>
                     <div class="p-4">
                         <ul class="space-y-2">
-                            @forelse($categories as $category)
+                            @forelse ($categories as $category)
                             <li><a href="{{ route('blog.category', $category) }}" class="text-blue-500 dark:text-blue-400 hover:underline">{{ $category->name }}</a></li>
                             @empty
                             <li class="text-gray-500 dark:text-gray-400">No categories found.</li>
@@ -87,7 +87,7 @@
                     <div class="bg-gray-200 dark:bg-gray-700 px-4 py-3 font-bold">Recent Posts</div>
                     <div class="p-4">
                         <ul class="space-y-2">
-                            @forelse($recentPosts as $post)
+                            @forelse ($recentPosts as $post)
                             <li><a href="{{ route('blog.show', $post) }}" class="text-blue-500 dark:text-blue-400 hover:underline">{{ $post->title }}</a></li>
                             @empty
                             <li class="text-gray-500 dark:text-gray-400">No recent posts found.</li>
