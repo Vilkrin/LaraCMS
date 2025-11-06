@@ -39,7 +39,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center">
-                    <span class="text-2xl font-bold text-purple-500">{{ config('app.name') }}</span>
+                    <a href="{{ url('/') }}" class="text-2xl font-bold text-purple-500">{{ config('app.name') }}</a>
                 </div>
                 <div class="flex-1 flex justify-center">
                     <div class="flex space-x-8">
@@ -110,25 +110,29 @@
                         Join our community of passionate gamers and Twitch enthusiasts. Subscribe for exclusive content, join the discussions in our forum, or check out our merch store.
                     </p>
                     <div class="flex space-x-4 mt-6">
-                        <a href="#" class="text-gray-400 hover:text-purple-500 transition-colors">
+                        <a href="https://www.twitch.tv/vilkrin" class="text-gray-400 hover:text-purple-500 transition-colors">
                             <i class="fab fa-twitch"></i>
                             <span class="sr-only">Twitch</span>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-red-500 transition-colors">
+                        <a href="https://www.youtube.com/@vilkrin2403" class="text-gray-400 hover:text-red-500 transition-colors">
                             <i class="fab fa-youtube"></i>
                             <span class="sr-only">YouTube</span>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors">
+                        <a href="https://x.com/vilkrin" class="text-gray-400 hover:text-blue-400 transition-colors">
                             <i class="fab fa-twitter"></i>
                             <span class="sr-only">Twitter</span>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">
+                        <a href="https://www.instagram.com/vilkrin/" class="text-gray-400 hover:text-pink-500 transition-colors">
                             <i class="fab fa-instagram"></i>
                             <span class="sr-only">Instagram</span>
                         </a>
                         <a href="#" class="text-gray-400 hover:text-blue-600 transition-colors">
                             <i class="fab fa-discord"></i>
                             <span class="sr-only">Discord</span>
+                        </a>
+                        <a href="https://github.com/Vilkrin/" class="text-gray-400 hover:text-gray-200 transition-colors">
+                            <i class="fa-brands fa-github"></i>
+                            <span class="sr-only">GitHub</span>
                         </a>
                     </div>
                 </div>
