@@ -10,6 +10,7 @@
     <x-auth-session-status class="text-center" :status="session('status')" />
 
     <form wire:submit="login" class="flex flex-col gap-6">
+        <x-honeypot />
         <!-- Email Address -->
         <flux:input
             wire:model="email"

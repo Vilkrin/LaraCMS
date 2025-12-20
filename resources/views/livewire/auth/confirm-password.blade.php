@@ -8,6 +8,7 @@
     <x-auth-session-status class="text-center" :status="session('status')" />
 
     <form wire:submit="confirmPassword" class="flex flex-col gap-6">
+        <x-honeypot />
         <!-- Password -->
         <flux:input
             wire:model="password"
