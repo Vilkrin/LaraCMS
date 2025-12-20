@@ -28,6 +28,9 @@
         type="text/javascript"></script>
 
 
+        <!-- Google reCAPTCHA V3 -->
+        {!! RecaptchaV3::initJs() !!}
+
         <!-- Styles -->        
         @livewireStyles
         @fluxAppearance

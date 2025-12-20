@@ -30,6 +30,7 @@ class Register extends Component
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
+            'g-recaptcha-response' => 'required|recaptchav3:register,0.5'
         ]);
 
         $validated['password'] = Hash::make($validated['password']);

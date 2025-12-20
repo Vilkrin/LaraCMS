@@ -117,5 +117,5 @@
             </div>
         </div>
     </div>
-@include('components.recaptcha-script', ['action' => 'contact'])
+
 </x-layout>

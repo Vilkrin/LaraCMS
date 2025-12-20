@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Mail\ContactMail;
 use Illuminate\Support\Facades\Mail;
-use App\Rules\Recaptcha;
 
 class ContactFormController extends Controller
 {
@@ -23,7 +22,6 @@ class ContactFormController extends Controller
             'email' => 'required|email',
             'subject' => 'required|min:3|max:255',
             'message' => 'required|min:10',
-            'recaptcha_token' => ['required', new Recaptcha(0.6)],
         ]);
 
         Mail::to('contact@vilkrin.uk')->send(new ContactMail($validated));

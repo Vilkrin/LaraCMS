@@ -8,9 +8,8 @@ use App\Livewire\Auth\Register;
 use App\Livewire\Auth\ResetPassword;
 use App\Livewire\Auth\VerifyEmail;
 use Illuminate\Support\Facades\Route;
-use Spatie\Honeypot\ProtectAgainstSpam;
 
-Route::middleware(ProtectAgainstSpam::class, 'guest')->group(function () {
+Route::middleware('guest')->group(function () {
     Route::get('login', Login::class)
         ->middleware('throttle:5,1')
         ->name('login');
