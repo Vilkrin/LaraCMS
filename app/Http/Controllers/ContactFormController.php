@@ -22,6 +22,7 @@ class ContactFormController extends Controller
             'email' => 'required|email',
             'subject' => 'required|min:3|max:255',
             'message' => 'required|min:10',
+            'g-recaptcha-response' => 'required|recaptchav3:contact,0.5'
         ]);
 
         Mail::to('contact@vilkrin.uk')->send(new ContactMail($validated));

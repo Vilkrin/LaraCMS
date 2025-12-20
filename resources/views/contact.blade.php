@@ -84,6 +84,7 @@
                     <h2 class="text-xl font-bold text-[#60A5FA] mb-4">Send Us a Message</h2>
                     <p class="text-gray-500 mb-6">We'll get back to you as soon as possible</p>
                     <form class="space-y-6" method="POST" action="{{ route('contact.submit') }}">
+                        {!! RecaptchaV3::field('contact') !!}
                         @csrf
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
