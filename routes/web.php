@@ -41,10 +41,9 @@ Route::get('/forum', function () {
     return view('forum');
 })->name('forum');
 
-// just to test functionality
 Route::get('/subscribers', function () {
     return view('subscribers');
-})->middleware('auth', 'verified', 'permission:access.subscriber.area, password.confirm')->name('subscribers');
+})->middleware('auth', 'verified', 'permission:access.subscriber.area')->name('subscribers');
 
 // Blog
 Route::get('/blog', [PostController::class, 'index'])->name('blog.index');
