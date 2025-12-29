@@ -29,7 +29,7 @@
 
 
         <!-- Google reCAPTCHA V3 -->
-        {!! RecaptchaV3::initJs() !!}
+        {{-- {!! RecaptchaV3::initJs() !!} --}}
 
         <!-- Styles -->        
         @livewireStyles
