@@ -9,7 +9,6 @@
     @enderror
 
     <form wire:submit="register" class="flex flex-col gap-6">
-        {!! RecaptchaV3::field('register') !!}
         <!-- Name -->
         <flux:input
             wire:model="name"
@@ -50,7 +49,7 @@
             autocomplete="new-password"
             :placeholder="__('Confirm password')"
         />
-
+        {!! RecaptchaV3::field('register') !!}
         <div class="flex items-center justify-end">
             <flux:button type="submit" variant="primary" class="w-full">
                 {{ __('Create account') }}
