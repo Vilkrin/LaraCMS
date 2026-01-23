@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\ValidationException;
+use Lunaweb\RecaptchaV3\Facades\RecaptchaV3;
+
 
 
 #[Layout('components.layouts.auth')]
@@ -29,17 +29,17 @@ class Register extends Component
      */
     public function register(): void
     {
-        // Validator::make(request()->all(), [
-        //     'g-recaptcha-response' => 'required|recaptchav3:register,0.5',
-        // ])->validate();
+        $token = request()->get('g-recaptcha-response');
+        $score = RecaptchaV3::verify($token, 'register');
 
-        try {
-            Validator::make(request()->all(), [
-                'g-recaptcha-response' => 'required|recaptchav3:register,0.5',
-            ])->validate();
-        } catch (ValidationException $e) {
-            $this->addError('recaptcha', 'Captcha verification failed.');
-            return; // stop execution
+        if ($score > 0.7) {
+            // go — proceed with your existing validation & user creation
+        } elseif ($score > 0.3) {
+            $this->addError('recaptcha', 'Captcha score is medium — require additional verification.');
+            return;
+        } else {
+            $this->addError('recaptcha', 'You are most likely a bot.');
+            return;
         }
 
         $validated = $this->validate([
