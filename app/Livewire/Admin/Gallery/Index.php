@@ -31,17 +31,6 @@ class Index extends Component
         'album_cover' => 'nullable|image|max:1024'
     ];
 
-    public function mount()
-    {
-        $this->activeTab = 'albums';
-    }
-
-    public function setActiveTab($tab)
-    {
-        $this->activeTab = $tab;
-        $this->resetPage();
-    }
-
     public function createAlbum()
     {
         $this->validate();

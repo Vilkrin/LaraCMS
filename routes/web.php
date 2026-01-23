@@ -23,6 +23,11 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
+// For Testing some Stuff
+Route::get('/testing', function () {
+    return view('testing');
+})->name('testing');
+
 Route::prefix('profile')->middleware('auth', 'auth.session')->group(function () {
     Route::get('/', [ProfileController::class, 'profile'])->name('profile');
 });
