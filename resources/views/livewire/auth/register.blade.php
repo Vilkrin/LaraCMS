@@ -4,6 +4,10 @@
     <!-- Session Status -->
     <x-auth-session-status class="text-center" :status="session('status')" />
 
+    @error('recaptcha')
+    <p class="text-red-600 text-sm mt-2">{{ $message }}</p>
+@enderror
+
     <form wire:submit="register" class="flex flex-col gap-6">
         {!! RecaptchaV3::field('register') !!}
         <!-- Name -->

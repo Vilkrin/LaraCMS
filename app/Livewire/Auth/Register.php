@@ -10,6 +10,7 @@ use Illuminate\Validation\Rules;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 
 #[Layout('components.layouts.auth')]
@@ -28,9 +29,18 @@ class Register extends Component
      */
     public function register(): void
     {
-        Validator::make(request()->all(), [
-            'g-recaptcha-response' => 'required|recaptchav3:register,0.5',
-        ])->validate();
+        // Validator::make(request()->all(), [
+        //     'g-recaptcha-response' => 'required|recaptchav3:register,0.5',
+        // ])->validate();
+
+        try {
+            Validator::make(request()->all(), [
+                'g-recaptcha-response' => 'required|recaptchav3:register,0.5',
+            ])->validate();
+        } catch (ValidationException $e) {
+            $this->addError('recaptcha', 'Captcha verification failed.');
+            return; // stop execution
+        }
 
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
