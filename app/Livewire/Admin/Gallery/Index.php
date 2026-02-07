@@ -13,7 +13,6 @@ class Index extends Component
     use WithPagination;
     use WithFileUploads;
 
-    public $activeTab = 'albums';
     public $showAlbumModal = false;
     public $showDeleteModal = false;
     public $albumToDelete = null;

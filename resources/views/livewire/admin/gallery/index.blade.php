@@ -10,9 +10,10 @@
                 <button wire:click="$set('showAlbumModal', true)" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm">
                     + New Album
                 </button>
-                <a href="{{ route('admin.gallery.photos.create') }}" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 text-sm">
+                <flux:button variant="primary" color="green" href="{{ route('admin.gallery.photos.create') }}" icon:trailing="arrow-up-right">Upload Images</flux:button>
+                {{-- <a href="{{ route('admin.gallery.photos.create') }}" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 text-sm">
                     Upload Images
-                </a>
+                </a> --}}
             </div>
         </div>
 
