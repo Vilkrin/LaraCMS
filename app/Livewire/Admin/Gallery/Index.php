@@ -59,22 +59,24 @@ class Index extends Component
     {
         if ($this->albumToDelete) {
             $album = Album::find($this->albumToDelete);
+
             if ($album) {
+                $album->photos()->detach();
+                $album->clearMediaCollection('album_cover');
                 $album->delete();
             }
         }
 
         $this->reset(['albumToDelete', 'showDeleteModal']);
-        $this->dispatch('album-deleted');
     }
 
     public function deletePhoto($photoId)
     {
         $photo = Photo::find($photoId);
+
         if ($photo) {
-            // First detach from any albums
             $photo->albums()->detach();
-            // Then delete the photo
+            $photo->clearMediaCollection('images');
             $photo->delete();
         }
     }
