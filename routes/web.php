@@ -16,7 +16,6 @@ use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\ContactFormController;
 use App\Http\Controllers\RedirectToURL;
 use Illuminate\Support\Facades\Route;
-use App\Livewire\Admin\Gallery\Index;
 
 
 // Frontend
@@ -118,7 +117,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth', 'verified', 'permissi
     // Gallery
     Route::prefix('gallery')->name('gallery.')->group(function () {
         // Main gallery page
-        Route::get('/', 'gallery', Index::class)->name('admin.gallery.index');
+        Route::get('/', [AlbumController::class, 'index'])->name('index');
 
         // Photo routes
         Route::get('/photos/create', [PhotoController::class, 'create'])->name('photos.create');
