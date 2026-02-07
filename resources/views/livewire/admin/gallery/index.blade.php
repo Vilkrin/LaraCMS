@@ -20,8 +20,8 @@
         <!-- Tabs -->
         <flux:tab.group>
             <flux:tabs wire:model="tab">
-                <flux:tab name="profile">Albums</flux:tab>
-                <flux:tab name="account">Unassigned Photos</flux:tab>
+                <flux:tab name="Albums">Albums</flux:tab>
+                <flux:tab name="Unassigned Photos">Unassigned Photos</flux:tab>
             </flux:tabs>
 
             <flux:tab.panel name="Albums">
