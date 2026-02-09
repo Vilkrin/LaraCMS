@@ -4,14 +4,12 @@ namespace App\Livewire\Admin\Gallery;
 
 use Livewire\Component;
 use App\Models\Album;
-use App\Models\Photo;
 use Livewire\WithPagination;
-use Livewire\WithFileUploads;
 
-class Index extends Component
+
+class Managealbum extends Component
 {
     use WithPagination;
-    use WithFileUploads;
 
     public $showAlbumModal = false;
     public $showDeleteModal = false;
@@ -70,31 +68,12 @@ class Index extends Component
         $this->reset(['albumToDelete', 'showDeleteModal']);
     }
 
-    public function deletePhoto($photoId)
-    {
-        $photo = Photo::find($photoId);
-
-        if ($photo) {
-            $photo->albums()->detach();
-            $photo->clearMediaCollection('images');
-            $photo->delete();
-        }
-    }
-
     public function render()
     {
         $albums = Album::with('media')
             ->latest()
             ->paginate(12, ['*'], 'albumsPage');
 
-        $unassignedPhotos = Photo::whereDoesntHave('albums')
-            ->with('media')
-            ->latest()
-            ->paginate(12, ['*'], 'photosPage');
-
-        return view('livewire.admin.gallery.index', [
-            'albums' => $albums,
-            'photos' => $unassignedPhotos
-        ]);
+        return view('livewire.admin.gallery.managealbum', ['albums' => $albums]);
     }
 }

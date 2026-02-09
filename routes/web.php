@@ -97,43 +97,12 @@ Route::prefix('admin')->name('admin.')->middleware('auth', 'verified', 'permissi
 
     // Gallery
     Route::prefix('gallery')->name('gallery.')->group(function () {
-        // Photo routes
-        Route::get('/photos', [PhotoController::class, 'index'])->name('photos.index');
-        Route::get('/photos/create', [PhotoController::class, 'create'])->name('photos.create');
-        Route::post('/photos', [PhotoController::class, 'store'])->name('photos.store');
-        Route::get('/photos/{photo}', [PhotoController::class, 'show'])->name('photos.show');
-        Route::get('/photos/{photo}/edit', [PhotoController::class, 'edit'])->name('photos.edit');
-        Route::put('/photos/{photo}', [PhotoController::class, 'update'])->name('photos.update');
-        Route::delete('/photos/{photo}', [PhotoController::class, 'destroy'])->name('photos.destroy');
-
-        // Album routes
-        Route::get('/', [AlbumController::class, 'index'])->name('index');
-        Route::get('/create', [AlbumController::class, 'create'])->name('create');
-        Route::post('/', [AlbumController::class, 'store'])->name('store');
-        Route::get('/{album}', [AlbumController::class, 'show'])->name('show');
-        Route::delete('/{album}', [AlbumController::class, 'destroy'])->name('destroy');
-    });
-
-    // Gallery
-    Route::prefix('gallery')->name('gallery.')->group(function () {
-        // Main gallery page
-        Route::get('/', [AlbumController::class, 'index'])->name('index');
 
         // Photo routes
-        Route::get('/photos/create', [PhotoController::class, 'create'])->name('photos.create');
-        Route::post('/photos', [PhotoController::class, 'store'])->name('photos.store');
-        Route::get('/photos/{photo}', [PhotoController::class, 'show'])->name('photos.show');
-        Route::get('/photos/{photo}/edit', [PhotoController::class, 'edit'])->name('photos.edit');
-        Route::put('/photos/{photo}', [PhotoController::class, 'update'])->name('photos.update');
-        Route::delete('/photos/{photo}', [PhotoController::class, 'destroy'])->name('photos.destroy');
+        Route::resource('photos', PhotoController::class);
 
         // Album routes
-        Route::get('/create', [AlbumController::class, 'create'])->name('create');
-        Route::post('/', [AlbumController::class, 'store'])->name('store');
-        Route::get('/{album}', [AlbumController::class, 'show'])->name('show');
-        Route::get('/{album}/edit', [AlbumController::class, 'edit'])->name('edit');
-        Route::put('/{album}', [AlbumController::class, 'update'])->name('update');
-        Route::delete('/{album}', [AlbumController::class, 'destroy'])->name('destroy');
+        Route::resource('albums', AlbumController::class);
     });
 });
 

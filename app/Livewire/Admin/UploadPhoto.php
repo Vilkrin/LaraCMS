@@ -22,7 +22,7 @@ class UploadPhoto extends Component
         // Create a new photo record
         $photo = Photo::create();
 
-        // Add media to 'photos' collection on 's3' disk
+        // Add media to 'photos' collection
         $photo
             ->addMedia($this->image->getRealPath())
             ->usingFileName($this->image->getClientOriginalName())
@@ -30,11 +30,13 @@ class UploadPhoto extends Component
 
         // Clear input and show success message
         $this->reset('image');
-        session()->flash('success', 'Photo uploaded!');
+        return redirect()->route('admin.gallery.photos.index')
+            ->with('success', 'Photo created successfully.');
+        // session()->flash('success', 'Photo uploaded!');
     }
 
     public function render()
     {
-        return view('livewire.admin.gallery.index');
+        return view('livewire.admin.upload-photo');
     }
 }
