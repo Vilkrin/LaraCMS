@@ -28,6 +28,10 @@ Route::get('/testing', function () {
     return view('testing');
 })->name('testing');
 
+Route::get('/services', function () {
+    return view('hosting-services');
+})->name('hosting.services');
+
 Route::prefix('profile')->middleware('auth', 'auth.session')->group(function () {
     Route::get('/', [ProfileController::class, 'profile'])->name('profile');
 });
@@ -109,9 +113,9 @@ Route::prefix('admin')->name('admin.')->middleware('auth', 'verified', 'permissi
 require __DIR__ . '/auth.php';
 
 // URL Redirection - Catch-all route for short URLs
-Route::get('{link:slug}', RedirectToURL::class)->name('redirect');
+// Route::get('{link:slug}', RedirectToURL::class)->name('redirect');
 
 // CMS Dynamic Pages
-Route::get('/{slug}', [PageController::class, 'show'])
-    ->where('slug', '[A-Za-z0-9\-]+')
-    ->name('page.show');
+// Route::get('/{slug}', [PageController::class, 'show'])
+//     ->where('slug', '[A-Za-z0-9\-]+')
+//     ->name('page.show');
