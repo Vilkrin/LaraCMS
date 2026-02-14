@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a12c52af697dd79e1a2a8570f4699429",
+    "content-hash": "1f2d5e5f36c5b7a30fe5c705cb080283",
     "packages": [
         {
             "name": "brick/math",
@@ -1128,72 +1128,6 @@
                 }
             ],
             "time": "2025-08-22T14:27:06+00:00"
-        },
-        {
-            "name": "josiasmontag/laravel-recaptchav3",
-            "version": "1.0.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/josiasmontag/laravel-recaptchav3.git",
-                "reference": "08548b818223a20fc7db04a8d060758f8efc4ef5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/josiasmontag/laravel-recaptchav3/zipball/08548b818223a20fc7db04a8d060758f8efc4ef5",
-                "reference": "08548b818223a20fc7db04a8d060758f8efc4ef5",
-                "shasum": ""
-            },
-            "require": {
-                "guzzlehttp/guzzle": "^6.2|^7.0",
-                "illuminate/container": "~5.7.0|~5.8.0|^6.0|^7.0|^8.0|^9.0|^10.0|^11.0|^12.0",
-                "illuminate/http": "~5.7.0|~5.8.0|^6.0|^7.0|^8.0|^9.0|^10.0|^11.0|^12.0",
-                "illuminate/support": "~5.7.0|~5.8.0|^6.0|^7.0|^8.0|^9.0|^10.0|^11.0|^12.0",
-                "php": ">=7.1.0"
-            },
-            "require-dev": {
-                "mockery/mockery": "^1.2",
-                "orchestra/testbench": "~3.7.0|~3.8.0|^4.0|^5.0|^6.0|^7.0|^8.0|^9.0|^10.0",
-                "phpunit/phpunit": "6.2|^7.0|^8.0|^9.5.10|^10.5|^11.5.3"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "aliases": {
-                        "RecaptchaV3": "Lunaweb\\RecaptchaV3\\Facades\\RecaptchaV3"
-                    },
-                    "providers": [
-                        "Lunaweb\\RecaptchaV3\\Providers\\RecaptchaV3ServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Lunaweb\\RecaptchaV3\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Josias Montag",
-                    "email": "josias@montag.info"
-                }
-            ],
-            "description": "Recaptcha V3 for Laravel package",
-            "homepage": "https://github.com/josiasmontag/laravel-recaptchav3",
-            "keywords": [
-                "captcha",
-                "laravel",
-                "php",
-                "recaptcha"
-            ],
-            "support": {
-                "issues": "https://github.com/josiasmontag/laravel-recaptchav3/issues",
-                "source": "https://github.com/josiasmontag/laravel-recaptchav3/tree/1.0.4"
-            },
-            "time": "2025-02-25T08:00:22+00:00"
         },
         {
             "name": "laravel/framework",
@@ -3873,6 +3807,80 @@
                 "source": "https://github.com/ramsey/uuid/tree/4.9.2"
             },
             "time": "2025-12-14T04:43:48+00:00"
+        },
+        {
+            "name": "ryangjchandler/laravel-cloudflare-turnstile",
+            "version": "v3.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ryangjchandler/laravel-cloudflare-turnstile.git",
+                "reference": "6584bc58fa9bf97350a8046ca9d025005078bee5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ryangjchandler/laravel-cloudflare-turnstile/zipball/6584bc58fa9bf97350a8046ca9d025005078bee5",
+                "reference": "6584bc58fa9bf97350a8046ca9d025005078bee5",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^11.0|^12.0",
+                "php": "^8.2",
+                "spatie/laravel-package-tools": "^1.13.0"
+            },
+            "require-dev": {
+                "larastan/larastan": "^3.1",
+                "laravel/pint": "^1.0",
+                "nunomaduro/collision": "^8.0",
+                "orchestra/testbench": "^9.0|^10.0",
+                "pestphp/pest": "^3.7",
+                "pestphp/pest-plugin-laravel": "^3.1",
+                "phpstan/extension-installer": "^1.1",
+                "phpstan/phpstan-deprecation-rules": "^1.0|^2.0",
+                "phpstan/phpstan-phpunit": "^1.0|^2.0",
+                "phpunit/phpunit": "^10.0|^11.5.3",
+                "spatie/laravel-ray": "^1.26",
+                "spatie/pest-plugin-snapshots": "^2.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "LaravelCloudflareTurnstile": "RyanChandler\\LaravelCloudflareTurnstile\\Facades\\LaravelCloudflareTurnstile"
+                    },
+                    "providers": [
+                        "RyanChandler\\LaravelCloudflareTurnstile\\LaravelCloudflareTurnstileServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "RyanChandler\\LaravelCloudflareTurnstile\\": "src",
+                    "RyanChandler\\LaravelCloudflareTurnstile\\Database\\Factories\\": "database/factories"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ryan Chandler",
+                    "email": "support@ryangjchandler.co.uk",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A simple package to help integrate Cloudflare Turnstile.",
+            "homepage": "https://github.com/ryangjchandler/laravel-cloudflare-turnstile",
+            "keywords": [
+                "laravel",
+                "laravel-cloudflare-turnstile",
+                "ryangjchandler"
+            ],
+            "support": {
+                "issues": "https://github.com/ryangjchandler/laravel-cloudflare-turnstile/issues",
+                "source": "https://github.com/ryangjchandler/laravel-cloudflare-turnstile/tree/v3.0.2"
+            },
+            "time": "2026-01-23T13:25:38+00:00"
         },
         {
             "name": "spatie/browsershot",

@@ -49,7 +49,9 @@
             autocomplete="new-password"
             :placeholder="__('Confirm password')"
         />
-        {!! RecaptchaV3::field('register') !!}
+        <div class="flex items-center justify-center">
+            <x-turnstile wire:model="turnstile" />
+        </div>
         <div class="flex items-center justify-end">
             <flux:button type="submit" variant="primary" class="w-full">
                 {{ __('Create account') }}

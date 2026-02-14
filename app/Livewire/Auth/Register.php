@@ -9,8 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\ValidationException;
+use RyanChandler\LaravelCloudflareTurnstile\Rules\Turnstile;
 
 
 #[Layout('components.layouts.auth')]
@@ -24,27 +23,19 @@ class Register extends Component
 
     public string $password_confirmation = '';
 
+    public string $turnstile = '';
+
     /**
      * Handle an incoming registration request.
      */
     public function register(): void
     {
 
-        try {
-            Validator::make(request()->all(), [
-                'g-recaptcha-response' => 'required|recaptchav3:register,0.5',
-            ])->validate();
-        } catch (ValidationException $e) {
-            $this->addError('recaptcha', 'Captcha verification failed. Please Contact Site Admin.');
-            return; // stop execution
-        }
-
-
-
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
+            'turnstile' => ['required', new Turnstile],
         ]);
 
         $validated['password'] = Hash::make($validated['password']);
