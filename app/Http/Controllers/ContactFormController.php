@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Mail\ContactMail;
 use Illuminate\Support\Facades\Mail;
+use RyanChandler\LaravelCloudflareTurnstile\Rules\Turnstile;
 
 class ContactFormController extends Controller
 {
@@ -22,7 +23,7 @@ class ContactFormController extends Controller
             'email' => 'required|email',
             'subject' => 'required|min:3|max:255',
             'message' => 'required|min:10',
-            'g-recaptcha-response' => 'required|recaptchav3:contact,0.5'
+            'cf-turnstile-response' => ['required', new Turnstile],
         ]);
 
         Mail::to('contact@vilkrin.uk')->send(new ContactMail($validated));
