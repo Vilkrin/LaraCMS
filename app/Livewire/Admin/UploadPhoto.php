@@ -12,7 +12,7 @@ class UploadPhoto extends Component
 {
     use WithFileUploads;
 
-    #[Validate(['photos.*' => 'image|max:1024'])]
+    #[Validate(['photos.*' => 'image|max:52428800'])]
     public $photos = [];
 
     public function removePhoto($index)

@@ -20,7 +20,7 @@
             @endforeach
         </div>
 
-        <flux:button type="submit">Save</flux:button>
+        <flux:button type="submit" class="cursor-pointer">Save</flux:button>
     </form>
 
 </div>
