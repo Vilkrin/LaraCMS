@@ -12,27 +12,39 @@ class UploadPhoto extends Component
 {
     use WithFileUploads;
 
-    #[Validate('image|max:20480')]
-    public $image;
+    #[Validate(['photos.*' => 'image|max:1024'])]
+    public $photos = [];
+
+    public function removePhoto($index)
+    {
+        $photo = $this->photos[$index];
+        $photo->delete();
+        unset($this->photos[$index]);
+        $this->photos = array_values($this->photos);
+    }
 
     public function save()
     {
+
         $this->validate();
 
-        // Create a new photo record
-        $photo = Photo::create();
+        foreach ($this->photos as $uploadedPhoto) {
 
-        // Add media to 'photos' collection
-        $photo
-            ->addMedia($this->image->getRealPath())
-            ->usingFileName($this->image->getClientOriginalName())
-            ->toMediaCollection('images', 'public');
+            // Create a new Photo record
+            $photo = Photo::create();
 
-        // Clear input and show success message
-        $this->reset('image');
+            // Attach media to 'images' collection on the new model
+            $photo
+                ->addMedia($uploadedPhoto->getRealPath())
+                ->usingFileName($uploadedPhoto->getClientOriginalName())
+                ->toMediaCollection('images', 'public');
+        }
+
+        // Clear the uploaded files from the input
+        $this->reset('photos');
+
         return redirect()->route('admin.gallery.photos.index')
-            ->with('success', 'Photo created successfully.');
-        // session()->flash('success', 'Photo uploaded!');
+            ->with('success', 'Photos uploaded successfully.');
     }
 
     public function render()
