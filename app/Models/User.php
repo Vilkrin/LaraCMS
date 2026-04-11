@@ -12,12 +12,13 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Image\Enums\Fit;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Laravel\Cashier\Billable;
 
 
 class User extends Authenticatable implements MustVerifyEmail, HasMedia
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, HasRoles, Notifiable, InteractsWithMedia;
+    use HasFactory, HasRoles, Notifiable, Billable, InteractsWithMedia;
 
     /**
      * The attributes that are mass assignable.
