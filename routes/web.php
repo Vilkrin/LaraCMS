@@ -28,10 +28,6 @@ Route::get('/testing', function () {
     return view('testing');
 })->name('testing');
 
-Route::get('/services', function () {
-    return view('hosting-services');
-})->name('hosting.services');
-
 Route::prefix('profile')->middleware('auth', 'auth.session')->group(function () {
     Route::get('/', [ProfileController::class, 'profile'])->name('profile');
 });
