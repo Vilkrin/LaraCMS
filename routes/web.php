@@ -23,10 +23,9 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
-// For Testing some Stuff
-Route::get('/testing', function () {
-    return view('testing');
-})->name('testing');
+route::get('/about', function () {
+    return view('about');
+})->name('about');
 
 Route::prefix('profile')->middleware('auth', 'auth.session')->group(function () {
     Route::get('/', [ProfileController::class, 'profile'])->name('profile');
@@ -37,14 +36,6 @@ Route::get('/contact', function () {
 })->name('contact');
 
 Route::post('/contact', [ContactFormController::class, 'submit'])->name('contact.submit');
-
-Route::get('/store', function () {
-    return view('store');
-})->name('store');
-
-Route::get('/forum', function () {
-    return view('forum');
-})->name('forum');
 
 Route::get('/subscribers', function () {
     return view('subscribers');
