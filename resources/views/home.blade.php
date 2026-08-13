@@ -91,9 +91,9 @@
     <div class="pointer-events-none fixed inset-0 overflow-hidden">
 
         {{-- Ambient glows --}}
-        <div class="glow absolute -left-40 -top-40 h-[32rem] w-[32rem] rounded-full bg-violet-600/20 blur-[140px]"></div>
+        <div class="glow absolute -left-40 -top-40 h-128 w-lg rounded-full bg-violet-600/20 blur-[140px]"></div>
 
-        <div class="glow absolute -bottom-48 -right-40 h-[36rem] w-[36rem] rounded-full bg-fuchsia-600/10 blur-[160px]"
+        <div class="glow absolute -bottom-48 -right-40 h-144 w-xl rounded-full bg-fuchsia-600/10 blur-[160px]"
              style="animation-delay: -2s;"></div>
 
         <div class="orb absolute left-[15%] top-[20%] h-2 w-2 rounded-full bg-violet-400/70 shadow-[0_0_20px_5px_rgba(167,139,250,.25)]"></div>
@@ -106,7 +106,7 @@
         <div class="grid-background absolute inset-0"></div>
 
         {{-- Subtle scanline --}}
-        <div class="scanline absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-400/20 to-transparent"></div>
+        <div class="scanline absolute left-0 right-0 h-px bg-linear-to-r from-transparent via-violet-400/20 to-transparent"></div>
 
         {{-- Noise --}}
         <div class="noise absolute inset-0"></div>
@@ -123,7 +123,7 @@
         <header class="flex items-center justify-between px-6 py-6 sm:px-10 lg:px-16">
 
             <div class="flex items-center gap-3">
-                <div class="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/[0.04]">
+                <div class="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/4">
                     <span class="text-sm font-black tracking-tight text-violet-300">
                         V
                     </span>
@@ -150,7 +150,7 @@
             <div class="w-full max-w-4xl text-center">
 
                 {{-- Eyebrow --}}
-                <div class="mb-8 inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 backdrop-blur-sm">
+                <div class="mb-8 inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/3 px-4 py-2 backdrop-blur-sm">
                     <span class="relative flex h-2 w-2">
                         <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-400 opacity-60"></span>
                         <span class="relative inline-flex h-2 w-2 rounded-full bg-violet-400"></span>
@@ -169,7 +169,7 @@
 
 
                 {{-- Accent line --}}
-                <div class="mx-auto mt-6 h-px w-24 bg-gradient-to-r from-transparent via-violet-400 to-transparent"></div>
+                <div class="mx-auto mt-6 h-px w-24 bg-linear-to-r from-transparent via-violet-400 to-transparent"></div>
 
 
                 {{-- Descriptor --}}
@@ -188,13 +188,13 @@
                 {{-- Status --}}
                 <div class="mx-auto mt-12 flex max-w-sm items-center justify-center gap-4">
 
-                    <div class="h-px flex-1 bg-gradient-to-r from-transparent to-white/10"></div>
+                    <div class="h-px flex-1 bg-linear-to-r from-transparent to-white/10"></div>
 
                     <span class="text-[10px] font-semibold tracking-[0.3em] text-white/25 uppercase">
                         Stay tuned
                     </span>
 
-                    <div class="h-px flex-1 bg-gradient-to-l from-transparent to-white/10"></div>
+                    <div class="h-px flex-1 bg-linear-to-l from-transparent to-white/10"></div>
 
                 </div>
 
