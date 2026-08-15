@@ -12,6 +12,10 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
 // Route::get('/about', function () {
 //     return view('about');
 // })->name('about');
@@ -40,29 +44,8 @@ Route::get('/', function () {
 //     Route::get('/', [ProfileController::class, 'index'])->name('index');
 //     Route::patch('/', [ProfileController::class, 'update'])->name('profile.update');
 //     Route::get('/security', [ProfileController::class, 'security'])->name('security');
-//     Route::get('/ships', function () {
-//         return view('profile.ships');
-//     })->name('ships');
 // });
 
-// Route::prefix('forum')->name('forum.')->group(function () {
-
-//     Route::get('/', function () {
-//         return view('forum.index');
-//     })->name('index');
-
-//     Route::get('/category', function () {
-//         return view('forum.category');
-//     })->name('category');
-
-//     Route::get('/thread', function () {
-//         return view('forum.thread');
-//     })->name('thread');
-
-//     Route::get('/new-thread', function () {
-//         return view('forum.new-thread');
-//     })->name('new-thread');
-// });
 
 // // Admin Area
 // Route::prefix('admin')->name('admin.')->middleware('auth', 'verified', 'permission:access.admin.panel')->group(function () {

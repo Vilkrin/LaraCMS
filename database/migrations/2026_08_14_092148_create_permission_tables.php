@@ -3,6 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 return new class extends Migration
 {
@@ -66,11 +68,15 @@ return new class extends Migration
                 $table->unsignedBigInteger($columnNames['team_foreign_key']);
                 $table->index($columnNames['team_foreign_key'], 'model_has_permissions_team_foreign_key_index');
 
-                $table->primary([$columnNames['team_foreign_key'], $pivotPermission, $columnNames['model_morph_key'], 'model_type'],
-                    'model_has_permissions_permission_model_type_primary');
+                $table->primary(
+                    [$columnNames['team_foreign_key'], $pivotPermission, $columnNames['model_morph_key'], 'model_type'],
+                    'model_has_permissions_permission_model_type_primary'
+                );
             } else {
-                $table->primary([$pivotPermission, $columnNames['model_morph_key'], 'model_type'],
-                    'model_has_permissions_permission_model_type_primary');
+                $table->primary(
+                    [$pivotPermission, $columnNames['model_morph_key'], 'model_type'],
+                    'model_has_permissions_permission_model_type_primary'
+                );
             }
         });
 
@@ -89,11 +95,15 @@ return new class extends Migration
                 $table->unsignedBigInteger($columnNames['team_foreign_key']);
                 $table->index($columnNames['team_foreign_key'], 'model_has_roles_team_foreign_key_index');
 
-                $table->primary([$columnNames['team_foreign_key'], $pivotRole, $columnNames['model_morph_key'], 'model_type'],
-                    'model_has_roles_role_model_type_primary');
+                $table->primary(
+                    [$columnNames['team_foreign_key'], $pivotRole, $columnNames['model_morph_key'], 'model_type'],
+                    'model_has_roles_role_model_type_primary'
+                );
             } else {
-                $table->primary([$pivotRole, $columnNames['model_morph_key'], 'model_type'],
-                    'model_has_roles_role_model_type_primary');
+                $table->primary(
+                    [$pivotRole, $columnNames['model_morph_key'], 'model_type'],
+                    'model_has_roles_role_model_type_primary'
+                );
             }
         });
 
@@ -117,6 +127,171 @@ return new class extends Migration
         app('cache')
             ->store(config('permission.cache.store') != 'default' ? config('permission.cache.store') : null)
             ->forget(config('permission.cache.key'));
+
+
+        // Seeding Initial User Roles & Permissions
+
+        // Reset cached roles and permissions
+        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+
+        // Create permissions
+        // Posts
+        Permission::create(['name' => 'view.posts']);
+        Permission::create(['name' => 'create.posts']);
+        Permission::create(['name' => 'edit.posts']);
+        Permission::create(['name' => 'delete.posts']);
+        Permission::create(['name' => 'publish.posts']);
+        Permission::create(['name' => 'unpublish.posts']);
+        Permission::create(['name' => 'view.unpublished.posts']);
+
+        // Gallery
+        Permission::create(['name' => 'view.images']);
+        Permission::create(['name' => 'create.images']);
+        Permission::create(['name' => 'edit.images']);
+        Permission::create(['name' => 'delete.images']);
+        Permission::create(['name' => 'manage.albums']);
+
+        // Videos
+        Permission::create(['name' => 'view.videos']);
+        Permission::create(['name' => 'create.videos']);
+        Permission::create(['name' => 'edit.videos']);
+        Permission::create(['name' => 'delete.videos']);
+        Permission::create(['name' => 'publish.videos']);
+        Permission::create(['name' => 'unpublish.videos']);
+        Permission::create(['name' => 'view.unpublished.videos']);
+
+        // Events
+        Permission::create(['name' => 'view.events']);
+        Permission::create(['name' => 'create.events']);
+        Permission::create(['name' => 'edit.events']);
+        Permission::create(['name' => 'delete.events']);
+        Permission::create(['name' => 'publish.events']);
+        Permission::create(['name' => 'unpublish.events']);
+        Permission::create(['name' => 'view.unpublished.events']);
+
+        // General / Admin
+        Permission::create(['name' => 'manage.users']);
+        Permission::create(['name' => 'view.users']);
+        Permission::create(['name' => 'ban.users']);
+        Permission::create(['name' => 'unban.users']);
+        Permission::create(['name' => 'manage.users.roles']);
+        Permission::create(['name' => 'manage.site.settings']);
+        Permission::create(['name' => 'manage.site.content']);
+        Permission::create(['name' => 'access.admin.panel']);
+
+        // Notifications
+        Permission::create(['name' => 'receive.github.notifications']);
+        Permission::create(['name' => 'receive.user.registration.notifications']);
+
+        // Pages
+        Permission::create(['name' => 'view.pages']);
+        Permission::create(['name' => 'create.pages']);
+        Permission::create(['name' => 'edit.pages']);
+        Permission::create(['name' => 'delete.pages']);
+        Permission::create(['name' => 'publish.pages']);
+        Permission::create(['name' => 'unpublish.pages']);
+        Permission::create(['name' => 'view.unpublished.pages']);
+
+        // Menus
+        Permission::create(['name' => 'manage.menus']);
+
+        // Permissions / Roles
+        Permission::create(['name' => 'manage.roles']);
+        Permission::create(['name' => 'manage.permissions']);
+
+        // Activity Logs / Monitoring
+        Permission::create(['name' => 'view.activity.logs']);
+        Permission::create(['name' => 'export.activity.logs']);
+
+        // Update cache to ensure newly created permissions are recognized
+        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+
+        // Create roles and assign permissions
+        // Writer
+        $role = Role::create(['name' => 'writer']);
+        $role->givePermissionTo([
+            'view.posts',
+            'create.posts',
+            'edit.posts',
+            'delete.posts',
+        ]);
+
+        // Editor
+        $role = Role::create(['name' => 'editor']);
+        $role->givePermissionTo([
+            'view.posts',
+            'create.posts',
+            'edit.posts',
+            'delete.posts',
+            'publish.posts',
+            'unpublish.posts',
+            'view.unpublished.posts',
+            'access.admin.panel',
+        ]);
+
+        // Admin
+        $role = Role::create(['name' => 'admin']);
+        $role->givePermissionTo([
+            'access.admin.panel',
+            'view.users',
+            'manage.users',
+            'ban.users',
+            'unban.users',
+            'manage.users.roles',
+            'view.posts',
+            'create.posts',
+            'edit.posts',
+            'delete.posts',
+            'view.unpublished.posts',
+            'publish.posts',
+            'unpublish.posts',
+            'view.pages',
+            'create.pages',
+            'edit.pages',
+            'delete.pages',
+            'publish.pages',
+            'unpublish.pages',
+            'view.unpublished.pages',
+            'manage.menus',
+            'create.events',
+            'view.events',
+            'edit.events',
+            'delete.events',
+            'publish.events',
+            'unpublish.events',
+            'view.unpublished.events',
+            'view.images',
+            'create.images',
+            'edit.images',
+            'delete.images',
+            'manage.albums',
+            'view.videos',
+            'create.videos',
+            'edit.videos',
+            'delete.videos',
+            'publish.videos',
+            'unpublish.videos',
+            'view.unpublished.videos',
+            'manage.roles',
+            'manage.permissions',
+            'manage.site.settings',
+            'manage.site.content',
+            'view.activity.logs',
+            'export.activity.logs',
+            'receive.github.notifications',
+
+        ]);
+
+        // User
+        $role = Role::create(['name' => 'user']);
+        // no perms – just a base role for logged-in accounts
+
+        // Super Admin
+        $role = Role::create(['name' => 'Super Admin']);
+        // no perms – full access handled by Gate::before
+
+        // Refresh permission cache
+        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
     }
 
     /**
