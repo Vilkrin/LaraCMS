@@ -134,54 +134,15 @@ return new class extends Migration
         // Reset cached roles and permissions
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
-        // Create permissions
-        // Posts
-        Permission::create(['name' => 'view.posts']);
-        Permission::create(['name' => 'create.posts']);
-        Permission::create(['name' => 'edit.posts']);
-        Permission::create(['name' => 'delete.posts']);
-        Permission::create(['name' => 'publish.posts']);
-        Permission::create(['name' => 'unpublish.posts']);
-        Permission::create(['name' => 'view.unpublished.posts']);
+        /*
+        |--------------------------------------------------------------------------
+        | Permissions
+        |--------------------------------------------------------------------------
+        */
 
-        // Gallery
-        Permission::create(['name' => 'view.images']);
-        Permission::create(['name' => 'create.images']);
-        Permission::create(['name' => 'edit.images']);
-        Permission::create(['name' => 'delete.images']);
-        Permission::create(['name' => 'manage.albums']);
-
-        // Videos
-        Permission::create(['name' => 'view.videos']);
-        Permission::create(['name' => 'create.videos']);
-        Permission::create(['name' => 'edit.videos']);
-        Permission::create(['name' => 'delete.videos']);
-        Permission::create(['name' => 'publish.videos']);
-        Permission::create(['name' => 'unpublish.videos']);
-        Permission::create(['name' => 'view.unpublished.videos']);
-
-        // Events
-        Permission::create(['name' => 'view.events']);
-        Permission::create(['name' => 'create.events']);
-        Permission::create(['name' => 'edit.events']);
-        Permission::create(['name' => 'delete.events']);
-        Permission::create(['name' => 'publish.events']);
-        Permission::create(['name' => 'unpublish.events']);
-        Permission::create(['name' => 'view.unpublished.events']);
-
-        // General / Admin
-        Permission::create(['name' => 'manage.users']);
-        Permission::create(['name' => 'view.users']);
-        Permission::create(['name' => 'ban.users']);
-        Permission::create(['name' => 'unban.users']);
-        Permission::create(['name' => 'manage.users.roles']);
-        Permission::create(['name' => 'manage.site.settings']);
-        Permission::create(['name' => 'manage.site.content']);
+        // Dashboard / Admin
         Permission::create(['name' => 'access.admin.panel']);
-
-        // Notifications
-        Permission::create(['name' => 'receive.github.notifications']);
-        Permission::create(['name' => 'receive.user.registration.notifications']);
+        Permission::create(['name' => 'view.dashboard']);
 
         // Pages
         Permission::create(['name' => 'view.pages']);
@@ -189,108 +150,257 @@ return new class extends Migration
         Permission::create(['name' => 'edit.pages']);
         Permission::create(['name' => 'delete.pages']);
         Permission::create(['name' => 'publish.pages']);
-        Permission::create(['name' => 'unpublish.pages']);
         Permission::create(['name' => 'view.unpublished.pages']);
 
+        // Blog Posts
+        Permission::create(['name' => 'view.posts']);
+        Permission::create(['name' => 'create.posts']);
+        Permission::create(['name' => 'edit.posts']);
+        Permission::create(['name' => 'delete.posts']);
+        Permission::create(['name' => 'publish.posts']);
+        Permission::create(['name' => 'view.unpublished.posts']);
+
+        // Gallery - Albums
+        Permission::create(['name' => 'view.albums']);
+        Permission::create(['name' => 'create.albums']);
+        Permission::create(['name' => 'edit.albums']);
+        Permission::create(['name' => 'delete.albums']);
+
+        // Gallery - Images
+        Permission::create(['name' => 'view.images']);
+        Permission::create(['name' => 'upload.images']);
+        Permission::create(['name' => 'edit.images']);
+        Permission::create(['name' => 'delete.images']);
+        Permission::create(['name' => 'move.images']);
+
+        // User Management
+        Permission::create(['name' => 'view.users']);
+        Permission::create(['name' => 'create.users']);
+        Permission::create(['name' => 'edit.users']);
+        Permission::create(['name' => 'delete.users']);
+        Permission::create(['name' => 'ban.users']);
+        Permission::create(['name' => 'unban.users']);
+        Permission::create(['name' => 'impersonate.users']);
+        Permission::create(['name' => 'verify.users']);
+
+        // Roles
+        Permission::create(['name' => 'view.roles']);
+        Permission::create(['name' => 'create.roles']);
+        Permission::create(['name' => 'edit.roles']);
+        Permission::create(['name' => 'delete.roles']);
+        Permission::create(['name' => 'assign.roles']);
+
+        // Permissions
+        Permission::create(['name' => 'view.permissions']);
+        Permission::create(['name' => 'edit.permissions']);
+
         // Menus
-        Permission::create(['name' => 'manage.menus']);
+        Permission::create(['name' => 'view.menus']);
+        Permission::create(['name' => 'create.menus']);
+        Permission::create(['name' => 'edit.menus']);
+        Permission::create(['name' => 'delete.menus']);
 
-        // Permissions / Roles
-        Permission::create(['name' => 'manage.roles']);
-        Permission::create(['name' => 'manage.permissions']);
+        // Settings
+        Permission::create(['name' => 'manage.settings.general']);
+        Permission::create(['name' => 'manage.settings.seo']);
+        Permission::create(['name' => 'manage.settings.email']);
+        Permission::create(['name' => 'manage.settings.social']);
+        Permission::create(['name' => 'manage.settings.theme']);
+        Permission::create(['name' => 'manage.settings.storage']);
+        Permission::create(['name' => 'manage.settings.security']);
+        Permission::create(['name' => 'manage.settings.integrations']);
 
-        // Activity Logs / Monitoring
+        // SEO
+        Permission::create(['name' => 'view.seo']);
+        Permission::create(['name' => 'edit.seo']);
+
+        // Activity Logs
         Permission::create(['name' => 'view.activity.logs']);
         Permission::create(['name' => 'export.activity.logs']);
+        Permission::create(['name' => 'clear.activity.logs']);
 
-        // Update cache to ensure newly created permissions are recognized
-        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+        // Notifications
+        Permission::create(['name' => 'receive.notifications.github']);
 
-        // Create roles and assign permissions
-        // Writer
-        $role = Role::create(['name' => 'writer']);
+
+        /*
+        |--------------------------------------------------------------------------
+        | Roles
+        |--------------------------------------------------------------------------
+        */
+
+        // Super Admin
+        // Full access is handled by Gate::before and therefore does not require
+        // every permission to be explicitly assigned.
+        $role = Role::create(['name' => 'Super Admin']);
+
+        // Administrator
+        $role = Role::create(['name' => 'Administrator']);
         $role->givePermissionTo([
-            'view.posts',
-            'create.posts',
-            'edit.posts',
-            'delete.posts',
-        ]);
-
-        // Editor
-        $role = Role::create(['name' => 'editor']);
-        $role->givePermissionTo([
-            'view.posts',
-            'create.posts',
-            'edit.posts',
-            'delete.posts',
-            'publish.posts',
-            'unpublish.posts',
-            'view.unpublished.posts',
+            // Dashboard
             'access.admin.panel',
-        ]);
+            'view.dashboard',
 
-        // Admin
-        $role = Role::create(['name' => 'admin']);
-        $role->givePermissionTo([
-            'access.admin.panel',
-            'view.users',
-            'manage.users',
-            'ban.users',
-            'unban.users',
-            'manage.users.roles',
-            'view.posts',
-            'create.posts',
-            'edit.posts',
-            'delete.posts',
-            'view.unpublished.posts',
-            'publish.posts',
-            'unpublish.posts',
+            // Pages
             'view.pages',
             'create.pages',
             'edit.pages',
             'delete.pages',
             'publish.pages',
-            'unpublish.pages',
             'view.unpublished.pages',
-            'manage.menus',
-            'create.events',
-            'view.events',
-            'edit.events',
-            'delete.events',
-            'publish.events',
-            'unpublish.events',
-            'view.unpublished.events',
+
+            // Blog
+            'view.posts',
+            'create.posts',
+            'edit.posts',
+            'delete.posts',
+            'publish.posts',
+            'view.unpublished.posts',
+
+            // Gallery - Albums
+            'view.albums',
+            'create.albums',
+            'edit.albums',
+            'delete.albums',
+
+            // Gallery - Images
             'view.images',
-            'create.images',
+            'upload.images',
             'edit.images',
             'delete.images',
-            'manage.albums',
-            'view.videos',
-            'create.videos',
-            'edit.videos',
-            'delete.videos',
-            'publish.videos',
-            'unpublish.videos',
-            'view.unpublished.videos',
-            'manage.roles',
-            'manage.permissions',
-            'manage.site.settings',
-            'manage.site.content',
+            'move.images',
+
+            // Users
+            'view.users',
+            'create.users',
+            'edit.users',
+            'delete.users',
+            'ban.users',
+            'unban.users',
+            'impersonate.users',
+            'verify.users',
+
+            // Roles
+            'view.roles',
+            'create.roles',
+            'edit.roles',
+            'delete.roles',
+            'assign.roles',
+
+            // Permissions
+            'view.permissions',
+            'edit.permissions',
+
+            // Menus
+            'view.menus',
+            'create.menus',
+            'edit.menus',
+            'delete.menus',
+
+            // Settings
+            'manage.settings.general',
+            'manage.settings.seo',
+            'manage.settings.email',
+            'manage.settings.social',
+            'manage.settings.theme',
+            'manage.settings.storage',
+            'manage.settings.security',
+            'manage.settings.integrations',
+
+            // SEO
+            'view.seo',
+            'edit.seo',
+
+            // Activity Logs
             'view.activity.logs',
             'export.activity.logs',
-            'receive.github.notifications',
+            'clear.activity.logs',
 
+            // Notifications
+            'receive.notifications.github',
         ]);
 
-        // User
-        $role = Role::create(['name' => 'user']);
-        // no perms – just a base role for logged-in accounts
+        // Editor
+        $role = Role::create(['name' => 'Editor']);
+        $role->givePermissionTo([
+            // Dashboard
+            'access.admin.panel',
+            'view.dashboard',
 
-        // Super Admin
-        $role = Role::create(['name' => 'Super Admin']);
-        // no perms – full access handled by Gate::before
+            // Pages
+            'view.pages',
+            'create.pages',
+            'edit.pages',
+            'delete.pages',
+            'publish.pages',
+            'view.unpublished.pages',
 
-        // Refresh permission cache
+            // Blog
+            'view.posts',
+            'create.posts',
+            'edit.posts',
+            'delete.posts',
+            'publish.posts',
+            'view.unpublished.posts',
+
+            // Gallery
+            'view.albums',
+            'create.albums',
+            'edit.albums',
+            'delete.albums',
+            'view.images',
+            'upload.images',
+            'edit.images',
+            'delete.images',
+            'move.images',
+
+            // Menus
+            'view.menus',
+            'edit.menus',
+
+            // SEO
+            'view.seo',
+            'edit.seo',
+        ]);
+
+        // Author
+        $role = Role::create(['name' => 'Author']);
+        $role->givePermissionTo([
+            // Dashboard
+            'access.admin.panel',
+            'view.dashboard',
+
+            // Blog
+            'view.posts',
+            'create.posts',
+            'edit.posts',
+            'delete.posts',
+        ]);
+
+        // Contributor
+        $role = Role::create(['name' => 'Contributor']);
+        $role->givePermissionTo([
+            // Dashboard
+            'access.admin.panel',
+            'view.dashboard',
+
+            // Blog
+            'view.posts',
+            'create.posts',
+            'edit.posts',
+        ]);
+
+        // Member
+        // Base role for authenticated users with no administrative permissions.
+        $role = Role::create(['name' => 'Member']);
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Refresh Permission Cache
+        |--------------------------------------------------------------------------
+        */
+
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
     }
 

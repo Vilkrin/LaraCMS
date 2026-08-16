@@ -5,13 +5,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>
+        {{-- <title>
             @if (! empty($title))
                 {{ $siteName }} - {{ $title }}
             @else
                 {{ $siteName }}
             @endif
-        </title>
+        </title> --}}
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -45,7 +45,7 @@
             </div>
 
             <!-- Navigation -->
-            <x-admin.sidebar />
+            {{-- <x-admin.sidebar /> --}}
 
             <!-- Footer - Back to Main Site -->
             <div class="mt-auto border-t border-slate-700 p-4">
@@ -60,7 +60,7 @@
 
         <!-- Main Content Area -->
         <div class="flex-1 flex flex-col relative">
-            <x-layouts.admin.header />
+            {{-- <x-layouts.admin.header /> --}}
             
             <!-- Main Content -->
             <main class="flex-1 p-6 overflow-auto">

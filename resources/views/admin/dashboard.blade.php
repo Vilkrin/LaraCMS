@@ -1,4 +1,4 @@
-<x-layouts.admin :title="__('Dashboard')">
+<x-layouts::admin :title="__('Dashboard')">
 
                 <!-- Main Content -->
             <main class="flex-1 p-6 overflow-auto relative z-0">
@@ -199,11 +199,12 @@
                         </div>
                     </div>
 
-                    @can('view.activity.logs')
+                    {{-- Activity Log --}}
+                    {{-- @can('view.activity.logs')
                         <livewire:admin.dashboard.activity-log />
-                    @endcan
+                    @endcan --}}
                 </div>
             </main>
         
 
-</x-layouts.admin>
+</x-layouts::admin>

@@ -46,52 +46,51 @@ Route::get('/dashboard', function () {
 //     Route::get('/security', [ProfileController::class, 'security'])->name('security');
 // });
 
+// Admin Area
+Route::prefix('admin')->name('admin.')->middleware('auth', 'verified', 'permission:access.admin.panel')->group(function () {
 
-// // Admin Area
-// Route::prefix('admin')->name('admin.')->middleware('auth', 'verified', 'permission:access.admin.panel')->group(function () {
+    // Dashboard Route
+    Route::view('/', 'admin.dashboard')->name('dashboard');
 
-//     // Dashboard Route
-//     Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
+    // // User Management
+    // Route::resource('users', UserController::class)
+    //     ->middleware('permission:view.users');
+    // // User Management - Roles & Permissions
+    // Route::get('/roles', function () {
+    //     return view('admin.roles.index');
+    // })->name('roles.index')
+    //     ->middleware('permission:manage.roles');
 
-//     // User Management
-//     Route::resource('users', UserController::class)
-//         ->middleware('permission:view.users');
-//     // User Management - Roles & Permissions
-//     Route::get('/roles', function () {
-//         return view('admin.roles.index');
-//     })->name('roles.index')
-//         ->middleware('permission:manage.roles');
+    // // Content Management
+    // // Blog Posts
+    // Route::prefix('posts')->name('posts.')->middleware('permission:view.posts')->group(function () {
+    //     Route::view('/', 'admin.blog.index')
+    //         ->name('index');
+    //     Route::view('/create', 'admin.blog.create')
+    //         ->name('create');
+    //     Route::get('/{post}/edit', function (Post $post) {
+    //         return view('admin.blog.edit', compact('post'));
+    //     })->name('edit');
+    //     Route::get('/{post}', function (Post $post) {
+    //         return view('admin.blog.show', compact('post'));
+    //     })->name('show');
+    // });
 
-//     // Content Management
-//     // Blog Posts
-//     Route::prefix('posts')->name('posts.')->middleware('permission:view.posts')->group(function () {
-//         Route::view('/', 'admin.blog.index')
-//             ->name('index');
-//         Route::view('/create', 'admin.blog.create')
-//             ->name('create');
-//         Route::get('/{post}/edit', function (Post $post) {
-//             return view('admin.blog.edit', compact('post'));
-//         })->name('edit');
-//         Route::get('/{post}', function (Post $post) {
-//             return view('admin.blog.show', compact('post'));
-//         })->name('show');
-//     });
+    // // Pages
+    // Route::resource('pages', PageController::class)->middleware('permission:view.pages');
 
-//     // Pages
-//     Route::resource('pages', PageController::class)->middleware('permission:view.pages');
+    // // Menus
+    // Route::get('/menus', function () {
+    //     return view('admin.menus.index');
+    // })->name('menus.index')
+    //     ->middleware('permission:manage.menus');
 
-//     // Menus
-//     Route::get('/menus', function () {
-//         return view('admin.menus.index');
-//     })->name('menus.index')
-//         ->middleware('permission:manage.menus');
-
-//     // Settings
-//     Route::get('/settings', function () {
-//         return view('admin.settings.settingspage');
-//     })->name('settings')
-//         ->middleware('permission:manage.site.settings');
-// });
+    // // Settings
+    // Route::get('/settings', function () {
+    //     return view('admin.settings.settingspage');
+    // })->name('settings')
+    //     ->middleware('permission:manage.site.settings');
+});
 
 // Route::middleware(['auth', 'verified'])->group(function () {
 //     Route::view('dashboard', 'dashboard')->name('dashboard');
