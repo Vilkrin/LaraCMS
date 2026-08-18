@@ -52,9 +52,9 @@ Route::prefix('admin')->name('admin.')->middleware('auth', 'verified', 'permissi
     // Dashboard Route
     Route::view('/', 'admin.dashboard')->name('dashboard');
 
-    // // User Management
-    // Route::resource('users', UserController::class)
-    //     ->middleware('permission:view.users');
+    // User Management
+    Route::resource('users', UserController::class)
+        ->middleware('permission:view.users');
     // // User Management - Roles & Permissions
     // Route::get('/roles', function () {
     //     return view('admin.roles.index');

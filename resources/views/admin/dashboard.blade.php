@@ -199,10 +199,7 @@
                         </div>
                     </div>
 
-                    {{-- Activity Log --}}
-                    {{-- @can('view.activity.logs')
-                        <livewire:admin.dashboard.activity-log />
-                    @endcan --}}
+
                 </div>
             </main>
         

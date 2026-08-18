@@ -1,5 +1,5 @@
-<x-layouts.admin :title="__('Users')">
+<x-layouts::admin :title="__('Users')">
 
-  <livewire:admin.user-list />
+  <livewire:admin.users.user-list />
 
-</x-layouts.admin>
+</x-layouts::admin>
