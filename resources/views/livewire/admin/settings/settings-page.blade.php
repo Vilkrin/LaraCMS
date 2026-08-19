@@ -9,12 +9,12 @@
         <flux:tab.panel name="general">
             <livewire:admin.settings.general />
         </flux:tab.panel>
-        <flux:tab.panel name="seo">
+        {{-- <flux:tab.panel name="seo">
             <livewire:admin.settings.seo />
         </flux:tab.panel>
         <flux:tab.panel name="social">
             <livewire:admin.settings.social-links />
-        </flux:tab.panel>
+        </flux:tab.panel> --}}
 
     </flux:tab.group>
 </div>

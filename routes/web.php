@@ -85,11 +85,11 @@ Route::prefix('admin')->name('admin.')->middleware('auth', 'verified', 'permissi
     // })->name('menus.index')
     //     ->middleware('permission:manage.menus');
 
-    // // Settings
-    // Route::get('/settings', function () {
-    //     return view('admin.settings.settingspage');
-    // })->name('settings')
-    //     ->middleware('permission:manage.site.settings');
+    // Settings
+    Route::get('/settings', function () {
+        return view('admin.settings.settingspage');
+    })->name('settings')
+        ->middleware('permission:manage.site.settings');
 });
 
 // Route::middleware(['auth', 'verified'])->group(function () {

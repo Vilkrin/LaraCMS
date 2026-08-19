@@ -6,28 +6,24 @@ use Livewire\Component;
 use App\Models\GeneralSetting;
 use Livewire\WithFileUploads;
 use Livewire\Attributes\Validate;
-use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Storage;
 use Flux\Flux;
 
 class General extends Component
 {
-
     use WithFileUploads;
 
     #[Validate('nullable|image|max:10240')]
     public $logoUpload = null;
 
     public GeneralSetting $settings;
+
+    public ?string $logoUrl = null;
+
     public ?string $site_name = null;
     public ?string $site_tagline = null;
     public ?string $footer_text = null;
-    public ?string $timezone = null;
-    public ?string $recruiting = null;
-    public ?string $language = null;
     public ?string $description = null;
-    public ?string $founded = null;
-    public ?string $focus = null;
-    public ?string $commitment = null;
 
     public function mount(): void
     {
@@ -37,20 +33,29 @@ class General extends Component
         $this->site_name = $this->settings->site_name;
         $this->site_tagline = $this->settings->site_tagline;
         $this->footer_text = $this->settings->footer_text;
-        $this->timezone = $this->settings->timezone;
-        $this->recruiting = $this->settings->recruiting;
-        $this->language = $this->settings->language;
         $this->description = $this->settings->description;
-        $this->founded = $this->settings->founded;
-        $this->focus = $this->settings->focus;
-        $this->commitment = $this->settings->commitment;
+
+        $this->logoUrl = $this->settings->logo_path
+            ? Storage::disk('public')->url($this->settings->logo_path)
+            : null;
     }
 
     public function removeLogo(): void
     {
-        $this->settings->clearMediaCollection('logos');
+        if ($this->settings->logo_path) {
+            Storage::disk('public')->delete($this->settings->logo_path);
 
-        Flux::toast(variant: 'success', text: 'Logo removed.');
+            $this->settings->update([
+                'logo_path' => null,
+            ]);
+        }
+
+        $this->logoUrl = null;
+
+        Flux::toast(
+            variant: 'success',
+            text: 'Logo removed.'
+        );
     }
 
     public function removeUploadPreview(): void
@@ -64,13 +69,7 @@ class General extends Component
             'site_name' => $this->site_name,
             'site_tagline' => $this->site_tagline,
             'footer_text' => $this->footer_text,
-            'timezone' => $this->timezone,
-            'recruiting' => $this->recruiting,
-            'language' => $this->language,
             'description' => $this->description,
-            'founded' => $this->founded,
-            'focus' => $this->focus,
-            'commitment' => $this->commitment,
         ]);
 
         Flux::toast(
@@ -87,16 +86,33 @@ class General extends Component
             return;
         }
 
-        $this->settings->clearMediaCollection('logos');
+        // Delete the existing logo.
+        if ($this->settings->logo_path) {
+            Storage::disk('public')->delete($this->settings->logo_path);
+        }
 
-        $this->settings
-            ->addMedia($this->logoUpload->getRealPath())
-            ->usingFileName('site-logo.' . $this->logoUpload->getClientOriginalExtension())
-            ->toMediaCollection('logos');
+        // Store the new logo.
+        $path = $this->logoUpload->storeAs(
+            'settings/logo',
+            'site-logo.' . $this->logoUpload->getClientOriginalExtension(),
+            'public'
+        );
 
+        // Save the path to the database.
+        $this->settings->update([
+            'logo_path' => $path,
+        ]);
+
+        // Update the preview URL.
+        $this->logoUrl = Storage::disk('public')->url($path);
+
+        // Clear the temporary upload.
         $this->logoUpload = null;
 
-        Flux::toast(variant: 'success', text: 'Logo saved.');
+        Flux::toast(
+            variant: 'success',
+            text: 'Logo saved.'
+        );
     }
 
     public function render()

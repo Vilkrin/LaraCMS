@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('site_tagline')->nullable();
             $table->string('description')->nullable();
             $table->text('footer_text')->nullable();
+            $table->string('logo_path')->nullable();
             $table->timestamps();
         });
     }
