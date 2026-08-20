@@ -61,7 +61,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth', 'verified', 'permissi
     // })->name('roles.index')
     //     ->middleware('permission:manage.roles');
 
-    // // Content Management
+    // Content Management
     // // Blog Posts
     // Route::prefix('posts')->name('posts.')->middleware('permission:view.posts')->group(function () {
     //     Route::view('/', 'admin.blog.index')
@@ -76,8 +76,8 @@ Route::prefix('admin')->name('admin.')->middleware('auth', 'verified', 'permissi
     //     })->name('show');
     // });
 
-    // // Pages
-    // Route::resource('pages', PageController::class)->middleware('permission:view.pages');
+    // Pages
+    Route::resource('pages', PageController::class)->middleware('permission:view.pages');
 
     // // Menus
     // Route::get('/menus', function () {

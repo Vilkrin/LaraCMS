@@ -14,6 +14,7 @@ return new class extends Migration
     {
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
+
             $table->string('name'); // Main Navbar, Footer
             $table->string('slug')->unique(); // main-navbar, footer
             $table->string('location')->unique(); // main_navbar, footer
