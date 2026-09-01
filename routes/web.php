@@ -2,10 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\ImageController;
+use App\Http\Controllers\AlbumController;
 use App\Models\Post;
 
 Route::get('/', function () {
@@ -84,6 +85,12 @@ Route::prefix('admin')->name('admin.')->middleware('auth', 'verified', 'permissi
     //     return view('admin.menus.index');
     // })->name('menus.index')
     //     ->middleware('permission:manage.menus');
+
+    // Images
+    Route::resource('images', ImageController::class)->middleware('permission:view.images');
+
+    // Albums
+    Route::resource('albums', AlbumController::class)->middleware('permission:view.albums');
 
     // Settings
     Route::get('/settings', function () {
