@@ -13,6 +13,10 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
+Route::get('/soon', function () {
+    return view('soon');
+})->name('soon');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

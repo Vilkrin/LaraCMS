@@ -24,6 +24,7 @@
         @livewireStyles
         @fluxAppearance
         
+        <x-head.tinymce-page-config/>
 
   </head>
 

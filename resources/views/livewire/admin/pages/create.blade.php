@@ -39,12 +39,7 @@
                                 </div>
                                 
 
-                                <flux:editor wire:model="content" placeholder="Enter page content here..." />
-                                <flux:editor
-                                            wire:model="content"
-                                            label="Page Content"
-                                            toolbar="heading | bold italic strike underline | bullet ordered blockquote | link code | align | undo redo"
-                                        />
+                                <x-forms.tinymce-page-editor/>
 
                             </div>
                         </div>
