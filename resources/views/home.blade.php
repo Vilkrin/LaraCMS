@@ -1,231 +1,359 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Vilkrin — Gamer & Streamer</title>
+    <title>LaraCMS — Coming Soon</title>
 
-    <meta name="description" content="Vilkrin — Gamer & Streamer. A new website is coming soon.">
-    <meta name="robots" content="noindex, nofollow">
+    <meta
+        name="description"
+        content="LaraCMS is a modern Laravel-powered content management system. Coming soon."
+    >
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="https://cdn.tailwindcss.com"></script>
 
-    <style>
-        html,
-        body {
-            min-height: 100%;
-        }
-
-        body {
-            background: #050507;
-        }
-
-        .grid-background {
-            background-image:
-                linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-            background-size: 60px 60px;
-            mask-image: linear-gradient(to bottom, black 0%, transparent 90%);
-            -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 90%);
-        }
-
-        .glow {
-            animation: pulse-glow 5s ease-in-out infinite;
-        }
-
-        .orb {
-            animation: float 8s ease-in-out infinite;
-        }
-
-        .orb-delay {
-            animation-delay: -3s;
-        }
-
-        .scanline {
-            animation: scan 8s linear infinite;
-        }
-
-        @keyframes pulse-glow {
-            0%, 100% {
-                opacity: .35;
-                transform: scale(1);
-            }
-
-            50% {
-                opacity: .6;
-                transform: scale(1.08);
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: {
+                            850: '#172033',
+                            950: '#0b1120',
+                        },
+                        amber: {
+                            450: '#fbbf24',
+                        }
+                    },
+                    boxShadow: {
+                        glow: '0 0 40px rgba(251, 191, 36, 0.12)',
+                        'glow-lg': '0 0 80px rgba(251, 191, 36, 0.10)',
+                    }
+                }
             }
         }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translate3d(0, 0, 0);
-            }
-
-            50% {
-                transform: translate3d(0, -20px, 0);
-            }
-        }
-
-        @keyframes scan {
-            0% {
-                transform: translateY(-100%);
-            }
-
-            100% {
-                transform: translateY(100vh);
-            }
-        }
-
-        .noise {
-            opacity: .035;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='.8'/%3E%3C/svg%3E");
-        }
-    </style>
+    </script>
 </head>
 
-<body class="relative min-h-screen overflow-hidden bg-[#050507] text-white antialiased">
+<body class="min-h-screen bg-slate-950 text-white antialiased">
 
-    {{-- Background --}}
-    <div class="pointer-events-none fixed inset-0 overflow-hidden">
+    <!-- Background -->
+    <div class="fixed inset-0 -z-10 overflow-hidden">
 
-        {{-- Ambient glows --}}
-        <div class="glow absolute -left-40 -top-40 h-128 w-lg rounded-full bg-violet-600/20 blur-[140px]"></div>
+        <!-- Main glow -->
+        <div
+            class="absolute left-1/2 top-1/3 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-amber-400/5 blur-[120px]"
+        ></div>
 
-        <div class="glow absolute -bottom-48 -right-40 h-144 w-xl rounded-full bg-fuchsia-600/10 blur-[160px]"
-             style="animation-delay: -2s;"></div>
+        <!-- Secondary glow -->
+        <div
+            class="absolute -bottom-40 -right-40 h-[450px] w-[450px] rounded-full bg-amber-500/5 blur-[120px]"
+        ></div>
 
-        <div class="orb absolute left-[15%] top-[20%] h-2 w-2 rounded-full bg-violet-400/70 shadow-[0_0_20px_5px_rgba(167,139,250,.25)]"></div>
-
-        <div class="orb orb-delay absolute right-[20%] top-[30%] h-1.5 w-1.5 rounded-full bg-fuchsia-400/70 shadow-[0_0_20px_5px_rgba(232,121,249,.2)]"></div>
-
-        <div class="orb absolute bottom-[25%] left-[25%] h-1 w-1 rounded-full bg-white/50"></div>
-
-        {{-- Grid --}}
-        <div class="grid-background absolute inset-0"></div>
-
-        {{-- Subtle scanline --}}
-        <div class="scanline absolute left-0 right-0 h-px bg-linear-to-r from-transparent via-violet-400/20 to-transparent"></div>
-
-        {{-- Noise --}}
-        <div class="noise absolute inset-0"></div>
-
-        {{-- Vignette --}}
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(5,5,7,.45)_65%,rgba(5,5,7,.95)_100%)]"></div>
+        <!-- Grid -->
+        <div
+            class="absolute inset-0 opacity-[0.025]"
+            style="
+                background-image:
+                    linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px);
+                background-size: 50px 50px;
+            "
+        ></div>
     </div>
 
 
-    {{-- Main content --}}
-    <main class="relative z-10 flex min-h-screen flex-col">
+    <!-- Header -->
+    <header class="border-b border-slate-800/70 bg-slate-950/70 backdrop-blur-xl">
 
-        {{-- Header --}}
-        <header class="flex items-center justify-between px-6 py-6 sm:px-10 lg:px-16">
+        <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-8">
 
+            <!-- Logo -->
             <div class="flex items-center gap-3">
-                <div class="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/4">
-                    <span class="text-sm font-black tracking-tight text-violet-300">
-                        V
-                    </span>
+
+                <div
+                    class="flex h-10 w-10 items-center justify-center rounded-xl border border-amber-400/20 bg-slate-900 shadow-glow"
+                >
+                    <svg
+                        class="h-6 w-6 text-amber-400"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M12 3v18M5 7h14M7 7v10M17 7v10M4 17h6M14 17h6"
+                        />
+                    </svg>
                 </div>
 
-                <span class="text-sm font-semibold tracking-[0.25em] text-white/80 uppercase">
-                    Vilkrin
+                <div>
+                    <div class="text-lg font-bold tracking-tight">
+                        Lara<span class="text-amber-400">CMS</span>
+                    </div>
+
+                    <div class="text-[10px] uppercase tracking-[0.25em] text-slate-500">
+                        Laravel Content Management
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Status -->
+            <div class="hidden items-center gap-2 sm:flex">
+                <span class="relative flex h-2.5 w-2.5">
+                    <span
+                        class="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-40"
+                    ></span>
+
+                    <span
+                        class="relative inline-flex h-2.5 w-2.5 rounded-full bg-amber-400"
+                    ></span>
+                </span>
+
+                <span class="text-xs font-medium text-slate-400">
+                    Currently in development
                 </span>
             </div>
 
-            <div class="flex items-center gap-2">
-                <span class="h-2 w-2 animate-pulse rounded-full bg-violet-400"></span>
-                <span class="text-xs font-medium tracking-widest text-white/40 uppercase">
-                    Coming Soon
-                </span>
-            </div>
+        </div>
 
-        </header>
+    </header>
 
 
-        {{-- Hero --}}
-        <section class="flex flex-1 items-center justify-center px-6 py-16 sm:px-10">
+    <!-- Main -->
+    <main class="relative flex min-h-[calc(100vh-81px)] items-center">
 
-            <div class="w-full max-w-4xl text-center">
+        <div class="mx-auto w-full max-w-5xl px-6 py-20 lg:px-8 lg:py-28">
 
-                {{-- Eyebrow --}}
-                <div class="mb-8 inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/3 px-4 py-2 backdrop-blur-sm">
-                    <span class="relative flex h-2 w-2">
-                        <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-400 opacity-60"></span>
-                        <span class="relative inline-flex h-2 w-2 rounded-full bg-violet-400"></span>
-                    </span>
+            <div class="text-center">
 
-                    <span class="text-xs font-medium tracking-[0.2em] text-white/50 uppercase">
-                        Website launching soon
-                    </span>
+                <!-- Badge -->
+                <div
+                    class="mb-8 inline-flex items-center gap-2 rounded-full border border-amber-400/20 bg-amber-400/5 px-4 py-2 text-sm text-amber-300"
+                >
+                    <svg
+                        class="h-4 w-4"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M12 6v6l4 2"
+                        />
+                        <circle cx="12" cy="12" r="9" />
+                    </svg>
+
+                    <span>Something new is being built</span>
                 </div>
 
 
-                {{-- Brand --}}
-                <h1 class="text-6xl font-black tracking-[-0.06em] text-white sm:text-7xl md:text-8xl lg:text-9xl">
-                    Vilkrin
+                <!-- Heading -->
+                <h1
+                    class="mx-auto max-w-4xl text-5xl font-black tracking-tight text-white sm:text-6xl lg:text-7xl"
+                >
+                    Lara<span class="text-amber-400">CMS</span>
                 </h1>
 
-
-                {{-- Accent line --}}
-                <div class="mx-auto mt-6 h-px w-24 bg-linear-to-r from-transparent via-violet-400 to-transparent"></div>
-
-
-                {{-- Descriptor --}}
-                <h2 class="mt-6 text-xl font-medium tracking-[0.3em] text-violet-200/80 uppercase sm:text-2xl">
-                    Gamer &amp; Streamer
-                </h2>
-
-
-                {{-- Description --}}
-                <p class="mx-auto mt-8 max-w-xl text-sm leading-7 text-white/45 sm:text-base">
-                    The new Vilkrin website is currently being built.
-                    Gaming, streaming, content and more — all in one place.
+                <p
+                    class="mx-auto mt-5 max-w-2xl text-xl font-medium text-slate-300 sm:text-2xl"
+                >
+                    A modern content management system,
+                    <span class="text-amber-400">built with Laravel.</span>
                 </p>
 
 
-                {{-- Status --}}
-                <div class="mx-auto mt-12 flex max-w-sm items-center justify-center gap-4">
+                <!-- Description -->
+                <p
+                    class="mx-auto mt-6 max-w-2xl text-base leading-7 text-slate-400"
+                >
+                    LaraCMS is being built from the ground up to provide a
+                    flexible, modern and developer-friendly CMS for Laravel.
+                    The site isn't quite ready yet, but development is well underway.
+                </p>
 
-                    <div class="h-px flex-1 bg-linear-to-r from-transparent to-white/10"></div>
 
-                    <span class="text-[10px] font-semibold tracking-[0.3em] text-white/25 uppercase">
-                        Stay tuned
-                    </span>
+                <!-- Progress -->
+                <div class="mx-auto mt-12 max-w-xl">
 
-                    <div class="h-px flex-1 bg-linear-to-l from-transparent to-white/10"></div>
+                    <div class="mb-3 flex items-center justify-between text-sm">
+                        <span class="font-medium text-slate-300">
+                            Development
+                        </span>
+
+                        <span class="font-semibold text-amber-400">
+                            In Progress
+                        </span>
+                    </div>
+
+                    <div class="h-2 overflow-hidden rounded-full bg-slate-800">
+                        <div
+                            class="h-full w-[65%] rounded-full bg-amber-400 shadow-[0_0_18px_rgba(251,191,36,0.35)]"
+                        ></div>
+                    </div>
+
+                </div>
+
+
+                <!-- Feature cards -->
+                <div
+                    class="mx-auto mt-16 grid max-w-4xl gap-4 text-left sm:grid-cols-3"
+                >
+
+                    <!-- Card -->
+                    <div
+                        class="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 backdrop-blur-sm"
+                    >
+                        <div
+                            class="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-amber-400/10 text-amber-400"
+                        >
+                            <svg
+                                class="h-5 w-5"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z"
+                                />
+
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M4.5 7.5L12 12l7.5-4.5M12 12v9"
+                                />
+                            </svg>
+                        </div>
+
+                        <h2 class="font-semibold text-white">
+                            Built for Laravel
+                        </h2>
+
+                        <p class="mt-2 text-sm leading-6 text-slate-400">
+                            Designed from the ground up around the Laravel
+                            ecosystem.
+                        </p>
+                    </div>
+
+
+                    <!-- Card -->
+                    <div
+                        class="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 backdrop-blur-sm"
+                    >
+                        <div
+                            class="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-amber-400/10 text-amber-400"
+                        >
+                            <svg
+                                class="h-5 w-5"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M12 3v18M3 12h18"
+                                />
+
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M5.5 5.5l13 13M18.5 5.5l-13 13"
+                                />
+                            </svg>
+                        </div>
+
+                        <h2 class="font-semibold text-white">
+                            Flexible by Design
+                        </h2>
+
+                        <p class="mt-2 text-sm leading-6 text-slate-400">
+                            A flexible foundation for building and managing
+                            modern websites.
+                        </p>
+                    </div>
+
+
+                    <!-- Card -->
+                    <div
+                        class="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 backdrop-blur-sm"
+                    >
+                        <div
+                            class="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-amber-400/10 text-amber-400"
+                        >
+                            <svg
+                                class="h-5 w-5"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M12 3l7 4v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V7l7-4z"
+                                />
+
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M9 12l2 2 4-4"
+                                />
+                            </svg>
+                        </div>
+
+                        <h2 class="font-semibold text-white">
+                            Made to Extend
+                        </h2>
+
+                        <p class="mt-2 text-sm leading-6 text-slate-400">
+                            Designed with extensibility, themes and plugins
+                            in mind.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <!-- Footer message -->
+                <div class="mt-16">
+
+                    <p class="text-sm text-slate-500">
+                        LaraCMS is currently under active development.
+                    </p>
+
+                    <div class="mt-4 flex items-center justify-center gap-2 text-xs text-slate-600">
+                        <span>Powered by</span>
+
+                        <span class="font-semibold text-slate-500">
+                            Laravel
+                        </span>
+
+                        <span>•</span>
+
+                        <span>
+                            LaraCMS
+                        </span>
+                    </div>
 
                 </div>
 
             </div>
 
-        </section>
-
-
-        {{-- Footer --}}
-        <footer class="px-6 py-6 sm:px-10 lg:px-16">
-
-            <div class="flex flex-col items-center justify-between gap-3 border-t border-white/5 pt-6 text-xs text-white/25 sm:flex-row">
-
-                <p>
-                    &copy; <span id="current-year"></span> Vilkrin. All rights reserved.
-                </p>
-
-                <p class="tracking-wider">
-                    GAMER <span class="mx-2 text-violet-400/40">•</span> STREAMER
-                </p>
-
-            </div>
-
-        </footer>
+        </div>
 
     </main>
-
-
-    <script>
-        document.getElementById('current-year').textContent = new Date().getFullYear();
-    </script>
 
 </body>
 </html>
